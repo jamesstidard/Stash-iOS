@@ -1,0 +1,394 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
+		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
+		7CCCFB9819685D9200DF3442 /* stashTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB9719685D9200DF3442 /* stashTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		7CCCFB9219685D9200DF3442 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7CCCFB7C19685D9200DF3442 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7CCCFB8319685D9200DF3442;
+			remoteInfo = stash;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CCCFB8919685D9200DF3442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		7CCCFB8B19685D9200DF3442 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		7CCCFB9119685D9200DF3442 /* stashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CCCFB9619685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CCCFB9719685D9200DF3442 /* stashTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = stashTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		7CCCFB8119685D9200DF3442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CCCFB8E19685D9200DF3442 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		7CCCFB7B19685D9200DF3442 = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB8619685D9200DF3442 /* stash */,
+				7CCCFB9419685D9200DF3442 /* stashTests */,
+				7CCCFB8519685D9200DF3442 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		7CCCFB8519685D9200DF3442 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB8419685D9200DF3442 /* stash.app */,
+				7CCCFB9119685D9200DF3442 /* stashTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7CCCFB8619685D9200DF3442 /* stash */ = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB8919685D9200DF3442 /* AppDelegate.swift */,
+				7CCCFB8B19685D9200DF3442 /* Images.xcassets */,
+				7CCCFB8719685D9200DF3442 /* Supporting Files */,
+			);
+			path = stash;
+			sourceTree = "<group>";
+		};
+		7CCCFB8719685D9200DF3442 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB8819685D9200DF3442 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7CCCFB9419685D9200DF3442 /* stashTests */ = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB9719685D9200DF3442 /* stashTests.swift */,
+				7CCCFB9519685D9200DF3442 /* Supporting Files */,
+			);
+			path = stashTests;
+			sourceTree = "<group>";
+		};
+		7CCCFB9519685D9200DF3442 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				7CCCFB9619685D9200DF3442 /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		7CCCFB8319685D9200DF3442 /* stash */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CCCFB9B19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stash" */;
+			buildPhases = (
+				7CCCFB8019685D9200DF3442 /* Sources */,
+				7CCCFB8119685D9200DF3442 /* Frameworks */,
+				7CCCFB8219685D9200DF3442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = stash;
+			productName = stash;
+			productReference = 7CCCFB8419685D9200DF3442 /* stash.app */;
+			productType = "com.apple.product-type.application";
+		};
+		7CCCFB9019685D9200DF3442 /* stashTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7CCCFB9E19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stashTests" */;
+			buildPhases = (
+				7CCCFB8D19685D9200DF3442 /* Sources */,
+				7CCCFB8E19685D9200DF3442 /* Frameworks */,
+				7CCCFB8F19685D9200DF3442 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7CCCFB9319685D9200DF3442 /* PBXTargetDependency */,
+			);
+			name = stashTests;
+			productName = stashTests;
+			productReference = 7CCCFB9119685D9200DF3442 /* stashTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		7CCCFB7C19685D9200DF3442 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0600;
+				ORGANIZATIONNAME = "James Stidard";
+				TargetAttributes = {
+					7CCCFB8319685D9200DF3442 = {
+						CreatedOnToolsVersion = 6.0;
+					};
+					7CCCFB9019685D9200DF3442 = {
+						CreatedOnToolsVersion = 6.0;
+						TestTargetID = 7CCCFB8319685D9200DF3442;
+					};
+				};
+			};
+			buildConfigurationList = 7CCCFB7F19685D9200DF3442 /* Build configuration list for PBXProject "stash" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7CCCFB7B19685D9200DF3442;
+			productRefGroup = 7CCCFB8519685D9200DF3442 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				7CCCFB8319685D9200DF3442 /* stash */,
+				7CCCFB9019685D9200DF3442 /* stashTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		7CCCFB8219685D9200DF3442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CCCFB8F19685D9200DF3442 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		7CCCFB8019685D9200DF3442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7CCCFB8D19685D9200DF3442 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7CCCFB9819685D9200DF3442 /* stashTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7CCCFB9319685D9200DF3442 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7CCCFB8319685D9200DF3442 /* stash */;
+			targetProxy = 7CCCFB9219685D9200DF3442 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		7CCCFB9919685D9200DF3442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		7CCCFB9A19685D9200DF3442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				METAL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		7CCCFB9C19685D9200DF3442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = stash/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		7CCCFB9D19685D9200DF3442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				INFOPLIST_FILE = stash/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		7CCCFB9F19685D9200DF3442 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/stash.app/stash";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = stashTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Debug;
+		};
+		7CCCFBA019685D9200DF3442 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/stash.app/stash";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = stashTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				METAL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		7CCCFB7F19685D9200DF3442 /* Build configuration list for PBXProject "stash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CCCFB9919685D9200DF3442 /* Debug */,
+				7CCCFB9A19685D9200DF3442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7CCCFB9B19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stash" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CCCFB9C19685D9200DF3442 /* Debug */,
+				7CCCFB9D19685D9200DF3442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		7CCCFB9E19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stashTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7CCCFB9F19685D9200DF3442 /* Debug */,
+				7CCCFBA019685D9200DF3442 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 7CCCFB7C19685D9200DF3442 /* Project object */;
+}
