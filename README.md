@@ -1,4 +1,4 @@
 Stash-iOS
 =========
 
-A SQRL Client implantation on iOS
+A SQRL client implementation for iOS
