@@ -152,6 +152,7 @@
 				TargetAttributes = {
 					7CCCFB8319685D9200DF3442 = {
 						CreatedOnToolsVersion = 6.0;
+						DevelopmentTeam = SS36WRA5R7;
 					};
 					7CCCFB9019685D9200DF3442 = {
 						CreatedOnToolsVersion = 6.0;
@@ -307,6 +308,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -318,6 +320,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = stash/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -379,6 +382,7 @@
 				7CCCFB9D19685D9200DF3442 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CCCFB9E19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stashTests" */ = {
 			isa = XCConfigurationList;
@@ -387,6 +391,7 @@
 				7CCCFBA019685D9200DF3442 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
