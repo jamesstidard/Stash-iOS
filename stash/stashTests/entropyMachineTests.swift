@@ -24,9 +24,50 @@ class entropyMachineTests: XCTestCase {
         super.tearDown()
     }
 
-    func testExample() {
+    func testExcesiveEntropy() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        entropyMachine.start()
+        
+        let stringData = "some string data"
+        
+        if let data = stringData.dataUsingEncoding(NSUTF8StringEncoding) {
+            
+            for _ in 0...10000000 {
+                entropyMachine.addEntropy(data)
+            }
+        }
+        
+        if let result = entropyMachine.stop() {
+            XCTAssert(true, "Pass")
+        } else {
+            XCTAssert(false, "Failed exesive entropy test")
+        }
+    }
+    
+    func testUnquieHashWithSameInput() {
+        let entropyMachine2 = EntropyMachine()
+        
+        entropyMachine.start()
+        entropyMachine2.start()
+        
+        
+        let stringData = "some string data"
+        
+        for machine in [entropyMachine, entropyMachine2] {
+            
+            if let data = stringData.dataUsingEncoding(NSUTF8StringEncoding) {
+                for _ in 0...100 {
+                    machine.addEntropy(data)
+                }
+            }
+        }
+        
+        let result1 = entropyMachine.stop()
+        if let result2 = entropyMachine2.stop() {
+            XCTAssert(result1?.isEqualToData(result2) == false, "Hashes are equal when should unquie")
+        } else {
+            XCTAssert(false, "entropymachine 2 didn't return resulting hash")
+        }
     }
 
 }

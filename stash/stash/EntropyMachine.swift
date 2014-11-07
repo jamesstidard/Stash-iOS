@@ -22,12 +22,14 @@ class EntropyMachine {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0))
+    private var result :NSData? = nil
     
     func start() {
         // start the hash function (if not already started)
         if !started {
             // switch hash state to on
             started = true
+            result  = nil
             
             // start hash function
             crypto_hash_sha512_init(&state)
@@ -53,37 +55,43 @@ class EntropyMachine {
             
             
             // III) Process Info
-            let processId = NSProcessInfo().processIdentifier
+            var processId = NSProcessInfo().processIdentifier
             let charsInInt32 = sizeof(Int32) / sizeof(CUnsignedChar)
             var processIdChars = Array<CUnsignedChar>(count: charsInInt32, repeatedValue: 0)
             
+            memcpy(&processIdChars, &processId, UInt(charsInInt32))
             crypto_hash_sha512_update(&state, processIdChars, UInt64(sizeof(Int32)))
             
             
             // IV) System up time
-            let systemUpTime = NSProcessInfo().systemUptime
+            var systemUpTime = NSProcessInfo().systemUptime
             var upTimeChars = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
             
+            memcpy(&upTimeChars, &systemUpTime, UInt(charsInIntervalCount))
             crypto_hash_sha512_update(&state, upTimeChars, UInt64(sizeof(NSTimeInterval)))
         }
     }
     
     func addEntropy(entropy: NSData) {
-        // TODO: make sure hashing func is open
-        
-        // TODO: perform some validation on data - not all 0's or 1's
-        
-        // TODO: format into c
-        
-        // TODO: push into hash func
-        
-        
+        if started {
+            var entropyChars = UnsafePointer<CUnsignedChar>(entropy.bytes)
+            crypto_hash_sha512_update(&state, entropyChars, UInt64(entropy.length))
+        }
     }
     
-    func stop() {
+    func stop() -> NSData? {
         
         if started {
-//            crypto_hash_sha512_final(&state, nil)
+            let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar)// number of chars in sha512
+            var hash       = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
+            
+            crypto_hash_sha512_final(&state, hash)
+            
+            result = NSData(bytes: hash, length: Int(crypto_hash_sha512_BYTES))
+            
+            started = false
         }
+        
+        return result
     }
 }
