@@ -32,7 +32,7 @@ class entropyMachineTests: XCTestCase {
         
         if let data = stringData.dataUsingEncoding(NSUTF8StringEncoding) {
             
-            for _ in 0...10000000 {
+            for _ in 0...1000000 {
                 entropyMachine.addEntropy(data)
             }
         }
@@ -67,6 +67,24 @@ class entropyMachineTests: XCTestCase {
             XCTAssert(result1?.isEqualToData(result2) == false, "Hashes are equal when should unquie")
         } else {
             XCTAssert(false, "entropymachine 2 didn't return resulting hash")
+        }
+    }
+    
+    func testEntropyMachineReuse() {
+        entropyMachine.start()
+        let result = entropyMachine.stop()
+        
+        entropyMachine.start()
+        if let result2 = entropyMachine.stop() {
+            
+            if result?.isEqualToData(result2) == false {
+                XCTAssert(true, "Pass")
+            } else {
+                XCTAssert(false, "Failed: Result 2 maches result 1 on reuse of entropy machine")
+            }
+            
+        } else {
+            XCTAssert(false, "Failed: Unable to get result on second use of entropy machine")
         }
     }
 
