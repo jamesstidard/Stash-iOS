@@ -11,8 +11,10 @@ import Foundation
 
 class EntropyMachine {
     
+    // Holds state of entropy machine
+    private var started: Bool = false
     // Holds the state of the open hash function
-    private var state   :crypto_hash_sha512_state = crypto_hash_sha512_state(
+    private var state: crypto_hash_sha512_state = crypto_hash_sha512_state(
         state: (0, 0, 0, 0, 0, 0, 0, 0),
         count: (0, 0),
         buf:   (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -22,9 +24,9 @@ class EntropyMachine {
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
                 0, 0)
-    )
+        )
     // Serial queue to enforce thread safe execution when called from multiple threads
-    private lazy var queue :NSOperationQueue = {
+    private lazy var queue: NSOperationQueue = {
         var newQueue              = NSOperationQueue()
         newQueue.name             = "Entropy Machine Queue"
         newQueue.qualityOfService = .UserInitiated
@@ -32,66 +34,82 @@ class EntropyMachine {
         return newQueue
         }()
     
-    private var started :Bool    = false // Holds state of entropy machine
+//     private lazy var harvesters = [EntropyHarvester]()
+//    
+//
+//    
+//    convenience init(harvesters: [EntropyHarvester]) {
+//        self.init()
+//        self.harvesters = harvesters
+//        
+//        for harvester in self.harvesters {
+//            harvester.registeredEntropyMachine = weakself
+//        }
+//    }
+//    
+//    func addHarvester(harvester: EntropyHarvester) {
+//        
+//        let addHarvesterOperation = NSBlockOperation { () -> Void in
+//            self.harvesters.append(harvester)
+//            harvester.registeredEntropyMachine = self
+//            
+//            // If hash is open start the harvester up to feed in entropy
+//            if self.started { harvester.start() }
+//        }
+//        addHarvesterOperation.qualityOfService = .UserInitiated
+//        addHarvesterOperation.queuePriority    = .VeryHigh
+//        
+//        self.queue.addOperation(addHarvesterOperation)
+//    }
+    
+//    func removeHarvester(harvester: EntropyHarvester) {
+//        
+//        let removeHarvesterOperation = NSBlockOperation { () -> Void in
+//            self.harvesters.remove(harvester)
+//            
+//            // If hash is open start the harvester up to feed in entropy
+//            if self.started { harvester.start() }
+//        }
+//        addHarvesterOperation.qualityOfService = .UserInitiated
+//        addHarvesterOperation.queuePriority    = .VeryHigh
+//        
+//        self.queue.addOperation(addHarvesterOperation)
+//    }
+    
     
 
     
     func start() {
         
-        self.queue.cancelAllOperations()
-        self.queue.addOperationWithBlock { () -> Void in
+        self.queue.suspended = false
+        
+        let startOperation = NSBlockOperation { () -> Void in
             // start the hash function (if not already started)
             if !self.started {
                 // switch hash state to on
                 self.started = true
                 
-                // start hash function
+                // start (open) hash function
                 crypto_hash_sha512_init(&self.state)
                 
-                
                 // Input initial entropy
-                // I) random bytes from libsodium
-                let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar) // number of chars in sha512
-                var random     = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
-                
-                randombytes_buf(random, UInt(crypto_hash_sha512_BYTES))
-                crypto_hash_sha512_update(&self.state, random, UInt64(crypto_hash_sha512_BYTES))
-                random.dealloc(charsCount)
-                
-                
-                // II) System timeDate
-                var dateTime = NSDate().timeIntervalSince1970
-                let charsInIntervalCount = sizeof(NSTimeInterval) / sizeof(CUnsignedChar)
-                var dateTimeChars = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
-                
-                memcpy(&dateTimeChars, &dateTime, UInt(charsInIntervalCount))
-                crypto_hash_sha512_update(&self.state, dateTimeChars, UInt64(sizeof(NSTimeInterval)))
-                
-                
-                // III) Process Info
-                var processId = NSProcessInfo().processIdentifier
-                let charsInInt32 = sizeof(Int32) / sizeof(CUnsignedChar)
-                var processIdChars = Array<CUnsignedChar>(count: charsInInt32, repeatedValue: 0)
-                
-                memcpy(&processIdChars, &processId, UInt(charsInInt32))
-                crypto_hash_sha512_update(&self.state, processIdChars, UInt64(sizeof(Int32)))
-                
-                
-                // IV) System up time
-                var systemUpTime = NSProcessInfo().systemUptime
-                var upTimeChars = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
-                
-                memcpy(&upTimeChars, &systemUpTime, UInt(charsInIntervalCount))
-                crypto_hash_sha512_update(&self.state, upTimeChars, UInt64(sizeof(NSTimeInterval)))
+                self.addRandomBytesToHash()
+                self.addSystemDateTimeToHash()
+                self.addProccessIdToHash()
+                self.addSystemUpTimeToHash()
             }
-
         }
+        startOperation.qualityOfService = .UserInitiated
+        startOperation.queuePriority    = .VeryHigh
+        
+        self.queue.addOperation(startOperation);
     }
     
     func addEntropy(entropy: NSData) {
         
+        if self.queue.operationCount > 10_000 { return }
+        
         self.queue.addOperationWithBlock { () -> Void in
-            
             if self.started {
                 var entropyChars = UnsafePointer<CUnsignedChar>(entropy.bytes)
                 crypto_hash_sha512_update(&self.state, entropyChars, UInt64(entropy.length))
@@ -101,9 +119,9 @@ class EntropyMachine {
     
     func stop() -> NSData? {
         
-        var result :NSData?
+        var result: NSData?
         
-        let block = NSBlockOperation { () -> Void in
+        let stopOperation = NSBlockOperation { () -> Void in
             if self.started {
                 let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar)// number of chars in sha512
                 var hash       = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
@@ -114,12 +132,48 @@ class EntropyMachine {
                 self.started = false
             }
         }
-        block.qualityOfService = .UserInitiated
-        block.queuePriority    = .VeryHigh
+        stopOperation.qualityOfService = .UserInitiated
+        stopOperation.queuePriority    = .VeryHigh
         
-        self.queue.cancelAllOperations()
-        self.queue.addOperations([block], waitUntilFinished: true)
+        self.queue.addOperations([stopOperation], waitUntilFinished: true)
+        self.queue.suspended = true
         
         return result
+    }
+    
+    private func addRandomBytesToHash() {
+        let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar) // number of chars in sha512
+        var random     = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
+        
+        randombytes_buf(random, UInt(crypto_hash_sha512_BYTES))
+        crypto_hash_sha512_update(&self.state, random, UInt64(crypto_hash_sha512_BYTES))
+        random.dealloc(charsCount)
+    }
+    
+    private func addSystemDateTimeToHash() {
+        var dateTime             = NSDate().timeIntervalSince1970
+        let charsInIntervalCount = sizeof(NSTimeInterval) / sizeof(CUnsignedChar)
+        var dateTimeChars        = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
+        
+        memcpy(&dateTimeChars, &dateTime, UInt(charsInIntervalCount))
+        crypto_hash_sha512_update(&self.state, dateTimeChars, UInt64(sizeof(NSTimeInterval)))
+    }
+    
+    private func addProccessIdToHash() {
+        var processId      = NSProcessInfo().processIdentifier
+        let charsInInt32   = sizeof(Int32) / sizeof(CUnsignedChar)
+        var processIdChars = Array<CUnsignedChar>(count: charsInInt32, repeatedValue: 0)
+        
+        memcpy(&processIdChars, &processId, UInt(charsInInt32))
+        crypto_hash_sha512_update(&self.state, processIdChars, UInt64(sizeof(Int32)))
+    }
+    
+    private func addSystemUpTimeToHash() {
+        var systemUpTime         = NSProcessInfo().systemUptime
+        let charsInIntervalCount = sizeof(NSTimeInterval) / sizeof(CUnsignedChar)
+        var upTimeChars          = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
+        
+        memcpy(&upTimeChars, &systemUpTime, UInt(charsInIntervalCount))
+        crypto_hash_sha512_update(&self.state, upTimeChars, UInt64(sizeof(NSTimeInterval)))
     }
 }
