@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 		7C2F83291A0BAB0B0082BDC4 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2F83281A0BAB0B0082BDC4 /* EntropyMachine.swift */; };
+		7C49EB371A11435800023BE0 /* CoreMotionHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C49EB361A11435800023BE0 /* CoreMotionHarvester.swift */; };
+		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
+		7C49EB3B1A11472D00023BE0 /* IdentityCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
 		7CF02FA31A0CF58400C88B32 /* entropyMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */; };
@@ -30,6 +33,9 @@
 /* Begin PBXFileReference section */
 		7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7C2F83281A0BAB0B0082BDC4 /* EntropyMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyMachine.swift; sourceTree = "<group>"; };
+		7C49EB361A11435800023BE0 /* CoreMotionHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionHarvester.swift; sourceTree = "<group>"; };
+		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreationViewController.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CCCFB8919685D9200DF3442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -86,10 +92,13 @@
 		7CCCFB8619685D9200DF3442 /* stash */ = {
 			isa = PBXGroup;
 			children = (
+				7C49EB381A1146A500023BE0 /* Storyboard.storyboard */,
+				7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */,
 				7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */,
 				7CCCFB8919685D9200DF3442 /* AppDelegate.swift */,
 				7C2F83281A0BAB0B0082BDC4 /* EntropyMachine.swift */,
 				7CF92D621A10DB4600EBFBCF /* EntropyHarvester.swift */,
+				7C49EB361A11435800023BE0 /* CoreMotionHarvester.swift */,
 				7CCCFB8B19685D9200DF3442 /* Images.xcassets */,
 				7CCCFB8719685D9200DF3442 /* Supporting Files */,
 			);
@@ -145,11 +154,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CCCFB9B19685D9200DF3442 /* Build configuration list for PBXNativeTarget "stash" */;
 			buildPhases = (
-				7DDC48891072A97D3F358722 /* Check Pods Manifest.lock */,
 				7CCCFB8019685D9200DF3442 /* Sources */,
 				7CCCFB8119685D9200DF3442 /* Frameworks */,
 				7CCCFB8219685D9200DF3442 /* Resources */,
-				5E76F0D371969D36108D2925 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -223,6 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */,
+				7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,36 +244,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5E76F0D371969D36108D2925 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7DDC48891072A97D3F358722 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
 		F17A9E1575F0518994FCD263 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -303,9 +281,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C49EB3B1A11472D00023BE0 /* IdentityCreationViewController.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
 				7CF92D631A10DB4600EBFBCF /* EntropyHarvester.swift in Sources */,
 				7C2F83291A0BAB0B0082BDC4 /* EntropyMachine.swift in Sources */,
+				7C49EB371A11435800023BE0 /* CoreMotionHarvester.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +392,6 @@
 		};
 		7CCCFB9C19685D9200DF3442 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -426,7 +405,6 @@
 		};
 		7CCCFB9D19685D9200DF3442 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E74BAC5D4020597919028F4D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -440,7 +418,6 @@
 		};
 		7CCCFB9F19685D9200DF3442 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/stash.app/stash";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -462,7 +439,6 @@
 		};
 		7CCCFBA019685D9200DF3442 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E74BAC5D4020597919028F4D /* Pods.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/stash.app/stash";
 				FRAMEWORK_SEARCH_PATHS = (

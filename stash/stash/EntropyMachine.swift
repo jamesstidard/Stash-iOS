@@ -81,6 +81,7 @@ class EntropyMachine {
     
     func start() {
         
+        self.queue.cancelAllOperations()
         self.queue.suspended = false
         
         let startOperation = NSBlockOperation { () -> Void in
@@ -107,7 +108,7 @@ class EntropyMachine {
     
     func addEntropy(entropy: NSData) {
         
-        if self.queue.operationCount > 10_000 { return }
+        if self.queue.operationCount > 10 { return }
         
         self.queue.addOperationWithBlock { () -> Void in
             if self.started {
