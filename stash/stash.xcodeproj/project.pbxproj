@@ -16,7 +16,6 @@
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
 		7CF02FA31A0CF58400C88B32 /* entropyMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */; };
 		7CF02FA81A0D258600C88B32 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2F83281A0BAB0B0082BDC4 /* EntropyMachine.swift */; };
-		7CF92D631A10DB4600EBFBCF /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF92D621A10DB4600EBFBCF /* EntropyHarvester.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 		7CCCFB9619685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stash-bridging-header.h"; sourceTree = "<group>"; };
 		7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = entropyMachineTests.swift; sourceTree = "<group>"; };
-		7CF92D621A10DB4600EBFBCF /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		E74BAC5D4020597919028F4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F68D602F74D33DC7D38BAA36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,7 +95,6 @@
 				7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */,
 				7CCCFB8919685D9200DF3442 /* AppDelegate.swift */,
 				7C2F83281A0BAB0B0082BDC4 /* EntropyMachine.swift */,
-				7CF92D621A10DB4600EBFBCF /* EntropyHarvester.swift */,
 				7C49EB361A11435800023BE0 /* CoreMotionHarvester.swift */,
 				7CCCFB8B19685D9200DF3442 /* Images.xcassets */,
 				7CCCFB8719685D9200DF3442 /* Supporting Files */,
@@ -283,7 +280,6 @@
 			files = (
 				7C49EB3B1A11472D00023BE0 /* IdentityCreationViewController.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
-				7CF92D631A10DB4600EBFBCF /* EntropyHarvester.swift in Sources */,
 				7C2F83291A0BAB0B0082BDC4 /* EntropyMachine.swift in Sources */,
 				7C49EB371A11435800023BE0 /* CoreMotionHarvester.swift in Sources */,
 			);

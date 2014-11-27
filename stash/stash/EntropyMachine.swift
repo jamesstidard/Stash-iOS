@@ -8,23 +8,37 @@
 
 import Foundation
 
+protocol EntropyHarvester {
+    
+    var isRunning: Bool { get }
+    weak var registeredEntropyMachine: EntropyMachine? { get set }
+    
+    init(registerWith entropyMachine: EntropyMachine)
+    
+    func start()
+    func stop()
+}
+
 
 class EntropyMachine {
     
-    // Holds state of entropy machine
+    // Holds state of entropy machine (on/off)
     private var started: Bool = false
-    // Holds the state of the open hash function
+    
+    // Holds the state of the open hash function (open/closed).
     private var state: crypto_hash_sha512_state = crypto_hash_sha512_state(
         state: (0, 0, 0, 0, 0, 0, 0, 0),
         count: (0, 0),
-        buf:   (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-                0, 0)
+          buf: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
         )
+    
     // Serial queue to enforce thread safe execution when called from multiple threads
     private lazy var queue: NSOperationQueue = {
         var newQueue              = NSOperationQueue()
@@ -34,53 +48,77 @@ class EntropyMachine {
         return newQueue
         }()
     
-//     private lazy var harvesters = [EntropyHarvester]()
-//    
-//
-//    
-//    convenience init(harvesters: [EntropyHarvester]) {
-//        self.init()
-//        self.harvesters = harvesters
-//        
-//        for harvester in self.harvesters {
-//            harvester.registeredEntropyMachine = weakself
-//        }
-//    }
-//    
-//    func addHarvester(harvester: EntropyHarvester) {
-//        
-//        let addHarvesterOperation = NSBlockOperation { () -> Void in
-//            self.harvesters.append(harvester)
-//            harvester.registeredEntropyMachine = self
-//            
-//            // If hash is open start the harvester up to feed in entropy
-//            if self.started { harvester.start() }
-//        }
-//        addHarvesterOperation.qualityOfService = .UserInitiated
-//        addHarvesterOperation.queuePriority    = .VeryHigh
-//        
-//        self.queue.addOperation(addHarvesterOperation)
-//    }
-    
-//    func removeHarvester(harvester: EntropyHarvester) {
-//        
-//        let removeHarvesterOperation = NSBlockOperation { () -> Void in
-//            self.harvesters.remove(harvester)
-//            
-//            // If hash is open start the harvester up to feed in entropy
-//            if self.started { harvester.start() }
-//        }
-//        addHarvesterOperation.qualityOfService = .UserInitiated
-//        addHarvesterOperation.queuePriority    = .VeryHigh
-//        
-//        self.queue.addOperation(addHarvesterOperation)
-//    }
+    private lazy var harvesters = NSMutableArray()
     
     
-
+    
+    // Accepts anything that conforms to both AnyObject and EntropyHaverster
+    /**
+    Registers the harvester to the EntropyMachine by setting itself to the harvester's
+    registeredEntropyMachine property. The harvester is then added to the EntropyMachines
+    internal harvester list. Finally, if the EntropyMaching is running, the harvester's
+    start() function is also called.
+    
+    Threadsafety:
+    This fucntion is threadsafe. All is performed on an internal operation queue.
+    The harvesters registeredEntropyMachine property should also be threadsafe.
+    
+    :param: harvester A object that conforms to AnyObject and EntropyHarvester protocols.
+    Provides as a source of entropy to the EntropyMachine by calling it's addEntropy() function.
+    */
+    func addHarvester<H :AnyObject where H :EntropyHarvester>(inout harvester: H) {
+        
+        let addHarvesterOperation = NSBlockOperation { () -> Void in
+            self.harvesters.addObject(harvester)
+            harvester.registeredEntropyMachine = self
+            
+            // If hash is open start the harvester up to feed in entropy
+            if self.started { harvester.start() }
+        }
+        addHarvesterOperation.qualityOfService = .UserInitiated
+        addHarvesterOperation.queuePriority    = .VeryHigh
+        
+        self.queue.addOperation(addHarvesterOperation)
+    }
+    
+    /**
+    Deregisters the harvester from the EntropyMachine by calling the stop() function on the
+    harvester and removes itself from the harvester's reference to the machine. Finally,
+    the harvester is removed from EntropyMachine's list maintainging all registered 
+    harvesters.
+    
+    Threadsafety: 
+    This fucntion is threadsafe. All is performed on an internal operation queue.
+    The harvesters registeredEntropyMachine property should also be threadsafe.
+    
+    :param: harvester A object that conforms to AnyObject and EntropyHarvester protocols.
+    Provides as a source of entropy to the EntropyMachine by calling it's addEntropy() function.
+    */
+    func removeHarvester<H :AnyObject where H :EntropyHarvester>(inout harvester: H) {
+        
+        // Operation block to be added to internal, serial operation queue.
+        let removeHarvesterOperation = NSBlockOperation { () -> Void in
+            
+            // if this machine is the havesters registered machine: stop it harvesting and remove it.
+            if let registeredEntropyMachine = harvester.registeredEntropyMachine {
+                if ObjectIdentifier(registeredEntropyMachine) == ObjectIdentifier(self) {
+                    harvester.stop()
+                    harvester.registeredEntropyMachine = nil;
+                }
+            }
+            
+            // Remove from harvester list
+            self.harvesters.removeObject(harvester)
+        }
+        removeHarvesterOperation.qualityOfService = .UserInitiated
+        removeHarvesterOperation.queuePriority    = .VeryHigh
+        
+        self.queue.addOperation(removeHarvesterOperation)
+    }
     
     func start() {
         
+        // Cancel any pending operations and start queue
         self.queue.cancelAllOperations()
         self.queue.suspended = false
         
@@ -108,6 +146,8 @@ class EntropyMachine {
     
     func addEntropy(entropy: NSData) {
         
+        // Holds a queue with a max of 10 operations
+        // excess entropy data is discarded
         if self.queue.operationCount > 10 { return }
         
         self.queue.addOperationWithBlock { () -> Void in
