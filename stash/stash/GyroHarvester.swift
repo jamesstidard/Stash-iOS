@@ -15,10 +15,10 @@ class GyroHarvester {
     // A thread safe accessor for running property
     var isRunning: Bool {
         set {
-            GyroHarvester.safelySet(&self.running, toValue: newValue, onQueue: self.queue)
+            self.queue.safelySet(&self.running, toValue: newValue)
         }
         get {
-            return GyroHarvester.safelyGet(self.running, onQueue: self.queue)
+            return self.queue.safelyGet(self.running)
         }
     }
     
@@ -27,10 +27,10 @@ class GyroHarvester {
     // A thread safe accessor for entropy machine property
     weak var registeredEntropyMachine: EntropyMachine? {
         set {
-            GyroHarvester.safelySet(&entropyMachine, toValue: newValue, onQueue: self.queue)
+            self.queue.safelySet(&entropyMachine, toValue: newValue)
         }
         get {
-            return GyroHarvester.safelyGet(self.entropyMachine, onQueue: self.queue)
+            return self.queue.safelyGet(self.entropyMachine)
         }
     }
     
@@ -48,28 +48,6 @@ class GyroHarvester {
         return newQueue
         }()
     
-    private class func safelySet<T>(inout value: T, toValue: T, onQueue queue: NSOperationQueue) {
-        let setOperation = NSBlockOperation { () -> Void in
-            value = toValue
-        }
-        setOperation.qualityOfService = .UserInitiated
-        setOperation.queuePriority    = .VeryHigh
-        
-        queue.addOperation(setOperation)
-    }
-    
-    private class func safelyGet<T>(value: T, onQueue queue: NSOperationQueue) -> T {
-        var result: T!
-        let getOperation = NSBlockOperation { () -> Void in
-            result = value
-        }
-        getOperation.qualityOfService = .UserInitiated
-        getOperation.queuePriority    = .VeryHigh
-        
-        queue.addOperations([getOperation], waitUntilFinished: true)
-        
-        return result
-    }
     
     
     required init (updateInterval :NSTimeInterval) {

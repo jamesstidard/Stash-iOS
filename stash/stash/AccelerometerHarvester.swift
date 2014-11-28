@@ -54,3 +54,5 @@ class AccelerometerHarvester {
         self.isRunning = false
     }
 }
+
+
