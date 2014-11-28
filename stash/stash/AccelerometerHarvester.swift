@@ -1,5 +1,5 @@
 //
-//  CoreMotionGyroHarvester.swift
+//  CoreMotionAccelerometerHarvester.swift
 //  stash
 //
 //  Created by James Stidard on 28/11/2014.
@@ -8,19 +8,19 @@
 
 import CoreMotion
 
-class CoreMotionGyroHarvester {
+class AccelerometerHarvester {
     
     var isRunning: Bool = false
     weak var registeredEntropyMachine: EntropyMachine? = nil
     private let motionManager: CMMotionManager = {
         var newMotionManager = CMMotionManager.sharedInstance
-        newMotionManager.gyroUpdateInterval = 0.1
+        newMotionManager.accelerometerUpdateInterval = 0.1
         return newMotionManager
         }()
     
     private lazy var queue: NSOperationQueue = {
         var newQueue              = NSOperationQueue()
-        newQueue.name             = "Entropy Harvester Core Motion Gyro Queue"
+        newQueue.name             = "Entropy Harvester Core Motion Accelerometer Queue"
         newQueue.qualityOfService = .Background
         newQueue.maxConcurrentOperationCount = 1 // Serial queue
         return newQueue
@@ -28,17 +28,16 @@ class CoreMotionGyroHarvester {
     
     
     required init (updateInterval :NSTimeInterval) {
-        motionManager.gyroUpdateInterval = updateInterval
+        motionManager.accelerometerUpdateInterval = updateInterval
     }
     
     
     func start() {
         self.isRunning = true
         
-        self.motionManager.startGyroUpdatesToQueue(self.queue, withHandler: { (data, error) -> Void in
-            
+        self.motionManager.startAccelerometerUpdatesToQueue(self.queue, withHandler: { (data, error) -> Void in
             if error == nil {
-                var (x, y, z) = (data.rotationRate.x, data.rotationRate.y, data.rotationRate.z)
+                var (x, y, z) = (data.acceleration.x, data.acceleration.y, data.acceleration.z)
                 let xData = NSData(bytes: &x, length: sizeof(Double))
                 let yData = NSData(bytes: &y, length: sizeof(Double))
                 let zData = NSData(bytes: &z, length: sizeof(Double))
@@ -56,7 +55,7 @@ class CoreMotionGyroHarvester {
     }
     
     func stop() {
-        self.motionManager.stopGyroUpdates()
+        self.motionManager.stopAccelerometerUpdates()
         self.isRunning = false
     }
 }
