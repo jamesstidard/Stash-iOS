@@ -13,8 +13,6 @@ protocol EntropyHarvester {
     var isRunning: Bool { get }
     weak var registeredEntropyMachine: EntropyMachine? { get set }
     
-    init(registerWith entropyMachine: EntropyMachine)
-    
     func start()
     func stop()
 }
