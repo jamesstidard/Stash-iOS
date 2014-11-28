@@ -38,13 +38,8 @@ class AccelerometerHarvester {
         self.motionManager.startAccelerometerUpdatesToQueue(self.queue, withHandler: { (data, error) -> Void in
             if error == nil {
                 var (x, y, z) = (data.acceleration.x, data.acceleration.y, data.acceleration.z)
-                let xData = NSData(bytes: &x, length: sizeof(Double))
-                let yData = NSData(bytes: &y, length: sizeof(Double))
-                let zData = NSData(bytes: &z, length: sizeof(Double))
                 
-                var data = NSMutableData(data: xData)
-                data.appendData(yData)
-                data.appendData(zData)
+                let data = NSData.dataFromMultipleObjects([x, y, z])
                 
                 self.registeredEntropyMachine?.addEntropy(data)
             }

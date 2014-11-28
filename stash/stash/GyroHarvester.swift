@@ -39,13 +39,8 @@ class GyroHarvester {
             
             if error == nil {
                 var (x, y, z) = (data.rotationRate.x, data.rotationRate.y, data.rotationRate.z)
-                let xData = NSData(bytes: &x, length: sizeof(Double))
-                let yData = NSData(bytes: &y, length: sizeof(Double))
-                let zData = NSData(bytes: &z, length: sizeof(Double))
                 
-                var data = NSMutableData(data: xData)
-                data.appendData(yData)
-                data.appendData(zData)
+                let data = NSData.dataFromMultipleObjects([x, y, z])
                 
                 self.registeredEntropyMachine?.addEntropy(data)
             }
