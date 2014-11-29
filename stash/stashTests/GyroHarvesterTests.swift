@@ -13,19 +13,39 @@ class GyroHarvesterTests: XCTestCase {
     var harvester = GyroHarvester()
     let machine = EntropyMachine()
     
-    func testRegistersToMachine() {
-        machine.addHarvester(&harvester)
+    func testHookingToHarvester() {
+        self.harvester.registeredEntropyMachine = machine
         
-        if let regMachine = harvester.registeredEntropyMachine {
-            XCTAssert((ObjectIdentifier(regMachine) == ObjectIdentifier(machine)), "Machine registered with harvester")
+        if let regMachine = self.harvester.registeredEntropyMachine {
+            XCTAssert(ObjectIdentifier(regMachine) == ObjectIdentifier(machine), "Machine registered with harvester")
         } else {
-            XCTAssert(false, "machine not registered to Gyro Harvester");
+            XCTAssert(false, "Machine didn't register with harvester")
         }
     }
     
-    func testRegisteringToAdditionalMachine() {
-        let secondHarvester = EntropyMachine()
+    func testReplacingMachine() {
+        let secondMachine = EntropyMachine()
+        self.harvester.registeredEntropyMachine = machine
+        self.harvester.registeredEntropyMachine = secondMachine
         
-        
+        if let regMachine = self.harvester.registeredEntropyMachine {
+            XCTAssert(ObjectIdentifier(regMachine) == ObjectIdentifier(secondMachine), "second Machine registered with harvester")
+        } else {
+            XCTAssert(false, "second Machine didn't register with harvester")
+        }
     }
+    
+    func testRunningBool() {
+        harvester.start()
+        XCTAssert(harvester.isRunning, "Running bool set")
+    }
+    
+    func testStoppingBool() {
+        XCTAssert(!harvester.isRunning, "Running bool initially false")
+        harvester.start()
+        harvester.stop()
+        XCTAssert(!harvester.isRunning, "Running bool turned off after been started")
+    }
+    
+    
 }

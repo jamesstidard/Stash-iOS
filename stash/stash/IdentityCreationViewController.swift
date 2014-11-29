@@ -14,7 +14,7 @@ import AVFoundation
 class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     let entropyMachine           = EntropyMachine()
-    lazy var motionManager       = CMMotionManager()
+    lazy var motionManager       = CMMotionManager.sharedInstance
     lazy var videoCaptureSession = AVCaptureSession()
     
     @IBOutlet weak var gyroSwitch:      UISwitch!
