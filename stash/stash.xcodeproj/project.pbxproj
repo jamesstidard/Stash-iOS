@@ -28,6 +28,7 @@
 		7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B90271A280B84009F0589 /* AccelerometerHarvester.swift */; };
 		7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */; };
 		7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */; };
+		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
 		7CF02FA31A0CF58400C88B32 /* entropyMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */; };
@@ -58,6 +59,7 @@
 		7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreationViewController.swift; sourceTree = "<group>"; };
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
+		7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerHarvesterTests.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CCCFB8919685D9200DF3442 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 				7C2B90221A2806E2009F0589 /* CoreMotionSingletonTests.swift */,
 				7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */,
 				7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */,
+				7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */,
 				7CCCFB9519685D9200DF3442 /* Supporting Files */,
 			);
 			path = stashTests;
@@ -356,6 +359,7 @@
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
 				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
 				7C87AAA61A28347F00DC3EC7 /* GyroHarvester.swift in Sources */,
+				7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */,
 				7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
 				7C2B90241A280760009F0589 /* CoreMotionSingleton.swift in Sources */,

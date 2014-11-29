@@ -1,5 +1,5 @@
 //
-//  GyroHarvesterTests.swift
+//  AccelerometerHarvesterTests.swift
 //  stash
 //
 //  Created by James Stidard on 29/11/2014.
@@ -8,9 +8,9 @@
 
 import XCTest
 
-class GyroHarvesterTests: XCTestCase {
+class AccelerometerHarvesterTests: XCTestCase {
 
-    var harvester = GyroHarvester()
+    var harvester = AccelerometerHarvester()
     let machine = EntropyMachine()
     
     func testHookingToHarvester() {
