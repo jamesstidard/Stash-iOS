@@ -61,7 +61,7 @@ class EntropyHarvesterBase: EntropyHarvester {
             }
             operationBlock.qualityOfService = .UserInitiated
             operationBlock.queuePriority    = .VeryHigh
-            self.queue.addOperations([operationBlock], waitUntilFinished: false)
+            self.queue.addOperations([operationBlock], waitUntilFinished: true)
             return result
         }
     }

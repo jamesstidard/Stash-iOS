@@ -30,6 +30,7 @@ class AccelerometerHarvester: EntropyHarvesterBase {
                 var (x, y, z) = (data.acceleration.x, data.acceleration.y, data.acceleration.z)
                 let bytesToUse = (sizeof(Double)/2) - 1 // least significant half, minus signing bit
                 let data = NSData.data(usingLeastSignificantBytes: bytesToUse, fromValues: [x,y,z], excludeSign: true)
+                println("accel sent: \(data)")
                 self.registeredEntropyMachine?.addEntropy(data)
             }
             else {

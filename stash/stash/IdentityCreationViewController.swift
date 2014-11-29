@@ -14,8 +14,8 @@ import AVFoundation
 class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
     let entropyMachine              = EntropyMachine()
-    lazy var motionManager          = CMMotionManager.sharedInstance
     lazy var videoCaptureSession    = AVCaptureSession()
+    var gyroHarvester          : GyroHarvester!
     var accelerometerHarvester : AccelerometerHarvester!
     
     @IBOutlet weak var gyroSwitch:          UISwitch!
@@ -25,15 +25,15 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
     
     override func viewDidLoad() {
         self.accelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
+        self.gyroHarvester = GyroHarvester(machine: self.entropyMachine)
         entropyMachine.start()
-        self.turnOnVideoCapture()
     }
     
     @IBAction func gyroSwitchChanged(sender: UISwitch) {
         if sender.on && !self.startStopButton.selected {
-            self.turnOnGyro()
+            self.gyroHarvester.start()
         } else {
-            self.motionManager.stopGyroUpdates()
+            self.gyroHarvester.stop()
         }
     }
     
@@ -45,62 +45,53 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
         }
     }
     
-    private func turnOnGyro() {
-        self.motionManager.startGyroUpdatesToQueue(NSOperationQueue.mainQueue(), withHandler: { (data, error) -> Void in
-            let motionString = "\(data.rotationRate.x)\(data.rotationRate.y)\(data.rotationRate.z)"
-            println(motionString)
-            if let motionData = motionString.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
-                self.entropyMachine.addEntropy(motionData)
-            }
-        })
-    }
-    
-    private func turnOnVideoCapture() {
-//        var error: NSError?
+//    private func turnOnVideoCapture() {
+////        var error: NSError?
+////        
+////        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+////        let input         = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error:&error) as AVCaptureInput?
+////        let output        = AVCaptureVideoDataOutput()
+////        
+////        let inputSucceed  = (input != nil && error == nil)
+////        let canAddInput   = self.videoCaptureSession.canAddInput(input)
+////        let canAddOutput  = self.videoCaptureSession.canAddOutput(output)
+////        let shouldProceed = inputSucceed && canAddInput && canAddOutput
+////        
+////        if shouldProceed {
+////            self.videoCaptureSession.addInput(input)
+////            self.videoCaptureSession.addOutput(output)
+////            
+////            let backgroundQueue = dispatch_queue_create("com.stash.videoOutQueue", nil)
+////            output.setSampleBufferDelegate(self, queue: backgroundQueue)
+////            
+////            self.videoCaptureSession.startRunning()
+////        }
+//    }
+//    
+//    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
+//        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+//        CVPixelBufferLockBaseAddress(imageBuffer, 0)
 //        
-//        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-//        let input         = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error:&error) as AVCaptureInput?
-//        let output        = AVCaptureVideoDataOutput()
+//        let bufferAddress = CVPixelBufferGetBaseAddress(imageBuffer)
+//        let bytesPerRow   = CVPixelBufferGetBytesPerRow(imageBuffer)
+//        let height        = CVPixelBufferGetHeight(imageBuffer);
 //        
-//        let inputSucceed  = (input != nil && error == nil)
-//        let canAddInput   = self.videoCaptureSession.canAddInput(input)
-//        let canAddOutput  = self.videoCaptureSession.canAddOutput(output)
-//        let shouldProceed = inputSucceed && canAddInput && canAddOutput
+//        let data = NSData(bytes: bufferAddress, length: Int(bytesPerRow * height))
 //        
-//        if shouldProceed {
-//            self.videoCaptureSession.addInput(input)
-//            self.videoCaptureSession.addOutput(output)
-//            
-//            let backgroundQueue = dispatch_queue_create("com.stash.videoOutQueue", nil)
-//            output.setSampleBufferDelegate(self, queue: backgroundQueue)
-//            
-//            self.videoCaptureSession.startRunning()
-//        }
-    }
-    
-    func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
-        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
-        CVPixelBufferLockBaseAddress(imageBuffer, 0)
-        
-        let bufferAddress = CVPixelBufferGetBaseAddress(imageBuffer)
-        let bytesPerRow   = CVPixelBufferGetBytesPerRow(imageBuffer)
-        let height        = CVPixelBufferGetHeight(imageBuffer);
-        
-        let data = NSData(bytes: bufferAddress, length: Int(bytesPerRow * height))
-        
-        self.entropyMachine.addEntropy(data)
-        
-        CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
-    }
+//        self.entropyMachine.addEntropy(data)
+//        
+//        CVPixelBufferUnlockBaseAddress(imageBuffer, 0)
+//    }
     
     @IBAction func stopPressed(sender: UIButton) {
         
         if sender.selected {
             self.entropyMachine.start()
-            if self.gyroSwitch.on { self.turnOnGyro() }
+            if self.gyroSwitch.on { self.gyroHarvester.start() }
             if self.accelerometerSwitch.on { self.accelerometerHarvester.start() }
         } else {
-            self.motionManager.stopGyroUpdates()
+            self.gyroHarvester.stop()
+            self.accelerometerHarvester.stop()
             self.outLabel.text = self.entropyMachine.stop()?.description
         }
         

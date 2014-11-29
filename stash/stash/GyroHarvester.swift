@@ -30,6 +30,7 @@ class GyroHarvester: EntropyHarvesterBase {
                 var (x, y, z) = (data.rotationRate.x, data.rotationRate.y, data.rotationRate.z)
                 let bytesToUse = (sizeof(Double)/2) - 1 // least significant half, minus signing bit
                 let data = NSData.data(usingLeastSignificantBytes: bytesToUse, fromValues: [x,y,z], excludeSign: true)
+                println("gyro sent: \(data)")
                 self.registeredEntropyMachine?.addEntropy(data)
             }
             else {

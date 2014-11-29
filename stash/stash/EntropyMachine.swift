@@ -75,6 +75,7 @@ class EntropyMachine {
         
         self.queue.addOperationWithBlock { () -> Void in
             if self.started {
+                println("machine used: \(entropy)")
                 var entropyChars = UnsafePointer<CUnsignedChar>(entropy.bytes)
                 crypto_hash_sha512_update(&self.state, entropyChars, UInt64(entropy.length))
             }
