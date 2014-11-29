@@ -19,6 +19,7 @@
 		7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
 		7C49EB3B1A11472D00023BE0 /* IdentityCreationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */; };
+		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
 		7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */; };
@@ -55,6 +56,7 @@
 		7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyMachine.swift; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		7C49EB3A1A11472D00023BE0 /* IdentityCreationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreationViewController.swift; sourceTree = "<group>"; };
+		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -164,8 +166,9 @@
 		7CCCFB9419685D9200DF3442 /* stashTests */ = {
 			isa = PBXGroup;
 			children = (
-				7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */,
 				7C2B90221A2806E2009F0589 /* CoreMotionSingletonTests.swift */,
+				7CF02FA21A0CF58400C88B32 /* entropyMachineTests.swift */,
+				7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */,
 				7CCCFB9519685D9200DF3442 /* Supporting Files */,
 			);
 			path = stashTests;
@@ -351,6 +354,7 @@
 				7C2B90231A2806E2009F0589 /* CoreMotionSingletonTests.swift in Sources */,
 				7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
+				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
 				7C87AAA61A28347F00DC3EC7 /* GyroHarvester.swift in Sources */,
 				7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,

@@ -8,38 +8,28 @@
 
 import CoreMotion
 
-class AccelerometerHarvester {
+class AccelerometerHarvester: EntropyHarvesterBase {
     
-    var isRunning: Bool = false
-    weak var registeredEntropyMachine: EntropyMachine? = nil
     private let motionManager: CMMotionManager = {
         var newMotionManager = CMMotionManager.sharedInstance
         newMotionManager.accelerometerUpdateInterval = 0.1
         return newMotionManager
         }()
     
-    private lazy var queue: NSOperationQueue = {
-        var newQueue              = NSOperationQueue()
-        newQueue.name             = "Entropy Harvester Core Motion Accelerometer Queue"
-        newQueue.qualityOfService = .Background
-        newQueue.maxConcurrentOperationCount = 1 // Serial queue
-        return newQueue
-        }()
     
-    
-    required init (updateInterval :NSTimeInterval) {
+    convenience init (updateInterval :NSTimeInterval) {
+        self.init()
         motionManager.accelerometerUpdateInterval = updateInterval
     }
     
     
-    func start() {
+    override func start() {
         self.isRunning = true
         
         self.motionManager.startAccelerometerUpdatesToQueue(self.queue, withHandler: { (data, error) -> Void in
             if error == nil {
                 var (x, y, z) = (data.acceleration.x, data.acceleration.y, data.acceleration.z)
-                
-                let data = NSData.dataFromMultipleObjects([x, y, z])
+                let data      = NSData.dataFromMultipleObjects([x, y, z])
                 
                 self.registeredEntropyMachine?.addEntropy(data)
             }
@@ -49,7 +39,7 @@ class AccelerometerHarvester {
         })
     }
     
-    func stop() {
+    override func stop() {
         self.motionManager.stopAccelerometerUpdates()
         self.isRunning = false
     }

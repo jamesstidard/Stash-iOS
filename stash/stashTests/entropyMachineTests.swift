@@ -6,7 +6,6 @@
 //  Copyright (c) 2014 James Stidard. All rights reserved.
 //
 
-import UIKit
 import XCTest
 
 

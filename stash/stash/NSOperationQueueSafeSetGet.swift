@@ -10,37 +10,13 @@ import Foundation
 
 extension NSOperationQueue {
     
-    class func safelySet<T>(inout value: T, toValue: T, onQueue queue: NSOperationQueue) {
-        queue.safelySet(&value, toValue: toValue)
-    }
-    
-    class func safelyGet<T>(value: T, onQueue queue: NSOperationQueue) -> T {
-        return queue.safelyGet(value)
-    }
-    
-    func safelySet<T>(inout value: T, toValue: T) {
-        let setOperation = NSBlockOperation { () -> Void in
-            value = toValue
-        }
+    func safelySet(setBlock: () -> Void) {
+        
+        let setOperation = NSBlockOperation(setBlock)
         
         self.addOperationWith(qualityOfService: .UserInitiated,
                                       priority: .VeryHigh,
                              waitUntilFinished: false,
                                 operationBlock: setOperation)
-    }
-    
-    func safelyGet<T>(value: T) -> T {
-        var result: T!
-        
-        let getOperation = NSBlockOperation { () -> Void in
-            result = value
-        }
-        
-        self.addOperationWith(qualityOfService: .UserInitiated,
-                                      priority: .VeryHigh,
-                             waitUntilFinished: true,
-                                operationBlock: getOperation)
-        
-        return result
     }
 }
