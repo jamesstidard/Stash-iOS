@@ -13,15 +13,18 @@ import AVFoundation
 
 class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutputSampleBufferDelegate {
     
-    let entropyMachine           = EntropyMachine()
-    lazy var motionManager       = CMMotionManager.sharedInstance
-    lazy var videoCaptureSession = AVCaptureSession()
+    let entropyMachine              = EntropyMachine()
+    lazy var motionManager          = CMMotionManager.sharedInstance
+    lazy var videoCaptureSession    = AVCaptureSession()
+    var accelerometerHarvester : AccelerometerHarvester!
     
-    @IBOutlet weak var gyroSwitch:      UISwitch!
-    @IBOutlet weak var startStopButton: UIButton!
-    @IBOutlet weak var outLabel:        UILabel!
+    @IBOutlet weak var gyroSwitch:          UISwitch!
+    @IBOutlet weak var startStopButton:     UIButton!
+    @IBOutlet weak var outLabel:            UILabel!
+    @IBOutlet weak var accelerometerSwitch: UISwitch!
     
     override func viewDidLoad() {
+        self.accelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
         entropyMachine.start()
         self.turnOnVideoCapture()
     }
@@ -31,6 +34,14 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
             self.turnOnGyro()
         } else {
             self.motionManager.stopGyroUpdates()
+        }
+    }
+    
+    @IBAction func accelerometerSwitchChanged(sender: UISwitch) {
+        if sender.on && !self.startStopButton.selected {
+            self.accelerometerHarvester.start()
+        } else {
+            self.accelerometerHarvester.stop()
         }
     }
     
@@ -45,26 +56,26 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
     }
     
     private func turnOnVideoCapture() {
-        var error: NSError?
-        
-        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
-        let input         = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error:&error) as AVCaptureInput?
-        let output        = AVCaptureVideoDataOutput()
-        
-        let inputSucceed  = (input != nil && error == nil)
-        let canAddInput   = self.videoCaptureSession.canAddInput(input)
-        let canAddOutput  = self.videoCaptureSession.canAddOutput(output)
-        let shouldProceed = inputSucceed && canAddInput && canAddOutput
-        
-        if shouldProceed {
-            self.videoCaptureSession.addInput(input)
-            self.videoCaptureSession.addOutput(output)
-            
-            let backgroundQueue = dispatch_queue_create("com.stash.videoOutQueue", nil)
-            output.setSampleBufferDelegate(self, queue: backgroundQueue)
-            
-            self.videoCaptureSession.startRunning()
-        }
+//        var error: NSError?
+//        
+//        let captureDevice = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
+//        let input         = AVCaptureDeviceInput.deviceInputWithDevice(captureDevice, error:&error) as AVCaptureInput?
+//        let output        = AVCaptureVideoDataOutput()
+//        
+//        let inputSucceed  = (input != nil && error == nil)
+//        let canAddInput   = self.videoCaptureSession.canAddInput(input)
+//        let canAddOutput  = self.videoCaptureSession.canAddOutput(output)
+//        let shouldProceed = inputSucceed && canAddInput && canAddOutput
+//        
+//        if shouldProceed {
+//            self.videoCaptureSession.addInput(input)
+//            self.videoCaptureSession.addOutput(output)
+//            
+//            let backgroundQueue = dispatch_queue_create("com.stash.videoOutQueue", nil)
+//            output.setSampleBufferDelegate(self, queue: backgroundQueue)
+//            
+//            self.videoCaptureSession.startRunning()
+//        }
     }
     
     func captureOutput(captureOutput: AVCaptureOutput!, didOutputSampleBuffer sampleBuffer: CMSampleBuffer!, fromConnection connection: AVCaptureConnection!) {
@@ -87,6 +98,7 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
         if sender.selected {
             self.entropyMachine.start()
             if self.gyroSwitch.on { self.turnOnGyro() }
+            if self.accelerometerSwitch.on { self.accelerometerHarvester.start() }
         } else {
             self.motionManager.stopGyroUpdates()
             self.outLabel.text = self.entropyMachine.stop()?.description

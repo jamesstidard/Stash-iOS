@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aXT-zO-bIe">
-                                <rect key="frame" x="16" y="153" width="568" height="21"/>
+                                <rect key="frame" x="16" y="153" width="568" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
@@ -40,16 +40,24 @@
                                 </connections>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gryoscope" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMT-rO-8dY">
-                                <rect key="frame" x="183" y="33" width="85" height="21"/>
+                                <rect key="frame" x="183" y="33" width="84.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Xa7-gd-Vm5">
+                                <rect key="frame" x="284" y="208.5" width="51" height="31"/>
+                                <connections>
+                                    <action selector="accelerometerSwitchChanged:" destination="ovL-wR-EjH" eventType="valueChanged" id="R4E-ps-MCh"/>
+                                </connections>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="Xa7-gd-Vm5" firstAttribute="top" secondItem="aXT-zO-bIe" secondAttribute="bottom" constant="35" id="52s-sN-b5Q"/>
                             <constraint firstItem="NQD-HN-iDm" firstAttribute="centerX" secondItem="aXT-zO-bIe" secondAttribute="centerX" id="F5v-nk-F4W"/>
                             <constraint firstItem="aXT-zO-bIe" firstAttribute="top" secondItem="NQD-HN-iDm" secondAttribute="bottom" constant="32" id="Tok-3S-5Zq"/>
+                            <constraint firstAttribute="centerX" secondItem="Xa7-gd-Vm5" secondAttribute="centerX" constant="-8.5" id="Zct-fM-aRH"/>
                             <constraint firstItem="aXT-zO-bIe" firstAttribute="trailing" secondItem="Hoo-7k-y9m" secondAttribute="trailingMargin" id="Zgb-oI-3Ld"/>
                             <constraint firstItem="9As-vc-4sm" firstAttribute="top" secondItem="wTL-1p-aC0" secondAttribute="bottom" constant="8" id="eSc-vz-QoL"/>
                             <constraint firstItem="9As-vc-4sm" firstAttribute="leading" secondItem="uMT-rO-8dY" secondAttribute="trailing" constant="8" id="flZ-ET-f8I"/>
@@ -60,6 +68,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="accelerometerSwitch" destination="Xa7-gd-Vm5" id="jUD-Xo-hF2"/>
                         <outlet property="gyroSwitch" destination="9As-vc-4sm" id="Loc-GB-m7H"/>
                         <outlet property="outLabel" destination="aXT-zO-bIe" id="tWJ-xl-7AO"/>
                         <outlet property="startStopButton" destination="NQD-HN-iDm" id="kvq-dG-LwR"/>

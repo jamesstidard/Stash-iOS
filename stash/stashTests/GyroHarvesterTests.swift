@@ -10,8 +10,14 @@ import XCTest
 
 class GyroHarvesterTests: XCTestCase {
 
-    var harvester = GyroHarvester()
+    var harvester :GyroHarvester!
     let machine = EntropyMachine()
+    
+    override func setUp() {
+        super.setUp()
+        // Put setup code here. This method is called before the invocation of each test method in the class.
+        harvester = GyroHarvester(machine: machine)
+    }
     
     func testHookingToHarvester() {
         self.harvester.registeredEntropyMachine = machine

@@ -14,6 +14,8 @@ protocol EntropyHarvester {
     var isRunning: Bool { get }
     weak var registeredEntropyMachine: EntropyMachine? { get set }
     
+    init(machine: EntropyMachine)
+    
     func start()
     func stop()
 }
@@ -54,22 +56,27 @@ class EntropyHarvesterBase: EntropyHarvester {
         }
         get {
             var result: EntropyMachine?
-            self.queue.addOperationWith(qualityOfService: .UserInitiated,
-                                                priority: .VeryHigh,
-                                       waitUntilFinished: true) { () -> Void in
+            let operationBlock = NSBlockOperation { () -> Void in
                 result = self.entropyMachine
             }
+            operationBlock.qualityOfService = .UserInitiated
+            operationBlock.queuePriority    = .VeryHigh
+            self.queue.addOperations([operationBlock], waitUntilFinished: false)
             return result
         }
     }
     
     final lazy var queue: NSOperationQueue = {
         var newQueue              = NSOperationQueue()
-        newQueue.name             = "Entropy Harvester Core Motion Gyro Queue"
+        newQueue.name             = "Entropy Harvester Core Motion Queue"
         newQueue.qualityOfService = .Background
         newQueue.maxConcurrentOperationCount = 1 // Serial queue
         return newQueue
         }()
+    
+    required init(machine: EntropyMachine) {
+        self.registeredEntropyMachine = machine
+    }
     
     func start() {
         fatalError("Entropy Harvester Base is a abstract class and should be subclassed.")

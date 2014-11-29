@@ -10,14 +10,33 @@ import Foundation
 
 extension NSData {
     
-    class func dataFromMultipleObjects<T :AnyObject>(objects: T...) -> NSData {
+    class func data<T>(var usingLeastSignificantBytes lsb: Int, fromValues values: [T], excludeSign: Bool) -> NSData {
         var data = NSMutableData()
         
-        for object in objects {
-            var varibleValue = object
-            data.appendBytes(&varibleValue, length: sizeof(T))
+        // make sure not out of bounds of type
+        lsb = min(lsb, sizeof(T))
+        lsb = max(lsb, 0)
+        
+        for value in values {
+            var bytes = reverse(toByteArray(value))
+            if excludeSign { bytes.removeAtIndex(0) }
+            data.appendBytes(bytes, length: lsb)
         }
         
         return data
+    }
+    
+    class func data<T>(var usingLeastSignificantBytes lsb: Int, fromValues values: [T]) -> NSData {
+       return data(usingLeastSignificantBytes: lsb, fromValues: values, excludeSign: false)
+    }
+    
+    class func data<T>(values: [T]) -> NSData {
+        return data(usingLeastSignificantBytes: sizeof(T), fromValues: values)
+    }
+    
+    private class func toByteArray<T>(var value: T) -> [Byte] {
+        return withUnsafePointer(&value) {
+            Array(UnsafeBufferPointer(start: UnsafePointer<Byte>($0), count: sizeof(T)))
+        }
     }
 }

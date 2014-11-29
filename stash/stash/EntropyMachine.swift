@@ -32,7 +32,7 @@ class EntropyMachine {
     private lazy var queue: NSOperationQueue = {
         var newQueue              = NSOperationQueue()
         newQueue.name             = "Entropy Machine Queue"
-        newQueue.qualityOfService = .UserInitiated
+        newQueue.qualityOfService = .Background
         newQueue.maxConcurrentOperationCount = 1 // Serial queue
         return newQueue
         }()
