@@ -25,7 +25,7 @@ class IdentityCreationViewController: UIViewController, AVCaptureVideoDataOutput
     
     override func viewDidLoad() {
         self.accelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
-        self.gyroHarvester = GyroHarvester(machine: self.entropyMachine)
+        self.gyroHarvester          = GyroHarvester(machine: self.entropyMachine)
         entropyMachine.start()
     }
     
