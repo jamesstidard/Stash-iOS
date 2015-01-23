@@ -32,7 +32,7 @@
 #if !defined(MAP_ANON) && defined(MAP_ANONYMOUS)
 # define MAP_ANON MAP_ANONYMOUS
 #endif
-#if defined(_WIN32) || defined(MAP_ANON) || defined(HAVE_POSIX_MEMALIGN)
+#if defined(_WIN32) || (defined(MAP_ANON) && defined(HAVE_MMAP)) || defined(HAVE_POSIX_MEMALIGN)
 # define HAVE_ALIGNED_MALLOC
 #endif
 #if defined(HAVE_MPROTECT) && !(defined(PROT_NONE) && defined(PROT_READ) && defined(PROT_WRITE))
@@ -47,7 +47,7 @@ static unsigned char canary[CANARY_SIZE];
 
 #ifdef HAVE_WEAK_SYMBOLS
 __attribute__((weak)) void
-__sodium_dummy_symbol_to_prevent_lto(void * const pnt, const size_t len)
+_sodium_dummy_symbol_to_prevent_lto(void * const pnt, const size_t len)
 {
     (void) pnt;
     (void) len;
@@ -67,7 +67,7 @@ sodium_memzero(void * const pnt, const size_t len)
     explicit_bzero(pnt, len);
 #elif HAVE_WEAK_SYMBOLS
     memset(pnt, 0, len);
-    __sodium_dummy_symbol_to_prevent_lto(pnt, len);
+    _sodium_dummy_symbol_to_prevent_lto(pnt, len);
 #else
     volatile unsigned char *pnt_ = (volatile unsigned char *) pnt;
     size_t                     i = (size_t) 0U;
@@ -92,26 +92,30 @@ sodium_memcmp(const void * const b1_, const void * const b2_, size_t len)
     return (int) ((1 & ((d - 1) >> 8)) - 1);
 }
 
+/* Derived from original code by CodesInChaos */
 char *
 sodium_bin2hex(char * const hex, const size_t hex_maxlen,
                const unsigned char * const bin, const size_t bin_len)
 {
-    static const char hexdigits[16] = {
-        '0', '1', '2', '3', '4', '5', '6', '7',
-        '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
-    };
-    size_t            i = (size_t) 0U;
-    size_t            j = (size_t) 0U;
+    size_t       i = (size_t) 0U;
+    unsigned int x;
+    int          b;
+    int          c;
 
     if (bin_len >= SIZE_MAX / 2 || hex_maxlen < bin_len * 2U) {
         abort(); /* LCOV_EXCL_LINE */
     }
     while (i < bin_len) {
-        hex[j++] = hexdigits[bin[i] >> 4];
-        hex[j++] = hexdigits[bin[i] & 0xf];
+        c = bin[i] & 0xf;
+        b = bin[i] >> 4;
+        x = (unsigned char) (87 + c + (((c - 10) >> 31) & -39)) << 8 |
+            (unsigned char) (87 + b + (((b - 10) >> 31) & -39));
+        hex[i * 2U] = (char) x;
+        x >>= 8;
+        hex[i * 2U + 1U] = (char) x;
         i++;
     }
-    hex[j] = 0;
+    hex[i * 2U] = 0;
 
     return hex;
 }
@@ -171,7 +175,7 @@ sodium_hex2bin(unsigned char * const bin, const size_t bin_maxlen,
 int
 sodium_mlock(void * const addr, const size_t len)
 {
-#ifdef MADV_DONTDUMP
+#if defined(MADV_DONTDUMP) && defined(HAVE_MADVISE)
     (void) madvise(addr, len, MADV_DONTDUMP);
 #endif
 #ifdef HAVE_MLOCK
@@ -188,7 +192,7 @@ int
 sodium_munlock(void * const addr, const size_t len)
 {
     sodium_memzero(addr, len);
-#ifdef MADV_DODUMP
+#if defined(MADV_DODUMP) && defined(HAVE_MADVISE)
     (void) madvise(addr, len, MADV_DODUMP);
 #endif
 #ifdef HAVE_MLOCK
@@ -294,7 +298,7 @@ _alloc_aligned(const size_t size)
 {
     void *ptr;
 
-#ifdef MAP_ANON
+#if defined(MAP_ANON) && defined(HAVE_MMAP)
     if ((ptr = mmap(NULL, size, PROT_READ | PROT_WRITE,
                     MAP_ANON | MAP_PRIVATE | MAP_NOCORE, -1, 0)) == MAP_FAILED) {
         ptr = NULL; /* LCOV_EXCL_LINE */
@@ -316,7 +320,7 @@ _alloc_aligned(const size_t size)
 static void
 _free_aligned(unsigned char * const ptr, const size_t size)
 {
-#ifdef MAP_ANON
+#if defined(MAP_ANON) && defined(HAVE_MMAP)
     (void) munmap(ptr, size);
 #elif defined(HAVE_POSIX_MEMALIGN)
     free(ptr);
@@ -350,12 +354,11 @@ _sodium_malloc(const size_t size)
     unsigned char *base_ptr;
     unsigned char *canary_ptr;
     unsigned char *unprotected_ptr;
-    size_t         page_mask;
     size_t         size_with_canary;
     size_t         total_size;
     size_t         unprotected_size;
 
-    if (size >= SIZE_MAX - page_size * 4U) {
+    if (size >= (size_t) SIZE_MAX - page_size * 4U) {
         errno = ENOMEM;
         return NULL;
     }
@@ -375,7 +378,6 @@ _sodium_malloc(const size_t size)
 #endif
     _mprotect_noaccess(unprotected_ptr + unprotected_size, page_size);
     sodium_mlock(unprotected_ptr, unprotected_size);
-    page_mask = page_size - 1U;
     canary_ptr = unprotected_ptr + _page_round(size_with_canary) -
         size_with_canary;
     user_ptr = canary_ptr + sizeof canary;
@@ -405,7 +407,7 @@ sodium_allocarray(size_t count, size_t size)
 {
     size_t total_size;
 
-    if (size >= SIZE_MAX / count) {
+    if (size >= (size_t) SIZE_MAX / count) {
         errno = ENOMEM;
         return NULL;
     }
@@ -427,14 +429,14 @@ sodium_free(void *ptr)
         return;
     }
     canary_ptr = ((unsigned char *) ptr) - sizeof canary;
-    if (sodium_memcmp(canary_ptr, canary, sizeof canary) != 0) {
-        _out_of_bounds();
-    }
     unprotected_ptr = _unprotected_ptr_from_user_ptr(ptr);
     base_ptr = unprotected_ptr - page_size * 2U;
     memcpy(&unprotected_size, base_ptr, sizeof unprotected_size);
     total_size = page_size + page_size + unprotected_size + page_size;
     _mprotect_readwrite(base_ptr, total_size);
+    if (sodium_memcmp(canary_ptr, canary, sizeof canary) != 0) {
+        _out_of_bounds();
+    }
 #ifndef HAVE_PAGE_PROTECTION
     if (sodium_memcmp(unprotected_ptr + unprotected_size,
                       canary, sizeof canary) != 0) {
