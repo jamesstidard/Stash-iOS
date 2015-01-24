@@ -33,6 +33,7 @@
 		7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */; };
 		7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
 		7CA20BC01A72E1580021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
+		7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */; };
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
@@ -69,6 +70,7 @@
 		7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumWrapper.swift; sourceTree = "<group>"; };
 		7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectHelper.swift; sourceTree = "<group>"; };
 		7CA20BBF1A72E1580021B631 /* Stash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
+		7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityGenerationViewController.swift; sourceTree = "<group>"; };
 		7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerHarvesterTests.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -113,12 +115,12 @@
 			name = Model;
 			sourceTree = "<group>";
 		};
-		7C2AF2AC1A72ADB800B48192 /* View */ = {
+		7C2AF2AC1A72ADB800B48192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				7C49EB381A1146A500023BE0 /* Storyboard.storyboard */,
 			);
-			name = View;
+			name = Views;
 			sourceTree = "<group>";
 		};
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
@@ -153,6 +155,14 @@
 			name = Extentions;
 			sourceTree = "<group>";
 		};
+		7CA20BC11A73ED380021B631 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		7CCCFB7B19685D9200DF3442 = {
 			isa = PBXGroup;
 			children = (
@@ -178,7 +188,8 @@
 			children = (
 				7CCCFB8919685D9200DF3442 /* AppDelegate.swift */,
 				7CA20BBF1A72E1580021B631 /* Stash.swift */,
-				7C2AF2AC1A72ADB800B48192 /* View */,
+				7C2AF2AC1A72ADB800B48192 /* Views */,
+				7CA20BC11A73ED380021B631 /* Controllers */,
 				7C2AF2AB1A72ADAA00B48192 /* Model */,
 				7C2B901F1A2805F8009F0589 /* Utilities */,
 				7CCCFB8719685D9200DF3442 /* Supporting Files */,
@@ -373,6 +384,7 @@
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
 				7C2B902A1A281DD0009F0589 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B902C1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift in Sources */,
+				7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */,
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
 				7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */,

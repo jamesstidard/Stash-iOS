@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
-    <entity name="Identity" representedClassName="Identity" syncable="YES">
+    <entity name="Identity" representedClassName="stash.Identity" syncable="YES">
         <attribute name="lockKey" attributeType="Binary" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
         <attribute name="unlockKey" optional="YES" transient="YES" attributeType="Binary" syncable="YES"/>

@@ -28,7 +28,7 @@ class Stash {
     
     private func setupCoreDataStack() {
         // Create model object from data model
-        if let modelURL = mainBundle.URLForResource("model", withExtension: "momd") {
+        if let modelURL = mainBundle.URLForResource("Model", withExtension: "momd") {
             
             if let (model, storeCoordinator) = Stash.createModelAndCoordinator(modelURL) {
                 

@@ -16,10 +16,8 @@ extension NSManagedObject {
         fetchRequest.predicate  = predicate
         fetchRequest.fetchLimit = 1; // only fetch one
         
-        if let result = context.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject] {
-            return result[0] // return one
-        }
+        let results = context.executeFetchRequest(fetchRequest, error: nil) as? [NSManagedObject]
         
-        return nil
+        return results?.last
     }
 }
