@@ -12,7 +12,7 @@ import XCTest
 class entropyMachineTests: XCTestCase {
     
     let entropyMachine = EntropyMachine()
-
+    
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,7 +22,7 @@ class entropyMachineTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
+    
     func testExcesiveEntropy() {
         // This is an example of a functional test case.
         entropyMachine.start()
@@ -104,7 +104,7 @@ class entropyMachineTests: XCTestCase {
                 }
                 XCTAssert(false, "Finished pushing entropy before stop (with a higher priority) was called")
             } else {
-                    XCTAssert(false, "Unable to create data to push")
+                XCTAssert(false, "Unable to create data to push")
             }
         })
         
@@ -169,5 +169,5 @@ class entropyMachineTests: XCTestCase {
             XCTAssert(true, "Passed Stop() priority")
         }
     }
-
+    
 }

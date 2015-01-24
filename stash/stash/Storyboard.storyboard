@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="dge-9u-UHH">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cxn-lT-0OS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -19,9 +20,9 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSz-Xy-eIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1811" y="1617"/>
+            <point key="canvasLocation" x="-637" y="1357"/>
         </scene>
-        <!--Identity Creation-->
+        <!--New Identity-->
         <scene sceneID="mKi-8H-h2b">
             <objects>
                 <viewController id="dEm-bV-LLs" customClass="IdentityGenerationViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
@@ -63,7 +64,7 @@
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="centerX" secondItem="kWb-XN-4oD" secondAttribute="centerX" id="z90-nt-iI8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Identity Creation" id="S9R-OI-bpC"/>
+                    <navigationItem key="navigationItem" title="New Identity" id="S9R-OI-bpC"/>
                     <connections>
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
@@ -71,9 +72,95 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3G-2g-nOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2488" y="1617"/>
+            <point key="canvasLocation" x="40" y="1357"/>
         </scene>
-        <!--Identity Creation-->
+        <!--Navigation Controller-->
+        <scene sceneID="1I6-mU-XGt">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="cxn-lT-0OS" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="D2J-aP-fhU">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="gt9-UC-wiw" kind="relationship" relationship="rootViewController" id="Zl9-Pk-scL"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GCQ-Ty-ek2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2037" y="2348"/>
+        </scene>
+        <!--Capture View Controller-->
+        <scene sceneID="TH9-xm-WgJ">
+            <objects>
+                <viewController id="gt9-UC-wiw" customClass="QRCaptureViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RKi-xm-D54"/>
+                        <viewControllerLayoutGuide type="bottom" id="ROc-JE-XZh"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="39i-W5-6E2">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
+                                <rect key="frame" x="0.0" y="480" width="600" height="120"/>
+                                <connections>
+                                    <segue destination="0yB-00-B5g" kind="embed" id="57w-JY-qlJ"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="h28-Z8-Wug" secondAttribute="bottom" id="8sG-tg-ZlL"/>
+                            <constraint firstItem="h28-Z8-Wug" firstAttribute="leading" secondItem="39i-W5-6E2" secondAttribute="leadingMargin" constant="-16" id="9KO-Ge-g5r"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="h28-Z8-Wug" secondAttribute="trailing" constant="-16" id="EfM-aa-EHK"/>
+                            <constraint firstItem="h28-Z8-Wug" firstAttribute="height" secondItem="39i-W5-6E2" secondAttribute="height" multiplier="0.2" id="YgA-jl-1Fz"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="iRz-ZF-L4g"/>
+                    <connections>
+                        <segue destination="dge-9u-UHH" kind="presentation" id="b97-Wn-UrO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1360" y="2348"/>
+        </scene>
+        <!--Identities Collection View Controller-->
+        <scene sceneID="xaJ-Ee-b2v">
+            <objects>
+                <collectionViewController id="0yB-00-B5g" customClass="IdentitiesCollectionViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="0Kd-sd-MuS">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H1Q-Jp-CLZ">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="mNW-yx-S05">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="0yB-00-B5g" id="EiW-ja-JQj"/>
+                            <outlet property="delegate" destination="0yB-00-B5g" id="IYt-t1-AKh"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="71k-kM-q1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-559" y="2348"/>
+        </scene>
+        <!--New Identity-->
         <scene sceneID="aAB-ZY-oe8">
             <objects>
                 <viewController id="2pF-wr-CV3" customClass="RescueCodeViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
@@ -98,13 +185,13 @@
                             <constraint firstAttribute="centerY" secondItem="efH-vx-McV" secondAttribute="centerY" id="qvm-VD-Gf2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Identity Creation" id="xzi-D9-xFj">
+                    <navigationItem key="navigationItem" title="New Identity" id="xzi-D9-xFj">
                         <barButtonItem key="rightBarButtonItem" title="Done" id="MCi-va-RY0"/>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3170" y="1617"/>
+            <point key="canvasLocation" x="722" y="1357"/>
         </scene>
     </scenes>
 </document>

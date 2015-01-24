@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-class Stash {
+class Stash: NSObject {
     
-    var context :NSManagedObjectContext?
+    dynamic var context :NSManagedObjectContext? // dynamic so it can be KVO
     let mainBundle = NSBundle.mainBundle()
     
     
@@ -22,7 +22,8 @@ class Stash {
         return Singleton.instance
     }
     
-    init() {
+    override init() {
+        super.init()
         setupCoreDataStack()
     }
     
