@@ -10,19 +10,19 @@ import UIKit
 
 class IdentityGenerationViewController: UIViewController {
     
-    let entropyMachine = EntropyMachine()
-    lazy var harvesters: [EntropyHarvester]                 = [self.gyroHarvester, self.accelerometerHarvester]
-    lazy var gyroHarvester: GyroHarvester                   = GyroHarvester(machine: self.entropyMachine)
-    lazy var accelerometerHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
+    var entropyMachine = EntropyMachine()
+    lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
+    lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)
+    lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
     
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.entropyMachine.start()
-        self.harvesters.map({$0.start()}) // start harvesters gathering entropy for the machine
+        self.startHarvesting()
     }
 
     override func didReceiveMemoryWarning() {
@@ -30,16 +30,26 @@ class IdentityGenerationViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    private func startHarvesting() {
+        self.activityIndicator.startAnimating()
+        self.entropyMachine.start()
+        self.harvesters.map({$0.start()}) // start harvesters gathering entropy for the machine
+    }
+    
+    private func stopHarvesting() -> NSData? {
+        self.activityIndicator.stopAnimating()
+        self.harvesters.map({$0.stop()})
+        return self.entropyMachine.stop()
+    }
+    
     @IBAction func continueButtonPressed(sender: UIButton) {
         // Stop the harvester and get the seed
-        self.harvesters.map({$0.stop()})
-        if let seed = self.entropyMachine.stop() {
+        if let seed = self.stopHarvesting() {
             if let context = Stash.sharedInstance.context {
                 let newIdentity = Identity.createIdentity(nameTextField.text, seed: seed, context: context)
                 println("name: \(newIdentity?.name)")
                 println("ILK: \(newIdentity?.lockKey)")
                 println("IUK: \(newIdentity?.unlockKey)")
-                
             }
         }
     }

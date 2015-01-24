@@ -38,28 +38,34 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
+                                <rect key="frame" x="290" y="140" width="20" height="20"/>
+                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9A-y6-9nQ">
-                                <rect key="frame" x="269" y="140" width="62" height="30"/>
+                                <rect key="frame" x="269" y="168" width="62" height="30"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="continueButtonPressed:" destination="dEm-bV-LLs" eventType="touchUpInside" id="E59-Rl-r6K"/>
-                                    <segue destination="2pF-wr-CV3" kind="show" id="Vq6-Tn-Viz"/>
+                                    <segue destination="2pF-wr-CV3" kind="show" id="3gO-cn-OUQ"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="S9A-y6-9nQ" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="Xwb-O4-RUi"/>
+                            <constraint firstItem="kWb-XN-4oD" firstAttribute="centerX" secondItem="dGC-nt-BTE" secondAttribute="centerX" id="2db-wB-Eyp"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="g1d-8X-e21"/>
+                            <constraint firstItem="S9A-y6-9nQ" firstAttribute="top" secondItem="dGC-nt-BTE" secondAttribute="bottom" constant="8" id="gW6-7u-l4P"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="top" secondItem="F3a-fl-itp" secondAttribute="bottom" constant="38" id="m76-bq-u0Q"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="plY-jN-P8O"/>
+                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="ppd-NC-wh2"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="centerX" secondItem="kWb-XN-4oD" secondAttribute="centerX" id="z90-nt-iI8"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Identity Creation" id="S9R-OI-bpC"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
                     </connections>
                 </viewController>
@@ -67,10 +73,10 @@
             </objects>
             <point key="canvasLocation" x="2488" y="1617"/>
         </scene>
-        <!--View Controller-->
+        <!--Identity Creation-->
         <scene sceneID="aAB-ZY-oe8">
             <objects>
-                <viewController id="2pF-wr-CV3" sceneMemberID="viewController">
+                <viewController id="2pF-wr-CV3" customClass="RescueCodeViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="5Pq-5F-MNr"/>
                         <viewControllerLayoutGuide type="bottom" id="Wgw-Tr-j2k"/>
@@ -78,8 +84,23 @@
                     <view key="view" contentMode="scaleToFill" id="UTu-1a-FeW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Present Rescue Code" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="efH-vx-McV">
+                                <rect key="frame" x="217" y="290" width="167" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="efH-vx-McV" secondAttribute="centerX" id="Srh-Mz-hsn"/>
+                            <constraint firstAttribute="centerY" secondItem="efH-vx-McV" secondAttribute="centerY" id="qvm-VD-Gf2"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Identity Creation" id="xzi-D9-xFj">
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="MCi-va-RY0"/>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
