@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14B25" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="Identity" representedClassName="Identity" syncable="YES">
-        <attribute name="lockKey" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="unlockKey" optional="YES" attributeType="Binary" syncable="YES"/>
+        <attribute name="lockKey" attributeType="Binary" syncable="YES"/>
+        <attribute name="name" attributeType="String" syncable="YES"/>
+        <attribute name="unlockKey" optional="YES" transient="YES" attributeType="Binary" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Identity" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Identity" positionX="-63" positionY="-18" width="128" height="90"/>
     </elements>
 </model>

@@ -16,20 +16,20 @@ extension NSOperationQueue {
                           operationBlock block: NSBlockOperation)
     {
         block.qualityOfService = qos
-        block.queuePriority = priority
+        block.queuePriority    = priority
         
         self.addOperations([block], waitUntilFinished: wait)
     }
     
     func addOperationWith(qualityOfService qos: NSQualityOfService,
-        priority: NSOperationQueuePriority,
-        waitUntilFinished wait: Bool,
-        block: () -> Void)
+                                      priority: NSOperationQueuePriority,
+                        waitUntilFinished wait: Bool,
+                                         block: () -> Void)
     {
         let operationBlock = NSBlockOperation(block)
         
         operationBlock.qualityOfService = qos
-        operationBlock.queuePriority = priority
+        operationBlock.queuePriority    = priority
         
         self.addOperations([operationBlock], waitUntilFinished: wait)
     }

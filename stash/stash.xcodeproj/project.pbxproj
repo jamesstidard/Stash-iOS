@@ -32,6 +32,7 @@
 		7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */; };
 		7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */; };
 		7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
+		7CA20BC01A72E1580021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
@@ -67,6 +68,7 @@
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumWrapper.swift; sourceTree = "<group>"; };
 		7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectHelper.swift; sourceTree = "<group>"; };
+		7CA20BBF1A72E1580021B631 /* Stash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
 		7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerHarvesterTests.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB8819685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				7CCCFB8919685D9200DF3442 /* AppDelegate.swift */,
+				7CA20BBF1A72E1580021B631 /* Stash.swift */,
 				7C2AF2AC1A72ADB800B48192 /* View */,
 				7C2AF2AB1A72ADAA00B48192 /* Model */,
 				7C2B901F1A2805F8009F0589 /* Utilities */,
@@ -375,6 +378,7 @@
 				7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */,
 				7C2AF2B31A72B45C00B48192 /* Identity.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,
+				7CA20BC01A72E1580021B631 /* Stash.swift in Sources */,
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
