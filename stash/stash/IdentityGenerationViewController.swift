@@ -7,9 +7,13 @@
 //
 
 import UIKit
+import CoreData
 
-class IdentityGenerationViewController: UIViewController {
+let IdentityCreationSegueId = "IdentityCreationSegue"
+
+class IdentityGenerationViewController: UIViewController, ContextDriven {
     
+    var context: NSManagedObjectContext?
     var entropyMachine = EntropyMachine()
     lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
     lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)

@@ -81,3 +81,7 @@ class Stash: NSObject {
     }
 }
 
+@objc protocol ContextDriven {
+    var context :NSManagedObjectContext? {get set}
+}
+

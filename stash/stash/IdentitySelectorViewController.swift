@@ -11,7 +11,7 @@ import CoreData
 
 let IdentitySelectorVCSegueId = "IdentitySelectorViewControllerSegue"
 
-class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsControllerDelegate {
+class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsControllerDelegate, ContextDriven {
 
     var context :NSManagedObjectContext? {
         didSet {
@@ -20,6 +20,7 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
         }
     }
     var identitiesFRC: NSFetchedResultsController?
+    weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
     
     
     override func viewDidLoad() {
@@ -38,7 +39,8 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
             let fetchRequest             = NSFetchRequest(entityName: IdentityClassNameKey)
             fetchRequest.sortDescriptors = [NSSortDescriptor(key: IdentityPropertyNameKey, ascending: true)]
             
-            identitiesFRC = NSFetchedResultsController(fetchRequest: fetchRequest,
+            identitiesFRC = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
                 managedObjectContext: context,
                 sectionNameKeyPath: nil,
                 cacheName: nil)
@@ -48,8 +50,10 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        //update
+        return
     }
+    
+    
     
 
     /*
@@ -61,5 +65,9 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
         // Pass the selected object to the new view controller.
     }
     */
+}
 
+
+protocol IdentitySelectorViewControllerDelegate :class {
+    
 }
