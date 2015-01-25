@@ -24,6 +24,7 @@
 		7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */; };
 		7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */; };
 		7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */; };
+		7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
 		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
@@ -74,6 +75,7 @@
 		7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentitySelectorViewController.swift; sourceTree = "<group>"; };
+		7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityHolderProtocol.swift; sourceTree = "<group>"; };
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumWrapper.swift; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */,
 				7C2AF2B21A72B45C00B48192 /* Identity.swift */,
 				7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */,
+				7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -422,6 +425,7 @@
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
+				7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

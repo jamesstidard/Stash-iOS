@@ -18,6 +18,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
     lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)
     lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
+    var identity: Identity?
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -50,23 +51,27 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         // Stop the harvester and get the seed
         if let seed = self.stopHarvesting() {
             if let context = Stash.sharedInstance.context {
-                let newIdentity = Identity.createIdentity(nameTextField.text, seed: seed, context: context)
-                println("name: \(newIdentity?.name)")
-                println("ILK: \(newIdentity?.lockKey)")
-                println("IUK: \(newIdentity?.unlockKey)")
+                identity = Identity.createIdentity(nameTextField.text, seed: seed, context: context)
             }
         }
     }
     
+    @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
+        if identity != nil {
+            context?.deleteObject(identity!)
+        }
+        dismissViewControllerAnimated(true, completion: nil)
+    }
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        if let destinationVC = segue.destinationViewController as? IdentityHolder {
+            destinationVC.identity = identity
+        }
     }
-    */
+    
 
 }

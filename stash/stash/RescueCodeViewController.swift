@@ -8,7 +8,9 @@
 
 import UIKit
 
-class RescueCodeViewController: UIViewController {
+class RescueCodeViewController: UIViewController, IdentityHolder {
+    
+    weak var identity: Identity?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +24,16 @@ class RescueCodeViewController: UIViewController {
     }
     
 
+    @IBAction func doneButtonPressed(sender: AnyObject) {
+        identity?.managedObjectContext?.performBlock({ () -> Void in
+            var error: NSError?
+            self.identity?.managedObjectContext?.save(&error)
+            if error != nil {
+                NSLog("Error saving context: \(error?.description)")
+            }
+        })
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     /*
     // MARK: - Navigation
 

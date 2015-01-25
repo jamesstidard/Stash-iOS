@@ -64,7 +64,13 @@
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="centerX" secondItem="kWb-XN-4oD" secondAttribute="centerX" id="z90-nt-iI8"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="New Identity" id="S9R-OI-bpC"/>
+                    <navigationItem key="navigationItem" title="New Identity" id="S9R-OI-bpC">
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="iuW-3E-Yxy">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="dEm-bV-LLs" id="5PE-kl-R5u"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
@@ -168,7 +174,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Identity" id="xzi-D9-xFj">
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="MCi-va-RY0"/>
+                        <barButtonItem key="rightBarButtonItem" title="Done" id="MCi-va-RY0">
+                            <connections>
+                                <action selector="doneButtonPressed:" destination="2pF-wr-CV3" id="K33-Vh-HYl"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>

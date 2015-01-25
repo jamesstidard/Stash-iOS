@@ -85,6 +85,10 @@ final class EntropyMachine {
         
         var result: NSData?
         
+        if self.queue.suspended {
+            return result
+        }
+        
         let stopOperation = NSBlockOperation { () -> Void in
             if self.started {
                 let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar)// number of chars in sha512
