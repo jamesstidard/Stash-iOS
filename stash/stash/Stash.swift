@@ -9,6 +9,8 @@
 import Foundation
 import CoreData
 
+let StashPropertyContextKey = "context"
+
 class Stash: NSObject {
     
     dynamic var context :NSManagedObjectContext? // dynamic so it can be KVO
@@ -40,8 +42,10 @@ class Stash: NSObject {
                     
                     // MAIN QUEUE: callback to main queue and setup context
                     dispatch_sync(dispatch_get_main_queue(), { () -> Void in
-                        self.context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
-                        self.context?.persistentStoreCoordinator = storeCoordinator;
+                        let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+                        context.persistentStoreCoordinator = storeCoordinator;
+                        
+                        self.context = context
                     })
                 })
             }

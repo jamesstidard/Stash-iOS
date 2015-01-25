@@ -8,6 +8,9 @@
 
 import CoreData
 
+let IdentityClassNameKey = "Identity"
+let IdentityPropertyNameKey = "name"
+
 extension Identity
 {
     class func createIdentity(let name: String, let seed: NSData, let context: NSManagedObjectContext) -> Identity?
@@ -22,14 +25,14 @@ extension Identity
         if let keyPair = SodiumWrapper.ed25519KeyPairFromSeed(identitySeed) {
             
             // Check if Identity with same name exists
-            let predicate     = NSPredicate(format: "%K == %@", argumentArray: ["name", name])
-            let priorIdentity = NSManagedObject.managedObjectWithEntityName("Identity", predicate: predicate, context: context)
+            let predicate     = NSPredicate(format: "%K == %@", argumentArray: [IdentityPropertyNameKey, name])
+            let priorIdentity = NSManagedObject.managedObjectWithEntityName(IdentityClassNameKey, predicate: predicate, context: context)
             
             
             if priorIdentity == nil
             {
                 // No Identity with the same name? Insert Identity
-                let identity = NSEntityDescription.insertNewObjectForEntityForName("Identity", inManagedObjectContext: context) as Identity
+                let identity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as Identity
                 
                 identity.name      = name;
                 identity.unlockKey = keyPair.secretKey

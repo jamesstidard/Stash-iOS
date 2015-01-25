@@ -21,6 +21,9 @@
 		7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
 		7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
+		7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */; };
+		7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */; };
+		7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */; };
 		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
@@ -35,10 +38,8 @@
 		7CA20BC01A72E1580021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
 		7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */; };
 		7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC41A742E100021B631 /* RescueCodeViewController.swift */; };
-		7CA20BC91A7434170021B631 /* QRCaptureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC81A7434170021B631 /* QRCaptureViewController.swift */; };
 		7CA20BCB1A7436B60021B631 /* StashSingletonTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BCA1A7436B60021B631 /* StashSingletonTests.swift */; };
 		7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
-		7CA20BD01A743F660021B631 /* IdentitiesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BCF1A743F660021B631 /* IdentitiesCollectionViewController.swift */; };
 		7CA20BD41A7448130021B631 /* EntropyMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BD31A7448130021B631 /* EntropyMachineTests.swift */; };
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
@@ -70,6 +71,9 @@
 		7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSOperationQueueHelper.swift; sourceTree = "<group>"; };
 		7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyMachine.swift; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
+		7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
+		7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentitySelectorViewController.swift; sourceTree = "<group>"; };
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumWrapper.swift; sourceTree = "<group>"; };
@@ -77,9 +81,7 @@
 		7CA20BBF1A72E1580021B631 /* Stash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
 		7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityGenerationViewController.swift; sourceTree = "<group>"; };
 		7CA20BC41A742E100021B631 /* RescueCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RescueCodeViewController.swift; sourceTree = "<group>"; };
-		7CA20BC81A7434170021B631 /* QRCaptureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRCaptureViewController.swift; sourceTree = "<group>"; };
 		7CA20BCA1A7436B60021B631 /* StashSingletonTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StashSingletonTests.swift; sourceTree = "<group>"; };
-		7CA20BCF1A743F660021B631 /* IdentitiesCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentitiesCollectionViewController.swift; sourceTree = "<group>"; };
 		7CA20BD31A7448130021B631 /* EntropyMachineTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyMachineTests.swift; sourceTree = "<group>"; };
 		7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerHarvesterTests.swift; sourceTree = "<group>"; };
 		7CCCFB8419685D9200DF3442 /* stash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = stash.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -167,8 +169,9 @@
 		7CA20BC11A73ED380021B631 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				7CA20BC81A7434170021B631 /* QRCaptureViewController.swift */,
-				7CA20BCF1A743F660021B631 /* IdentitiesCollectionViewController.swift */,
+				7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */,
+				7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */,
+				7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */,
 				7CA20BC61A742E180021B631 /* Identity Creation */,
 			);
 			name = Controllers;
@@ -399,6 +402,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */,
 				7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
@@ -410,14 +414,14 @@
 				7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
 				7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */,
+				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
 				7C2AF2B31A72B45C00B48192 /* Identity.swift in Sources */,
+				7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,
 				7CA20BC01A72E1580021B631 /* Stash.swift in Sources */,
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
-				7CA20BC91A7434170021B631 /* QRCaptureViewController.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
-				7CA20BD01A743F660021B631 /* IdentitiesCollectionViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

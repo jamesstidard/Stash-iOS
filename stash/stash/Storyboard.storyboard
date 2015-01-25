@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="-2037" y="2348"/>
         </scene>
-        <!--Capture View Controller-->
+        <!--Authentication View Controller-->
         <scene sceneID="TH9-xm-WgJ">
             <objects>
-                <viewController id="gt9-UC-wiw" customClass="QRCaptureViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="gt9-UC-wiw" customClass="AuthenticationViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RKi-xm-D54"/>
                         <viewControllerLayoutGuide type="bottom" id="ROc-JE-XZh"/>
@@ -102,19 +102,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amF-lu-JG5">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="pFo-UL-OCa" kind="embed" id="Vke-Sy-YeG"/>
+                                </connections>
+                            </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <connections>
-                                    <segue destination="0yB-00-B5g" kind="embed" id="57w-JY-qlJ"/>
+                                    <segue destination="9I4-YT-lKA" kind="embed" identifier="IdentitySelectorViewControllerSegue" id="Nqh-xd-jwf"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="amF-lu-JG5" firstAttribute="leading" secondItem="39i-W5-6E2" secondAttribute="leadingMargin" constant="-16" id="4OF-bM-Tjs"/>
                             <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="h28-Z8-Wug" secondAttribute="bottom" id="8sG-tg-ZlL"/>
                             <constraint firstItem="h28-Z8-Wug" firstAttribute="leading" secondItem="39i-W5-6E2" secondAttribute="leadingMargin" constant="-16" id="9KO-Ge-g5r"/>
                             <constraint firstAttribute="trailingMargin" secondItem="h28-Z8-Wug" secondAttribute="trailing" constant="-16" id="EfM-aa-EHK"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="amF-lu-JG5" secondAttribute="trailing" constant="-16" id="FPc-h3-OR9"/>
+                            <constraint firstItem="amF-lu-JG5" firstAttribute="top" secondItem="39i-W5-6E2" secondAttribute="topMargin" id="K3X-Xu-TRM"/>
                             <constraint firstItem="h28-Z8-Wug" firstAttribute="height" secondItem="39i-W5-6E2" secondAttribute="height" multiplier="0.2" id="YgA-jl-1Fz"/>
+                            <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="amF-lu-JG5" secondAttribute="bottom" id="wke-3s-kpL"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="iRz-ZF-L4g"/>
@@ -125,40 +135,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1360" y="2348"/>
-        </scene>
-        <!--Identities Collection View Controller-->
-        <scene sceneID="xaJ-Ee-b2v">
-            <objects>
-                <collectionViewController id="0yB-00-B5g" customClass="IdentitiesCollectionViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="0Kd-sd-MuS">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="H1Q-Jp-CLZ">
-                            <size key="itemSize" width="50" height="50"/>
-                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="mNW-yx-S05">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                </view>
-                            </collectionViewCell>
-                        </cells>
-                        <connections>
-                            <outlet property="dataSource" destination="0yB-00-B5g" id="EiW-ja-JQj"/>
-                            <outlet property="delegate" destination="0yB-00-B5g" id="IYt-t1-AKh"/>
-                        </connections>
-                    </collectionView>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="71k-kM-q1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-559" y="2348"/>
         </scene>
         <!--New Identity-->
         <scene sceneID="aAB-ZY-oe8">
@@ -192,6 +168,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="722" y="1357"/>
+        </scene>
+        <!--Scanner View Controller-->
+        <scene sceneID="gKV-Ne-pQ2">
+            <objects>
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="pFo-UL-OCa" customClass="QRScannerViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Nvt-je-lN7"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cd4-3k-5e3"/>
+                    </layoutGuides>
+                    <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lp5-0f-NXW">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bYa-TV-y2s" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-524" y="2219"/>
+        </scene>
+        <!--Identity Selector View Controller-->
+        <scene sceneID="qf5-LW-0JE">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="9I4-YT-lKA" customClass="IdentitySelectorViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bo1-tI-wAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-524" y="2673"/>
         </scene>
     </scenes>
 </document>
