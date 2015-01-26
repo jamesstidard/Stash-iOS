@@ -20,9 +20,9 @@ extension Identity
         }
         
         // Use the first 256-bits (32bytes) for seeding the identity lock and unlock keypair
-        let identitySeed = NSData(bytes: seed.bytes, length: SodiumWrapper.Ed25519SeedBytes)
+        let identitySeed = NSData(bytes: seed.bytes, length: Ed25519.SeedBytes)
         
-        if let keyPair = SodiumWrapper.ed25519KeyPairFromSeed(identitySeed) {
+        if let keyPair = Ed25519.keyPairFromSeed(identitySeed) {
             
             // Check if Identity with same name exists
             let predicate     = NSPredicate(format: "%K == %@", argumentArray: [IdentityPropertyNameKey, name])
