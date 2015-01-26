@@ -51,7 +51,7 @@ final class EntropyMachine {
                 self.started = true
                 
                 // start (open) hash function
-                crypto_hash_sha512_init(&self.state)
+                Sha512.openHash(&self.state)
                 
                 // Input initial entropy
                 self.addRandomBytesToHash()
@@ -75,8 +75,7 @@ final class EntropyMachine {
         
         self.queue.addOperationWithBlock { () -> Void in
             if self.started {
-                var entropyChars = UnsafePointer<CUnsignedChar>(entropy.bytes)
-                crypto_hash_sha512_update(&self.state, entropyChars, UInt64(entropy.length))
+                Sha512.updateHash(&self.state, data: entropy)
             }
         }
     }
@@ -91,12 +90,7 @@ final class EntropyMachine {
         
         let stopOperation = NSBlockOperation { () -> Void in
             if self.started {
-                let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar)// number of chars in sha512
-                var hash       = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
-                
-                crypto_hash_sha512_final(&self.state, hash)
-                
-                result       = NSData(bytes: hash, length: Int(crypto_hash_sha512_BYTES))
+                result       = Sha512.closeHash(&self.state)
                 self.started = false
             }
         }
@@ -112,38 +106,29 @@ final class EntropyMachine {
     }
     
     private func addRandomBytesToHash() {
-        let charsCount = Int(crypto_hash_sha512_BYTES) / sizeof(CUnsignedChar) // number of chars in sha512
-        var random     = UnsafeMutablePointer<CUnsignedChar>.alloc(charsCount)
-        
-        randombytes_buf(random, UInt(crypto_hash_sha512_BYTES))
-        crypto_hash_sha512_update(&self.state, random, UInt64(crypto_hash_sha512_BYTES))
-        random.dealloc(charsCount)
+        if let randomBuffer = SodiumUtilities.randomBytes(512) {
+            Sha512.updateHash(&self.state, data: randomBuffer)
+        }
     }
     
     private func addSystemDateTimeToHash() {
-        var dateTime             = NSDate().timeIntervalSince1970
-        let charsInIntervalCount = sizeof(NSTimeInterval) / sizeof(CUnsignedChar)
-        var dateTimeChars        = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
+        var dateTime = NSDate().timeIntervalSince1970
+        let data     = NSData(bytes: &dateTime, length: sizeof(NSTimeInterval))
         
-        memcpy(&dateTimeChars, &dateTime, UInt(charsInIntervalCount))
-        crypto_hash_sha512_update(&self.state, dateTimeChars, UInt64(sizeof(NSTimeInterval)))
+        Sha512.updateHash(&self.state, data: data)
     }
     
     private func addProccessIdToHash() {
-        var processId      = NSProcessInfo().processIdentifier
-        let charsInInt32   = sizeof(Int32) / sizeof(CUnsignedChar)
-        var processIdChars = Array<CUnsignedChar>(count: charsInInt32, repeatedValue: 0)
+        var processId = NSProcessInfo().processIdentifier
+        let data      = NSData(bytes: &processId, length: sizeof(UInt32))
         
-        memcpy(&processIdChars, &processId, UInt(charsInInt32))
-        crypto_hash_sha512_update(&self.state, processIdChars, UInt64(sizeof(Int32)))
+        Sha512.updateHash(&self.state, data: data)
     }
     
     private func addSystemUpTimeToHash() {
-        var systemUpTime         = NSProcessInfo().systemUptime
-        let charsInIntervalCount = sizeof(NSTimeInterval) / sizeof(CUnsignedChar)
-        var upTimeChars          = Array<CUnsignedChar>(count: charsInIntervalCount, repeatedValue: 0)
+        var systemUpTime = NSProcessInfo().systemUptime
+        let data         = NSData(bytes: &systemUpTime, length: sizeof(NSTimeInterval))
         
-        memcpy(&upTimeChars, &systemUpTime, UInt(charsInIntervalCount))
-        crypto_hash_sha512_update(&self.state, upTimeChars, UInt64(sizeof(NSTimeInterval)))
+        Sha512.updateHash(&self.state, data: data)
     }
 }

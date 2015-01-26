@@ -41,6 +41,12 @@
 		7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
 		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
+		7C881DAF1A76E2CE0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
+		7C881DB01A76E2D20017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
+		7C881DB11A76E2D20017B785 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
+		7C881DB21A76E2D20017B785 /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
+		7C881DB31A76E2D20017B785 /* Sha512.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA71A76E1B00017B785 /* Sha512.swift */; };
+		7C881DB41A76E2D20017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
 		7CA20BC01A72E1580021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
 		7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */; };
@@ -465,17 +471,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CA20BCB1A7436B60021B631 /* StashSingletonTests.swift in Sources */,
+				7C881DAF1A76E2CE0017B785 /* EnScrypt.swift in Sources */,
+				7C881DB01A76E2D20017B785 /* SodiumUtilities.swift in Sources */,
 				7C5C1E471A75D511009B92F7 /* ScryptTests.swift in Sources */,
 				7C87AAA51A28347200DC3EC7 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B90231A2806E2009F0589 /* CoreMotionSingletonTests.swift in Sources */,
+				7C881DB41A76E2D20017B785 /* Scrypt.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,
 				7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
 				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
 				7C87AAA61A28347F00DC3EC7 /* GyroHarvester.swift in Sources */,
+				7C881DB11A76E2D20017B785 /* Ed25519.swift in Sources */,
 				7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */,
 				7CA20BD41A7448130021B631 /* EntropyMachineTests.swift in Sources */,
 				7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */,
+				7C881DB31A76E2D20017B785 /* Sha512.swift in Sources */,
+				7C881DB21A76E2D20017B785 /* HmacSha256.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
 				7C2B90241A280760009F0589 /* CoreMotionSingleton.swift in Sources */,
 				7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */,

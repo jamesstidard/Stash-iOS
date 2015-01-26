@@ -9,7 +9,7 @@
 import Foundation
 
 
-class sha512 {
+class Sha512 {
     
     typealias sha512State = crypto_hash_sha512_state
     
