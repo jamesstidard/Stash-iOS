@@ -26,7 +26,6 @@
 		7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */; };
 		7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
 		7C5C1E471A75D511009B92F7 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E461A75D511009B92F7 /* ScryptTests.swift */; };
-		7C5C1E481A75D593009B92F7 /* SodiumWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */; };
 		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
@@ -36,7 +35,12 @@
 		7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B90271A280B84009F0589 /* AccelerometerHarvester.swift */; };
 		7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */; };
 		7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */; };
-		7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */; };
+		7C881DA41A76E14F0017B785 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
+		7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
+		7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA71A76E1B00017B785 /* Sha512.swift */; };
+		7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
+		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
+		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
 		7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
 		7CA20BC01A72E1580021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
 		7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */; };
@@ -81,7 +85,12 @@
 		7C5C1E461A75D511009B92F7 /* ScryptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScryptTests.swift; sourceTree = "<group>"; };
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
-		7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumWrapper.swift; sourceTree = "<group>"; };
+		7C881DA31A76E14F0017B785 /* Ed25519.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ed25519.swift; sourceTree = "<group>"; };
+		7C881DA51A76E1880017B785 /* HmacSha256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HmacSha256.swift; sourceTree = "<group>"; };
+		7C881DA71A76E1B00017B785 /* Sha512.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sha512.swift; sourceTree = "<group>"; };
+		7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumUtilities.swift; sourceTree = "<group>"; };
+		7C881DAB1A76E20B0017B785 /* Scrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrypt.swift; sourceTree = "<group>"; };
+		7C881DAD1A76E22D0017B785 /* EnScrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScrypt.swift; sourceTree = "<group>"; };
 		7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectHelper.swift; sourceTree = "<group>"; };
 		7CA20BBF1A72E1580021B631 /* Stash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
 		7CA20BC21A73ED830021B631 /* IdentityGenerationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityGenerationViewController.swift; sourceTree = "<group>"; };
@@ -143,7 +152,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				7CA20BBB1A72C9970021B631 /* SodiumWrapper.swift */,
+				7C881DA21A76E0FB0017B785 /* Crypto */,
 				7C2B90211A280633009F0589 /* Extentions */,
 				7C2B90201A280618009F0589 /* Entropy Havesting */,
 			);
@@ -170,6 +179,19 @@
 				7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */,
 			);
 			name = Extentions;
+			sourceTree = "<group>";
+		};
+		7C881DA21A76E0FB0017B785 /* Crypto */ = {
+			isa = PBXGroup;
+			children = (
+				7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */,
+				7C881DA31A76E14F0017B785 /* Ed25519.swift */,
+				7C881DA51A76E1880017B785 /* HmacSha256.swift */,
+				7C881DA71A76E1B00017B785 /* Sha512.swift */,
+				7C881DAB1A76E20B0017B785 /* Scrypt.swift */,
+				7C881DAD1A76E22D0017B785 /* EnScrypt.swift */,
+			);
+			name = Crypto;
 			sourceTree = "<group>";
 		};
 		7CA20BC11A73ED380021B631 /* Controllers */ = {
@@ -409,8 +431,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */,
 				7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */,
+				7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */,
 				7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */,
+				7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */,
+				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
@@ -420,12 +446,13 @@
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
 				7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
-				7CA20BBC1A72C9970021B631 /* SodiumWrapper.swift in Sources */,
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
 				7C2AF2B31A72B45C00B48192 /* Identity.swift in Sources */,
 				7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,
 				7CA20BC01A72E1580021B631 /* Stash.swift in Sources */,
+				7C881DA41A76E14F0017B785 /* Ed25519.swift in Sources */,
+				7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */,
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
@@ -437,7 +464,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7C5C1E481A75D593009B92F7 /* SodiumWrapper.swift in Sources */,
 				7CA20BCB1A7436B60021B631 /* StashSingletonTests.swift in Sources */,
 				7C5C1E471A75D511009B92F7 /* ScryptTests.swift in Sources */,
 				7C87AAA51A28347200DC3EC7 /* NSDataFromMultipleObjects.swift in Sources */,
