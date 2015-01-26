@@ -144,6 +144,10 @@ class sha512 {
 
 class SodiumUtilities {
     
+    class func initialiseSodium() {
+        sodium_init()
+    }
+    
     class func randomBytes(length: Int) -> NSData?
     {
         if length > 0 {
@@ -157,5 +161,70 @@ class SodiumUtilities {
         }
         
         return nil
+    }
+}
+
+class Scrypt {
+    
+    class var MaxSaltBytes :Int { return Int(crypto_pwhash_scryptsalsa208sha256_saltbytes()) }
+    
+    
+    class func salsa208Sha256(password: NSData?, salt: NSData?, N: UInt64, r: UInt32, p: UInt32) -> NSMutableData?
+    {
+        if salt?.length <= MaxSaltBytes
+        {
+            let passwordLength = password?.length ?? 0
+            let saltLength     = salt?.length ?? 0
+            
+            if let out = NSMutableData(length: MaxSaltBytes) {
+                
+                var passwordPtr = (password != nil) ? UnsafeMutablePointer<UInt8>(password!.bytes) : nil
+                var saltPtr     = (salt != nil)     ? UnsafeMutablePointer<UInt8>(salt!.bytes)     : nil
+                var outPtr      = UnsafeMutablePointer<UInt8>(out.bytes)
+                
+                if crypto_pwhash_scryptsalsa208sha256_ll(passwordPtr, UInt(passwordLength), saltPtr, UInt(saltLength), N, r, p, outPtr, UInt(MaxSaltBytes)) == SodiumSuccess {
+                    return out
+                }
+            }
+        }
+        
+        return nil
+    }
+}
+
+class EnScrypt {
+    
+    class func salsa208Sha256(password: NSData?, var salt: NSData?, N: UInt64, r: UInt32, p: UInt32, i: Int) -> NSData?
+    {
+        var finalOut: NSMutableData?
+        var finalOutPtr: UnsafeMutablePointer<UInt8>?
+        
+        for x in 1...i {
+            
+            if let out = Scrypt.salsa208Sha256(password, salt: salt, N: N, r: r, p: p) {
+                
+                // set new salt as output of last Scrypt
+                salt = out.mutableCopy() as? NSData
+                
+                // if first cycle then store initial out into final and get pointer
+                if x == 1 {
+                    finalOut    = out.mutableCopy() as? NSMutableData
+                    finalOutPtr = UnsafeMutablePointer<UInt8>(finalOut!.bytes)
+                }
+                // else, XOR the out with the running finalOut and store back into out
+                else {
+                    var outPtr = UnsafeMutablePointer<UInt8>(out.bytes)
+                    for byte in 0..<out.length {
+                        finalOutPtr![byte] = finalOutPtr![byte] ^ outPtr[byte]
+                    }
+                }
+            }
+            else
+            {
+                return nil
+            }
+        }
+        
+        return finalOut
     }
 }
