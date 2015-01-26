@@ -21,76 +21,24 @@ class ScryptTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
         super.tearDown()
     }
-
-    func testEnscrypt() {
+    
+    func testScryptPasswordNilSaltNilN512r256p1() {
+        let expectedOut :[UInt8] = [
+            0xa8, 0xea, 0x62, 0xa6, 0xe1, 0xbf, 0xd2, 0x0e,
+            0x42, 0x75, 0x01, 0x15, 0x95, 0x30, 0x7a, 0xa3,
+            0x02, 0x64, 0x5c, 0x18, 0x01, 0x60, 0x0e, 0xf5,
+            0xcd, 0x79, 0xbf, 0x9d, 0x88, 0x4d, 0x91, 0x1c
+        ]
+        let expectedOutData = NSData(bytes: expectedOut, length: expectedOut.count)
         
-        let password = "passsord"
-        let iterations = 100
-        
-       // let password = password.dataUsingEncoding(UTF8, allowLossyConversion: false)
-        // check for nil notat end of string and add nil terminator char
-        
-        
-        if var finalOut = NSMutableData(length: Int(32)) {
-            if var out = NSMutableData(length: Int(32)) {
-                if var salt = NSMutableData(length: 0) {
-                    
-                    var finalOutPtr = UnsafeMutablePointer<UInt8>(finalOut.bytes)
-                    var outPtr = UnsafeMutablePointer<UInt8>(out.bytes)
-                    var saltPtr = UnsafeMutablePointer<UInt8>(salt.bytes)
-                    
-                    for i in 1...iterations {
-                        crypto_pwhash_scryptsalsa208sha256_ll(nil, UInt(0), saltPtr, UInt(salt.length), UInt64(512), UInt32(256), UInt32(1), outPtr, UInt(out.length))
-                        
-                        salt = out.mutableCopy() as NSMutableData
-                        saltPtr = UnsafeMutablePointer<UInt8>(salt.bytes)
-                        
-                        if i != 1 {
-                            for byte in 0..<finalOut.length {
-                                finalOutPtr[byte] = finalOutPtr[byte] ^ outPtr[byte]
-                            }
-                        } else {
-                            finalOut = out.mutableCopy() as NSMutableData
-                            finalOutPtr = UnsafeMutablePointer<UInt8>(finalOut.bytes)
-                        }
-                    }
-                }
+        if let actualOutData = Scrypt.salsa208Sha256(nil, salt: nil, N: UInt64(512), r: UInt32(256), p: UInt32(1)) {
+            
+            if expectedOutData.isEqualToData(actualOutData) {
+                XCTAssertTrue(true, "Pass")
+                return
             }
-            println(finalOut)
-        }
-    }
-    
-    func testXor() {
-        var bytes1 = [0b11111111, 0b11110000] as [UInt8]
-        var bytes2 = [0b00001001, 0b11111110] as [UInt8]
-        
-        var data1  = NSMutableData(bytes: bytes1, length: 2)
-        var data2  = NSMutableData(bytes: bytes2, length: 2)
-        var result = NSMutableData(length: 2)
-        
-        var dataPtr1 = UnsafeMutablePointer<UInt8>(data1.mutableBytes)
-        var dataPtr2 = UnsafeMutablePointer<UInt8>(data2.mutableBytes)
-        var resultPtr = UnsafeMutablePointer<UInt8>(result!.mutableBytes)
-        
-        for i in 0..<data1.length {
-            resultPtr[i] = dataPtr1[i] ^ dataPtr2[i]
         }
         
-        println(result)
+        XCTAssertTrue(false, "Scrypt.salsa208Sha256 returning incorrect data")
     }
-    
-    func testScrypt() {
-        
-        
-        let out = Scrypt.salsa208Sha256(nil, salt: nil, N: UInt64(512), r: UInt32(256), p: UInt32(1))
-    }
-    
-    func testEnScrypt() {
-        let password = "password"
-        let passwordData = password.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)
-        let saltData = NSMutableData(length: 32)
-        
-        println(EnScrypt.salsa208Sha256(passwordData, salt: saltData, N: UInt64(512), r: UInt32(256), p: UInt32(1), i: 123))
-    }
-
 }

@@ -27,6 +27,7 @@
 		7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
 		7C5C1E471A75D511009B92F7 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E461A75D511009B92F7 /* ScryptTests.swift */; };
 		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
+		7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7A5D071A76F2500062515A /* EnScryptTests.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
 		7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */; };
@@ -90,6 +91,7 @@
 		7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityHolderProtocol.swift; sourceTree = "<group>"; };
 		7C5C1E461A75D511009B92F7 /* ScryptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScryptTests.swift; sourceTree = "<group>"; };
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
+		7C7A5D071A76F2500062515A /* EnScryptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScryptTests.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7C881DA31A76E14F0017B785 /* Ed25519.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ed25519.swift; sourceTree = "<group>"; };
 		7C881DA51A76E1880017B785 /* HmacSha256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HmacSha256.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */,
 				7CA20BCA1A7436B60021B631 /* StashSingletonTests.swift */,
 				7C5C1E461A75D511009B92F7 /* ScryptTests.swift */,
+				7C7A5D071A76F2500062515A /* EnScryptTests.swift */,
 				7CCCFB9519685D9200DF3442 /* Supporting Files */,
 			);
 			path = stashTests;
@@ -477,6 +480,7 @@
 				7C87AAA51A28347200DC3EC7 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B90231A2806E2009F0589 /* CoreMotionSingletonTests.swift in Sources */,
 				7C881DB41A76E2D20017B785 /* Scrypt.swift in Sources */,
+				7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,
 				7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,

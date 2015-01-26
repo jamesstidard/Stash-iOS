@@ -21,12 +21,5 @@ class StashSingletonTests: XCTestCase {
             XCTAssertTrue(false, "CoreMotion singleton extention creates multiple instances")
         }
     }
-    
-//    func testKVOonContext() {
-//        let stash = Stash.sharedInstance
-//        stash.addObserver(self, forKeyPath: "context", options: .New, context: nil)
-//        
-//        
-//    }
 
 }
