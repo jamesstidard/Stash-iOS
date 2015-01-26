@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 James Stidard. All rights reserved.
 //
 
-import Cocoa
 import XCTest
 
 class EnScryptTests: XCTestCase {
