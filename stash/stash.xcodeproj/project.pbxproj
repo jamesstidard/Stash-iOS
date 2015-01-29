@@ -58,6 +58,8 @@
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
+		7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
+		7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -112,6 +114,7 @@
 		7CCCFB8B19685D9200DF3442 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7CCCFB9119685D9200DF3442 /* stashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB9619685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataXOR.swift; sourceTree = "<group>"; };
 		7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stash-bridging-header.h"; sourceTree = "<group>"; };
 		E74BAC5D4020597919028F4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F68D602F74D33DC7D38BAA36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +163,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7CED8BB31A7AA8E5004C4B56 /* Operators */,
 				7C881DA21A76E0FB0017B785 /* Crypto */,
 				7C2B90211A280633009F0589 /* Extentions */,
 				7C2B90201A280618009F0589 /* Entropy Havesting */,
@@ -287,6 +291,14 @@
 				7CCCFB9619685D9200DF3442 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		7CED8BB31A7AA8E5004C4B56 /* Operators */ = {
+			isa = PBXGroup;
+			children = (
+				7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */,
+			);
+			name = Operators;
 			sourceTree = "<group>";
 		};
 		B1851165B4B387A99B892941 /* Pods */ = {
@@ -449,6 +461,7 @@
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
+				7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */,
 				7C2B902A1A281DD0009F0589 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B902C1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift in Sources */,
 				7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */,
@@ -490,6 +503,7 @@
 				7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */,
 				7CA20BD41A7448130021B631 /* EntropyMachineTests.swift in Sources */,
 				7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */,
+				7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */,
 				7C881DB31A76E2D20017B785 /* Sha512.swift in Sources */,
 				7C881DB21A76E2D20017B785 /* HmacSha256.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
