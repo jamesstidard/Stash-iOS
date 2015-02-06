@@ -4,3 +4,4 @@ platform :ios, "8.0"
 link_with 'stash', 'stashTests'
 
 pod 'libsodium', '< 2.0'
+pod 'OpenSSL', '~> 1.0'
