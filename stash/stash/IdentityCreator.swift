@@ -50,8 +50,11 @@ extension Identity
         let rescueCodeSeed = seed.subdataWithRange(NSRange(location: 32, length: 32))
         
         // get ascii 24 digit string
+        let rescueCode          = NSString.rescueCodeFromData(rescueCodeSeed)
+        let rescueCodeASCIIData = rescueCode?.dataUsingEncoding(NSASCIIStringEncoding)
         
         // generate salt 32 byte salt
+        let unlockKeySalt = SodiumUtilities.randomBytes(32)
         
         // enscrypt ascii string with salt to generate encryption key for unlockKey
         

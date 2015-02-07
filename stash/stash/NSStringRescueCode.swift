@@ -10,7 +10,7 @@ import Foundation
 
 extension NSString {
     
-    func rescueCodeFrom(data: NSData) -> NSString?
+    class func rescueCodeFromData(data: NSData) -> NSString?
     {
         let RescueCodeLength = 24
         
