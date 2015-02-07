@@ -60,6 +60,9 @@
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
 		7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
 		7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
+		7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF30151A85D05700906534 /* NSStringRescueCode.swift */; };
+		7CEF301C1A85D30300906534 /* BigNumberArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */; };
+		7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -115,6 +118,9 @@
 		7CCCFB9119685D9200DF3442 /* stashTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = stashTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7CCCFB9619685D9200DF3442 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataXOR.swift; sourceTree = "<group>"; };
+		7CEF30151A85D05700906534 /* NSStringRescueCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringRescueCode.swift; sourceTree = "<group>"; };
+		7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigNumberArithmetic.swift; sourceTree = "<group>"; };
+		7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataSecureZero.swift; sourceTree = "<group>"; };
 		7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stash-bridging-header.h"; sourceTree = "<group>"; };
 		E74BAC5D4020597919028F4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F68D602F74D33DC7D38BAA36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,8 +193,10 @@
 			children = (
 				7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */,
 				7C2B90291A281DD0009F0589 /* NSDataFromMultipleObjects.swift */,
+				7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */,
 				7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */,
 				7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */,
+				7CEF30151A85D05700906534 /* NSStringRescueCode.swift */,
 			);
 			name = Extentions;
 			sourceTree = "<group>";
@@ -196,12 +204,7 @@
 		7C881DA21A76E0FB0017B785 /* Crypto */ = {
 			isa = PBXGroup;
 			children = (
-				7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */,
-				7C881DA31A76E14F0017B785 /* Ed25519.swift */,
-				7C881DA51A76E1880017B785 /* HmacSha256.swift */,
-				7C881DA71A76E1B00017B785 /* Sha512.swift */,
-				7C881DAB1A76E20B0017B785 /* Scrypt.swift */,
-				7C881DAD1A76E22D0017B785 /* EnScrypt.swift */,
+				7CEF30171A85D1DD00906534 /* Sodium */,
 			);
 			name = Crypto;
 			sourceTree = "<group>";
@@ -297,8 +300,22 @@
 			isa = PBXGroup;
 			children = (
 				7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */,
+				7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */,
 			);
 			name = Operators;
+			sourceTree = "<group>";
+		};
+		7CEF30171A85D1DD00906534 /* Sodium */ = {
+			isa = PBXGroup;
+			children = (
+				7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */,
+				7C881DA31A76E14F0017B785 /* Ed25519.swift */,
+				7C881DA51A76E1880017B785 /* HmacSha256.swift */,
+				7C881DA71A76E1B00017B785 /* Sha512.swift */,
+				7C881DAB1A76E20B0017B785 /* Scrypt.swift */,
+				7C881DAD1A76E22D0017B785 /* EnScrypt.swift */,
+			);
+			name = Sodium;
 			sourceTree = "<group>";
 		};
 		B1851165B4B387A99B892941 /* Pods */ = {
@@ -457,7 +474,9 @@
 				7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */,
 				7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */,
 				7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */,
+				7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */,
 				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
+				7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
@@ -466,6 +485,7 @@
 				7C2B902C1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift in Sources */,
 				7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */,
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
+				7CEF301C1A85D30300906534 /* BigNumberArithmetic.swift in Sources */,
 				7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,

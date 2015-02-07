@@ -7,3 +7,4 @@
 //
 
 #import <libsodium/sodium.h>
+#import <OpenSSL/bn.h>

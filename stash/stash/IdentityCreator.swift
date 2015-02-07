@@ -15,12 +15,14 @@ extension Identity
 {
     class func createIdentity(let name: String, let seed: NSData, let context: NSManagedObjectContext) -> Identity?
     {
+        var identity: Identity?
+        
         if seed.length != 64 {
             return nil
         }
         
         // Use the first 256-bits (32bytes) for seeding the identity lock and unlock keypair
-        let identitySeed = NSData(bytes: seed.bytes, length: Ed25519.SeedBytes)
+        let identitySeed = seed.subdataWithRange(NSRange(location: 0, length: 32))
         
         if let keyPair = Ed25519.keyPairFromSeed(identitySeed) {
             
@@ -32,17 +34,43 @@ extension Identity
             if priorIdentity == nil
             {
                 // No Identity with the same name? Insert Identity
-                let identity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as Identity
+                let insertedIdentity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as Identity
                 
-                identity.name      = name;
-                identity.unlockKey = keyPair.secretKey
-                identity.lockKey   = keyPair.publicKey
+                insertedIdentity.name      = name;
+                insertedIdentity.unlockKey = keyPair.secretKey
+                insertedIdentity.lockKey   = keyPair.publicKey
                 
-                return identity
+                identity = insertedIdentity
             }
         }
         
-        return nil
+        
+        
+        // Use the second 256-bits (32bytes) for generating the rescue code
+        let rescueCodeSeed = seed.subdataWithRange(NSRange(location: 32, length: 32))
+        
+        // get ascii 24 digit string
+        
+        // generate salt 32 byte salt
+        
+        // enscrypt ascii string with salt to generate encryption key for unlockKey
+        
+        // GCM entrypt unlockKey, store and securly delete unencrypted unlockKey
+        
+        
+        // enHash UnlockKey to derive master key
+        
+        // generate anouther 32byte salt
+        
+        // enscrypt user identity password and salt to generate key for master key
+        
+        // 
+
+        
+        
+        
+        
+        return identity
     }
     
     
