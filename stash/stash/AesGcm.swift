@@ -10,68 +10,77 @@ import Foundation
 
 class AesGcm {
     
-    class func encrypt256(inout key: NSData, inout sensitiveData: NSData?, inout additionalData: NSData?, useIV: Bool) -> (cipherData: NSData, tag: NSData)?
+    class func encrypt256(inout key: NSData, inout sensitiveData posibleSensitiveData: NSData?, inout additionalData posibleAdditionalData: NSData?, iv posibleIv: NSData?, tagByteLength: Int) -> (cipherData: NSData?, tag: NSData?)?
     {
         let cipher  = EVP_aes_256_gcm()
         
         
-        if (key.length != 256) {
-            println("AesGcm.encrypt256 requies a key of 256 bytes")
+        if (key.length > 256) {
+            println("AesGcm.encrypt256 requies a key of 256 bytes or less")
             return nil
         }
         var keyPtr = UnsafeMutablePointer<UInt8>(key.bytes)
         
         
-        var ivData = NSData(bytes: nil, length: 0)
-        if useIV {
-            let ivSize  = EVP_CIPHER_iv_length(cipher)
-            if let randomData = SodiumUtilities.randomBytes(Int(ivSize)) {
-                ivData = randomData
-            }
-        }
-        var ivDataPtr = UnsafeMutablePointer<UInt8>(ivData.bytes)
-        
-        
         var context         = EVP_CIPHER_CTX_new()
-        var outLength :CInt = 0
-        var outData         = NSMutableData(length: sensitiveData!.length)
-        var outDataPtr      = UnsafeMutablePointer<UInt8>(outData!.bytes)
+        var outLength: CInt = 0
+        let cipherLength    = posibleSensitiveData?.length ?? 0
+        var cipherData      = NSMutableData(length: cipherLength)
+        var cipherDataPtr   = UnsafeMutablePointer<UInt8>(cipherData!.bytes)
         
         
-        // set cipher type and mode. default iv length 96-bits
-        if (EVP_EncryptInit_ex(context, cipher, nil, keyPtr, ivDataPtr) == 0) {
-            println("AesGcm.encrypt256 unable to initialise encryption")
+        // set cipher type and mode
+        if (EVP_EncryptInit_ex(context, cipher, nil, keyPtr, nil) == 0) {
+            println("AesGcm.encrypt256 unable to initialise encryption with Cipter and key")
             return nil
         }
         
-        if additionalData != nil
+        
+        
+        // set IV, if one
+        if let iv = posibleIv
         {
-            var additionalDataPtr = UnsafeMutablePointer<UInt8>(additionalData!.bytes)
+            // Set iv length to size of iv input
+            if (EVP_CIPHER_CTX_ctrl(context, EVP_CTRL_GCM_SET_IVLEN, Int32(iv.length), nil) == 0) {
+                println("AesGcm.encrypt256 unable to initialise encryption with IV")
+                return nil
+            }
+            
+            var ivPtr = UnsafeMutablePointer<UInt8>(iv.bytes)
+            if (EVP_EncryptInit_ex(context, nil, nil, nil, ivPtr) == 0) {
+                println("AesGcm.encrypt256 unable to initialise encryption with IV")
+                return nil
+            }
+        }
+        
+        if let additionalData = posibleAdditionalData
+        {
+            var additionalDataPtr = UnsafeMutablePointer<UInt8>(additionalData.bytes)
             
             // add additional data (nil in out to say it's aad)
-            if (EVP_EncryptUpdate(context, nil, &outLength, additionalDataPtr, Int32(additionalData!.length)) == 0) {
+            if (EVP_EncryptUpdate(context, nil, &outLength, additionalDataPtr, Int32(additionalData.length)) == 0) {
                 println("AesGcm.encrypt256 unable to update encryption with additional data")
                 return nil
             }
         }
         
-        if sensitiveData != nil
+        if let sensitiveData = posibleSensitiveData
         {
-            var sensitivDataPtr = UnsafeMutablePointer<UInt8>(sensitiveData!.bytes)
+            var sensitivDataPtr = UnsafeMutablePointer<UInt8>(sensitiveData.bytes)
             
             // encrypt sensitive data
-            if (EVP_EncryptUpdate(context, outDataPtr, &outLength, sensitivDataPtr, Int32(sensitiveData!.length)) == 0) {
+            if (EVP_EncryptUpdate(context, cipherDataPtr, &outLength, sensitivDataPtr, Int32(sensitiveData.length)) == 0) {
                 println("AesGcm.encrypt256 unable to update encryption with sensitive data")
                 return nil
             }
         }
         
-        if (EVP_EncryptFinal_ex(context, outDataPtr, &outLength) == 0) {
+        if (EVP_EncryptFinal_ex(context, cipherDataPtr, &outLength) == 0) {
             println("AesGcm.encrypt256 unable to finalise encryption")
             return nil
         }
         
-        var tag = NSMutableData(length: 16)
+        var tag = NSMutableData(length: tagByteLength)
         var tagPtr = UnsafeMutablePointer<UInt8>(tag!.bytes)
         if (EVP_CIPHER_CTX_ctrl(context, EVP_CTRL_GCM_GET_TAG, Int32(tag!.length), tagPtr) == 0) {
             println("AesGcm.encrypt256 unable to get tag for encrypted data")
@@ -84,74 +93,81 @@ class AesGcm {
         }
         
         
-        return (outData!, tag!)
+        return (cipherData, tag)
     }
     
     
-    class func decrypt256(inout key: NSData, inout cipherData: NSData?, inout additionalData: NSData?, inout iv: NSData?, tag: NSData?) -> Bool
+    class func decrypt256(inout key: NSData, inout cipherData posibleCipherData: NSData?, inout additionalData posibleAdditionalData: NSData?, inout iv posibleIv: NSData?, tag posibleTag: NSData?) -> Bool
     {
         let cipher  = EVP_aes_256_gcm()
         
         
-        if (key.length != 256) {
+        if (key.length > 256) {
             println("AesGcm.decrypt256 requies a key of 256 bytes")
             return false
         }
         var keyPtr = UnsafeMutablePointer<UInt8>(key.bytes)
         
         
-        var ivPtr :UnsafeMutablePointer<UInt8>!
-        if iv == nil {
-            ivPtr = UnsafeMutablePointer<UInt8>.alloc(1)
-        } else {
-            ivPtr = UnsafeMutablePointer<UInt8>(iv!.bytes)
-        }
-        
-        
         let context         = EVP_CIPHER_CTX_new()
         var outLength: CInt = 0
-        var cipherLength    = cipherData?.length ?? 0
-        let out             = NSMutableData(length: cipherLength)
-        var outPtr          = UnsafeMutablePointer<UInt8>(out!.mutableBytes)
+        var cipherLength    = posibleCipherData?.length ?? 0
+        var out             = posibleCipherData?.mutableCopy() as NSMutableData
+        var outPtr          = UnsafeMutablePointer<UInt8>(out.mutableBytes)
         
         
-        if (EVP_DecryptInit_ex(context, EVP_aes_256_gcm(), nil, keyPtr, ivPtr) == 0) {
+        if (EVP_DecryptInit_ex(context, EVP_aes_256_gcm(), nil, keyPtr, nil) == 0) {
             println("AesGcm.decrypt256 unable to initialise decryption")
             return false
         }
         
-        if tag != nil
+        // set IV, if one
+        if let iv = posibleIv
         {
-            var tagPtr = UnsafeMutablePointer<UInt8>(tag!.bytes)
+            // Set iv length to size of iv input
+            if (EVP_CIPHER_CTX_ctrl(context, EVP_CTRL_GCM_SET_IVLEN, Int32(iv.length), nil) == 0) {
+                println("AesGcm.encrypt256 unable to initialise encryption with IV")
+                return false
+            }
             
-            if (EVP_CIPHER_CTX_ctrl(context, EVP_CTRL_GCM_SET_TAG, Int32(tag!.length), tagPtr) == 0) {
+            var ivPtr = UnsafeMutablePointer<UInt8>(iv.bytes)
+            if (EVP_DecryptInit_ex(context, nil, nil, nil, ivPtr) == 0) {
+                println("AesGcm.encrypt256 unable to initialise encryption with IV")
+                return false
+            }
+        }
+        
+        if let tag = posibleTag
+        {
+            var tagPtr = UnsafeMutablePointer<UInt8>(tag.bytes)
+            
+            if (EVP_CIPHER_CTX_ctrl(context, EVP_CTRL_GCM_SET_TAG, Int32(tag.length), tagPtr) == 0) {
                 println("AesGcm.decrypt256 not attach AES-GCM tag")
                 return false
             }
         }
         
-        if additionalData != nil
+        if let additionalData = posibleAdditionalData
         {
-            var additionalDataPtr = UnsafeMutablePointer<UInt8>(additionalData!.bytes)
+            var additionalDataPtr = UnsafeMutablePointer<UInt8>(additionalData.bytes)
             
-            if (EVP_DecryptUpdate(context, nil, &outLength, additionalDataPtr, Int32(additionalData!.length)) == 0) {
+            if (EVP_DecryptUpdate(context, nil, &outLength, additionalDataPtr, Int32(additionalData.length)) == 0) {
                 println("AesGcm.decrypt256 could not update AES-GCM decryption with additional data")
                 return false
             }
         }
         
-        if cipherData != nil
+        if let cipherData = posibleCipherData
         {
-            var cipherDataPtr = UnsafeMutablePointer<UInt8>(cipherData!.bytes)
+            var cipherDataPtr = UnsafeMutablePointer<UInt8>(cipherData.bytes)
             
-            if (EVP_DecryptUpdate(context, outPtr, &outLength, cipherDataPtr, Int32(cipherData!.length)) == 0) {
+            if (EVP_DecryptUpdate(context, outPtr, &outLength, cipherDataPtr, Int32(cipherData.length)) == 0) {
                 println("AesGcm.decrypt256 could not update AES-GCM decryption with cipher data")
                 return false
             }
         }
         
         if (EVP_DecryptFinal_ex(context, outPtr, &outLength) <= 0) {
-            println("AesGcm.decrypt256 could not verify AES-GCM decryption")
             return false
         }
         
@@ -159,6 +175,8 @@ class AesGcm {
             println("AesGcm.decrypt256 unable to clean up context")
             return false
         }
+        
+        posibleCipherData = out
         
         return true
     }
