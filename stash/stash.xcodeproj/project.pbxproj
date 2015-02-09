@@ -70,6 +70,8 @@
 		7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF30151A85D05700906534 /* NSStringRescueCode.swift */; };
 		7CEF301C1A85D30300906534 /* BigNumberArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */; };
 		7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */; };
+		7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABA1A88C2EA0070D512 /* EnHash.swift */; };
+		7CF72ABD1A88C45E0070D512 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABC1A88C45E0070D512 /* Sha256.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -134,6 +136,8 @@
 		7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BigNumberArithmetic.swift; sourceTree = "<group>"; };
 		7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataSecureZero.swift; sourceTree = "<group>"; };
 		7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stash-bridging-header.h"; sourceTree = "<group>"; };
+		7CF72ABA1A88C2EA0070D512 /* EnHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnHash.swift; sourceTree = "<group>"; };
+		7CF72ABC1A88C45E0070D512 /* Sha256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
 		E74BAC5D4020597919028F4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F68D602F74D33DC7D38BAA36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -336,9 +340,11 @@
 				7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */,
 				7C881DA31A76E14F0017B785 /* Ed25519.swift */,
 				7C881DA51A76E1880017B785 /* HmacSha256.swift */,
+				7CF72ABC1A88C45E0070D512 /* Sha256.swift */,
 				7C881DA71A76E1B00017B785 /* Sha512.swift */,
 				7C881DAB1A76E20B0017B785 /* Scrypt.swift */,
 				7C881DAD1A76E22D0017B785 /* EnScrypt.swift */,
+				7CF72ABA1A88C2EA0070D512 /* EnHash.swift */,
 			);
 			name = Sodium;
 			sourceTree = "<group>";
@@ -503,6 +509,7 @@
 				7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */,
 				7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */,
 				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
+				7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */,
 				7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
@@ -525,6 +532,7 @@
 				7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */,
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
+				7CF72ABD1A88C45E0070D512 /* Sha256.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
 				7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */,
 				7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */,

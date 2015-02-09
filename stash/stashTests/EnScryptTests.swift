@@ -62,6 +62,8 @@ class EnScryptTests: XCTestCase {
     }
     
     func testEnScryptPasswordNilSaltNilN512r256p1i1000() {
+        println("INFO: This test can take upwards of 3 minutes to complete")
+        
         let expectedOut :[UInt8] = [
             0x3f, 0x67, 0x1a, 0xdf, 0x47, 0xd2, 0xb1, 0x74,
             0x4b, 0x1b, 0xf9, 0xb5, 0x02, 0x48, 0xcc, 0x71,

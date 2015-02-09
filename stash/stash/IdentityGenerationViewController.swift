@@ -51,7 +51,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         // Stop the harvester and get the seed
         if let seed = self.stopHarvesting() {
             if let context = Stash.sharedInstance.context {
-                identity = Identity.createIdentity(nameTextField.text, seed: seed, context: context)
+                let result = Identity.createIdentity(nameTextField.text, password: "password", seed: seed, context: context)
             }
         }
     }

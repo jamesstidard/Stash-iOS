@@ -10,7 +10,7 @@ import Foundation
 
 class AesGcm {
     
-    class func encrypt256(inout key: NSData, inout sensitiveData posibleSensitiveData: NSData?, inout additionalData posibleAdditionalData: NSData?, iv posibleIv: NSData?, tagByteLength: Int) -> (cipherData: NSData?, tag: NSData?)?
+    class func encrypt256(inout key: NSData, inout sensitiveData posibleSensitiveData: NSData?, var additionalData posibleAdditionalData: NSData?, var iv posibleIv: NSData?, tagByteLength: Int) -> (cipherData: NSData?, tag: NSData?)?
     {
         let cipher  = EVP_aes_256_gcm()
         
@@ -35,9 +35,11 @@ class AesGcm {
             return nil
         }
         
-        
-        
         // set IV, if one
+        if posibleIv == nil {
+            posibleIv = NSMutableData(length: 12)
+        }
+        
         if let iv = posibleIv
         {
             // Set iv length to size of iv input

@@ -13,10 +13,8 @@ let IdentityPropertyNameKey = "name"
 
 extension Identity
 {
-    class func createIdentity(let name: String, let seed: NSData, let context: NSManagedObjectContext) -> Identity?
+    class func createIdentity(let name: String, password: String, let seed: NSData, let context: NSManagedObjectContext) -> (identity: Identity, rescueCode: String)?
     {
-        var identity: Identity?
-        
         if seed.length != 64 {
             return nil
         }
@@ -34,46 +32,65 @@ extension Identity
             if priorIdentity == nil
             {
                 // No Identity with the same name? Insert Identity
-                let insertedIdentity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as Identity
+                let identity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as Identity
                 
-                insertedIdentity.name      = name;
-                insertedIdentity.unlockKey = keyPair.secretKey
-                insertedIdentity.lockKey   = keyPair.publicKey
+                identity.name      = name;
+                identity.unlockKey = keyPair.secretKey
+                identity.lockKey   = keyPair.publicKey
                 
-                identity = insertedIdentity
+                // Use the second 256-bits (32bytes) for generating the rescue code
+                let rescueCodeSeed = seed.subdataWithRange(NSRange(location: 32, length: 32))
+                
+                // get ascii 24 digit string
+                let rescueCode          = NSString.rescueCodeFromData(rescueCodeSeed)
+                let rescueCodeASCIIData = rescueCode?.dataUsingEncoding(NSASCIIStringEncoding)
+                
+                // generate salt 32 byte salt
+                if let salt = SodiumUtilities.randomBytes(32) {
+                    identity.unlockKeySalt = salt
+                    
+                    // enscrypt ascii string with salt to generate encryption key for unlockKey
+                    if var unlockEncryptionKey = EnScrypt.salsa208Sha256(rescueCodeASCIIData, salt: salt, N: 512, r: 256, p: 1, i: 1) {
+                        // GCM entrypt unlockKey, store and securly delete unencrypted unlockKey
+                        if let result = AesGcm.encrypt256(&unlockEncryptionKey, sensitiveData: &identity.unlockKey, additionalData: nil, iv: nil, tagByteLength: 16) {
+                            
+                            if let tag = result.tag {
+                                identity.encryptedUnlockKeyVerificationTag = tag
+                            }
+                            if let encryptedUnlockKey = result.cipherData {
+                                identity.encryptedUnlockKey = encryptedUnlockKey
+                            }
+                            
+                            // enHash UnlockKey to derive master key
+                            if let masterKey = EnHash.sha256(identity.unlockKey!, iterations: 16) {
+                                identity.masterKey = masterKey
+                            }
+                            
+                            // generate anouther 32byte salt and IV
+                            let passwordData = password.dataUsingEncoding(NSASCIIStringEncoding, allowLossyConversion: false)
+                            if let passwordSalt = SodiumUtilities.randomBytes(8) {
+                                identity.masterKeyPasswordSalt = passwordSalt
+                                
+                                // using salt and users password generate the key to encrypt with
+                                if let masterEncryptionKey = EnScrypt.salsa208Sha256(passwordData, salt: passwordSalt, N: 512, r: 256, p: 1, i: 1) {
+                                    
+                                    if let passwordVerfier = Sha256.hash(masterEncryptionKey) {
+                                        // just keep the lower 128 bits to verifify
+                                        identity.masterKeyPasswordVerifier = passwordVerfier.subdataWithRange(NSRange(location: 0, length: passwordVerfier.length/2))
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
+                    if rescueCode != nil {
+                        return (identity, rescueCode!)
+                    }
+                }
             }
         }
-        
-        
-        
-        // Use the second 256-bits (32bytes) for generating the rescue code
-        let rescueCodeSeed = seed.subdataWithRange(NSRange(location: 32, length: 32))
-        
-        // get ascii 24 digit string
-        let rescueCode          = NSString.rescueCodeFromData(rescueCodeSeed)
-        let rescueCodeASCIIData = rescueCode?.dataUsingEncoding(NSASCIIStringEncoding)
-        
-        // generate salt 32 byte salt
-        let unlockKeySalt = SodiumUtilities.randomBytes(32)
-        
-        // enscrypt ascii string with salt to generate encryption key for unlockKey
-        
-        // GCM entrypt unlockKey, store and securly delete unencrypted unlockKey
-        
-        
-        // enHash UnlockKey to derive master key
-        
-        // generate anouther 32byte salt
-        
-        // enscrypt user identity password and salt to generate key for master key
-        
-        // 
 
-        
-        
-        
-        
-        return identity
+        return nil
     }
     
     
