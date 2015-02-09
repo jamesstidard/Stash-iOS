@@ -18,7 +18,7 @@ class Ed25519 {
     class var SignBytes   :Int { return Int(crypto_sign_bytes()) }
     
     
-    class func keyPairFromSeed(let seed: NSData) -> (secretKey: NSData, publicKey: NSData)?
+    class func keyPairFromSeed(let seed: NSData) -> (secretKey: NSData?, publicKey: NSData)?
     {
         // Check seed is correct length
         if seed.length == SeedBytes {

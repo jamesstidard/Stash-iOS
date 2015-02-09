@@ -49,10 +49,22 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     
     @IBAction func continueButtonPressed(sender: UIButton) {
         // Stop the harvester and get the seed
-        if let seed = self.stopHarvesting() {
-            if let context = Stash.sharedInstance.context {
-                let result = Identity.createIdentity(nameTextField.text, password: "password", seed: seed, context: context)
-            }
+        if var seed = self.stopHarvesting() {
+            
+            // create a child context as making a identity can take a while
+            let backgroundContext           = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+            backgroundContext.performBlockAndWait({
+                backgroundContext.parentContext = Stash.sharedInstance.context
+            })
+            
+            let name     = nameTextField.text
+            var password = "password"
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+                if let result = Identity.createIdentity(name, password: &password, seed: &seed, context: backgroundContext) {
+                    self.identity = result.identity
+                }
+            })
+            
         }
     }
     

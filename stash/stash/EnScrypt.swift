@@ -8,7 +8,10 @@
 
 import Foundation
 
-
+let EnScryptDefaultNCost: UInt64           = 512
+let EnScryptDefaultRCost: UInt32           = 256
+let EnScryptDefaultParallelisation: UInt32 = 1
+let EnScryptDefaultIterations              = 50
 
 class EnScrypt {
     

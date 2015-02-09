@@ -10,7 +10,7 @@ import Foundation
 
 class AesGcm {
     
-    class func encrypt256(inout key: NSData, inout sensitiveData posibleSensitiveData: NSData?, var additionalData posibleAdditionalData: NSData?, var iv posibleIv: NSData?, tagByteLength: Int) -> (cipherData: NSData?, tag: NSData?)?
+    class func encrypt256(inout key: NSData, inout sensitiveData posibleSensitiveData: NSData?, var additionalData posibleAdditionalData: NSData?, inout iv posibleIv: NSData?, tagByteLength: Int) -> (cipherData: NSData?, tag: NSData?)?
     {
         let cipher  = EVP_aes_256_gcm()
         

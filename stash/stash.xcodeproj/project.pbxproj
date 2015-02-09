@@ -72,6 +72,12 @@
 		7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */; };
 		7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABA1A88C2EA0070D512 /* EnHash.swift */; };
 		7CF72ABD1A88C45E0070D512 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABC1A88C45E0070D512 /* Sha256.swift */; };
+		7CF72ACE1A8908A70070D512 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ACD1A8908A70070D512 /* Settings.swift */; };
+		7CF72AD91A8909790070D512 /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AD81A8909790070D512 /* SecureStore.swift */; };
+		7CF72ADB1A8909F80070D512 /* XORStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADA1A8909F80070D512 /* XORStore.swift */; };
+		7CF72ADD1A890A200070D512 /* GCMStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADC1A890A200070D512 /* GCMStore.swift */; };
+		7CF72ADF1A890DED0070D512 /* GCMStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */; };
+		7CF72AE31A891C2F0070D512 /* XORStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -138,6 +144,12 @@
 		7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stash-bridging-header.h"; sourceTree = "<group>"; };
 		7CF72ABA1A88C2EA0070D512 /* EnHash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnHash.swift; sourceTree = "<group>"; };
 		7CF72ABC1A88C45E0070D512 /* Sha256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sha256.swift; sourceTree = "<group>"; };
+		7CF72ACD1A8908A70070D512 /* Settings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		7CF72AD81A8909790070D512 /* SecureStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStore.swift; sourceTree = "<group>"; };
+		7CF72ADA1A8909F80070D512 /* XORStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStore.swift; sourceTree = "<group>"; };
+		7CF72ADC1A890A200070D512 /* GCMStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCMStore.swift; sourceTree = "<group>"; };
+		7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCMStoreCreator.swift; sourceTree = "<group>"; };
+		7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreCreator.swift; sourceTree = "<group>"; };
 		E74BAC5D4020597919028F4D /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		F68D602F74D33DC7D38BAA36 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -168,8 +180,13 @@
 				7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */,
 				7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */,
 				7C2AF2B21A72B45C00B48192 /* Identity.swift */,
-				7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */,
-				7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */,
+				7CF72AD81A8909790070D512 /* SecureStore.swift */,
+				7CF72ADA1A8909F80070D512 /* XORStore.swift */,
+				7CF72ADC1A890A200070D512 /* GCMStore.swift */,
+				7CF72ACD1A8908A70070D512 /* Settings.swift */,
+				7CF72AE41A891C610070D512 /* Identity */,
+				7CF72AE51A891C770070D512 /* XORStore */,
+				7CF72AE61A891C8E0070D512 /* GCMStore */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -349,6 +366,31 @@
 			name = Sodium;
 			sourceTree = "<group>";
 		};
+		7CF72AE41A891C610070D512 /* Identity */ = {
+			isa = PBXGroup;
+			children = (
+				7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */,
+				7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */,
+			);
+			name = Identity;
+			sourceTree = "<group>";
+		};
+		7CF72AE51A891C770070D512 /* XORStore */ = {
+			isa = PBXGroup;
+			children = (
+				7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */,
+			);
+			name = XORStore;
+			sourceTree = "<group>";
+		};
+		7CF72AE61A891C8E0070D512 /* GCMStore */ = {
+			isa = PBXGroup;
+			children = (
+				7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */,
+			);
+			name = GCMStore;
+			sourceTree = "<group>";
+		};
 		B1851165B4B387A99B892941 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -505,7 +547,11 @@
 				7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */,
 				7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */,
 				7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */,
+				7CF72ADD1A890A200070D512 /* GCMStore.swift in Sources */,
 				7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */,
+				7CF72ADB1A8909F80070D512 /* XORStore.swift in Sources */,
+				7CF72AE31A891C2F0070D512 /* XORStoreCreator.swift in Sources */,
+				7CF72ACE1A8908A70070D512 /* Settings.swift in Sources */,
 				7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */,
 				7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */,
 				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
@@ -521,6 +567,7 @@
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
 				7CEF301C1A85D30300906534 /* BigNumberArithmetic.swift in Sources */,
 				7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */,
+				7CF72AD91A8909790070D512 /* SecureStore.swift in Sources */,
 				7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */,
 				7CA1C9CE1A8730F600CC0A97 /* AesGcm.swift in Sources */,
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
@@ -533,6 +580,7 @@
 				7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */,
 				7C87AAA91A2834ED00DC3EC7 /* EntropyHarvester.swift in Sources */,
 				7CF72ABD1A88C45E0070D512 /* Sha256.swift in Sources */,
+				7CF72ADF1A890DED0070D512 /* GCMStoreCreator.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
 				7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */,
 				7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */,

@@ -49,7 +49,6 @@
                                 </state>
                                 <connections>
                                     <action selector="continueButtonPressed:" destination="dEm-bV-LLs" eventType="touchUpInside" id="E59-Rl-r6K"/>
-                                    <segue destination="2pF-wr-CV3" kind="show" id="3gO-cn-OUQ"/>
                                 </connections>
                             </button>
                         </subviews>
