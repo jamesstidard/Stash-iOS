@@ -10,4 +10,5 @@ import CoreData
 
 class GCMStore: SecureStore {
     @NSManaged var nonce: NSData
+    @NSManaged var identity: Identity
 }

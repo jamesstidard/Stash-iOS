@@ -9,5 +9,5 @@
 import CoreData
 
 class XORStore: SecureStore {
-    
+    @NSManaged var identity: Identity
 }

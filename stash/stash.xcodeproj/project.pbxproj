@@ -27,6 +27,18 @@
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
 		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
 		7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */; };
+		7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
+		7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
+		7C5A8D741A8B9B74004407C1 /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
+		7C5A8D751A8B9B74004407C1 /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABC1A88C45E0070D512 /* Sha256.swift */; };
+		7C5A8D761A8B9B74004407C1 /* Sha512.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA71A76E1B00017B785 /* Sha512.swift */; };
+		7C5A8D771A8B9B74004407C1 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
+		7C5A8D781A8B9B74004407C1 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
+		7C5A8D791A8B9B74004407C1 /* EnHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABA1A88C2EA0070D512 /* EnHash.swift */; };
+		7C5A8D7A1A8B9BA9004407C1 /* BigNumberArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */; };
+		7C5A8D7B1A8B9BAE004407C1 /* NSDataSecureZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */; };
+		7C5A8D7C1A8B9BAE004407C1 /* NSStringRescueCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF30151A85D05700906534 /* NSStringRescueCode.swift */; };
+		7C5A8D7D1A8B9BC8004407C1 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
 		7C5C1E3C1A755837009B92F7 /* QRScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */; };
 		7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */; };
 		7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */; };
@@ -48,12 +60,20 @@
 		7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
 		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
-		7C881DAF1A76E2CE0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
-		7C881DB01A76E2D20017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
-		7C881DB11A76E2D20017B785 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
-		7C881DB21A76E2D20017B785 /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
-		7C881DB31A76E2D20017B785 /* Sha512.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA71A76E1B00017B785 /* Sha512.swift */; };
-		7C881DB41A76E2D20017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
+		7C9336921A8B943A00D3E53B /* ManagedObjectContextTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */; };
+		7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
+		7C9336971A8B99F900D3E53B /* XORStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336961A8B99F900D3E53B /* XORStoreTests.swift */; };
+		7C9336981A8B9A5900D3E53B /* XORStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADA1A8909F80070D512 /* XORStore.swift */; };
+		7C9336991A8B9A5C00D3E53B /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AD81A8909790070D512 /* SecureStore.swift */; };
+		7C93369A1A8B9A6000D3E53B /* GCMStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADC1A890A200070D512 /* GCMStore.swift */; };
+		7C93369B1A8B9A6200D3E53B /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ACD1A8908A70070D512 /* Settings.swift */; };
+		7C93369C1A8B9A6600D3E53B /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B21A72B45C00B48192 /* Identity.swift */; };
+		7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
+		7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
+		7C93369F1A8B9A6E00D3E53B /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
+		7C9336A01A8B9A7100D3E53B /* XORStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */; };
+		7C9336A11A8B9A7100D3E53B /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
+		7C9336A21A8B9A7400D3E53B /* GCMStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */; };
 		7CA1C9CE1A8730F600CC0A97 /* AesGcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1C9CD1A8730F600CC0A97 /* AesGcm.swift */; };
 		7CA1C9CF1A874A5100CC0A97 /* AesGcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1C9CD1A8730F600CC0A97 /* AesGcm.swift */; };
 		7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
@@ -64,6 +84,8 @@
 		7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
 		7CA20BD41A7448130021B631 /* EntropyMachineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BD31A7448130021B631 /* EntropyMachineTests.swift */; };
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
+		7CB1ECD11A8BA9F700C57400 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
+		7CB1ECD21A8BAABD00C57400 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */; };
 		7CCCFB8A19685D9200DF3442 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8919685D9200DF3442 /* AppDelegate.swift */; };
 		7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CCCFB8B19685D9200DF3442 /* Images.xcassets */; };
 		7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
@@ -125,6 +147,9 @@
 		7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumUtilities.swift; sourceTree = "<group>"; };
 		7C881DAB1A76E20B0017B785 /* Scrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrypt.swift; sourceTree = "<group>"; };
 		7C881DAD1A76E22D0017B785 /* EnScrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScrypt.swift; sourceTree = "<group>"; };
+		7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextTestCase.swift; sourceTree = "<group>"; };
+		7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStoreAbstract.swift; sourceTree = "<group>"; };
+		7C9336961A8B99F900D3E53B /* XORStoreTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreTests.swift; sourceTree = "<group>"; };
 		7CA1C9CD1A8730F600CC0A97 /* AesGcm.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AesGcm.swift; sourceTree = "<group>"; };
 		7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectHelper.swift; sourceTree = "<group>"; };
 		7CA20BBF1A72E1580021B631 /* Stash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stash.swift; sourceTree = "<group>"; };
@@ -187,6 +212,7 @@
 				7CF72ADC1A890A200070D512 /* GCMStore.swift */,
 				7CF72ACD1A8908A70070D512 /* Settings.swift */,
 				7CF72AE41A891C610070D512 /* Identity */,
+				7C9336931A8B976200D3E53B /* SecureStore */,
 				7CF72AE51A891C770070D512 /* XORStore */,
 				7CF72AE61A891C8E0070D512 /* GCMStore */,
 			);
@@ -244,6 +270,14 @@
 				7CEF30171A85D1DD00906534 /* Sodium */,
 			);
 			name = Crypto;
+			sourceTree = "<group>";
+		};
+		7C9336931A8B976200D3E53B /* SecureStore */ = {
+			isa = PBXGroup;
+			children = (
+				7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */,
+			);
+			name = SecureStore;
 			sourceTree = "<group>";
 		};
 		7CA1C9CC1A87304100CC0A97 /* OpenSSL */ = {
@@ -331,6 +365,8 @@
 				7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */,
 				7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */,
 				7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */,
+				7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */,
+				7C9336961A8B99F900D3E53B /* XORStoreTests.swift */,
 				7CCCFB9519685D9200DF3442 /* Supporting Files */,
 			);
 			path = stashTests;
@@ -559,6 +595,7 @@
 				7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */,
 				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
 				7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */,
+				7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */,
 				7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */,
@@ -595,32 +632,53 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C5A8D771A8B9B74004407C1 /* Scrypt.swift in Sources */,
+				7C5A8D781A8B9B74004407C1 /* EnScrypt.swift in Sources */,
+				7C93369F1A8B9A6E00D3E53B /* SecureStoreAbstract.swift in Sources */,
 				7CA20BCB1A7436B60021B631 /* StashSingletonTests.swift in Sources */,
-				7C881DAF1A76E2CE0017B785 /* EnScrypt.swift in Sources */,
-				7C881DB01A76E2D20017B785 /* SodiumUtilities.swift in Sources */,
+				7C5A8D7B1A8B9BAE004407C1 /* NSDataSecureZero.swift in Sources */,
 				7CA1C9CF1A874A5100CC0A97 /* AesGcm.swift in Sources */,
 				7C5C1E471A75D511009B92F7 /* ScryptTests.swift in Sources */,
 				7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */,
+				7C5A8D791A8B9B74004407C1 /* EnHash.swift in Sources */,
+				7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */,
 				7C87AAA51A28347200DC3EC7 /* NSDataFromMultipleObjects.swift in Sources */,
+				7C5A8D761A8B9B74004407C1 /* Sha512.swift in Sources */,
 				7C2B90231A2806E2009F0589 /* CoreMotionSingletonTests.swift in Sources */,
-				7C881DB41A76E2D20017B785 /* Scrypt.swift in Sources */,
 				7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */,
+				7C93369A1A8B9A6000D3E53B /* GCMStore.swift in Sources */,
 				7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */,
+				7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */,
+				7C5A8D7C1A8B9BAE004407C1 /* NSStringRescueCode.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,
+				7C9336921A8B943A00D3E53B /* ManagedObjectContextTestCase.swift in Sources */,
 				7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */,
+				7C9336991A8B9A5C00D3E53B /* SecureStore.swift in Sources */,
+				7CB1ECD11A8BA9F700C57400 /* AppDelegate.swift in Sources */,
+				7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
+				7C9336A11A8B9A7100D3E53B /* XORStorePasswordManagement.swift in Sources */,
 				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
+				7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */,
 				7C87AAA61A28347F00DC3EC7 /* GyroHarvester.swift in Sources */,
-				7C881DB11A76E2D20017B785 /* Ed25519.swift in Sources */,
+				7C9336A01A8B9A7100D3E53B /* XORStoreCreator.swift in Sources */,
 				7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */,
 				7CA20BD41A7448130021B631 /* EntropyMachineTests.swift in Sources */,
+				7C5A8D7A1A8B9BA9004407C1 /* BigNumberArithmetic.swift in Sources */,
 				7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */,
+				7CB1ECD21A8BAABD00C57400 /* Model.xcdatamodeld in Sources */,
+				7C5A8D7D1A8B9BC8004407C1 /* NSManagedObjectHelper.swift in Sources */,
+				7C5A8D751A8B9B74004407C1 /* Sha256.swift in Sources */,
 				7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */,
-				7C881DB31A76E2D20017B785 /* Sha512.swift in Sources */,
-				7C881DB21A76E2D20017B785 /* HmacSha256.swift in Sources */,
+				7C93369B1A8B9A6200D3E53B /* Settings.swift in Sources */,
+				7C9336981A8B9A5900D3E53B /* XORStore.swift in Sources */,
+				7C93369C1A8B9A6600D3E53B /* Identity.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
+				7C9336A21A8B9A7400D3E53B /* GCMStoreCreator.swift in Sources */,
 				7C2B90241A280760009F0589 /* CoreMotionSingleton.swift in Sources */,
+				7C5A8D741A8B9B74004407C1 /* HmacSha256.swift in Sources */,
 				7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */,
+				7C9336971A8B99F900D3E53B /* XORStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -81,7 +81,7 @@ class AESGCMTests: XCTestCase {
                 for vector in configuration.vectors {
                     
                     // encrypt
-                    if let result = AesGcm.encrypt256(&vector.key!, sensitiveData: &vector.plainText, additionalData: vector.additionalData, iv: vector.iv, tagByteLength: configuration.tagLength/8) {
+                    if let result = AesGcm.encrypt256(&vector.key!, sensitiveData: &vector.plainText, additionalData: vector.additionalData, iv: &vector.iv, tagByteLength: configuration.tagLength/8) {
                         
                         // test tag output
                         if vector.tag != nil && result.tag != nil {

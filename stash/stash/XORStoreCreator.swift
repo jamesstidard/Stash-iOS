@@ -14,7 +14,7 @@ extension XORStore {
     
     class func createXORStore(inout sensitiveData: NSData, password: NSData, context: NSManagedObjectContext) -> XORStore? {
         
-        var newStore: XORStore?
+        var store: XORStore?
         
         if let var newKeyBundle = XORStore.makeKeyFromPassword(password) {
             
@@ -23,17 +23,22 @@ extension XORStore {
                 
                 // Create the new store and assign its properties
                 context.performBlockAndWait {
-                    newStore = NSEntityDescription.insertNewObjectForEntityForName(XORStoreClassNameKey, inManagedObjectContext: context) as? XORStore
-                    
-                    newStore?.ciphertext         = sensitiveData ^ newKeyBundle.key
-                    newStore?.scryptIterations   = newKeyBundle.i
-                    newStore?.scryptMemoryFactor = newKeyBundle.N
-                    newStore?.scryptSalt         = newKeyBundle.salt
-                    newStore?.verificationTag    = newKeyBundle.tag
+                    let newStore = NSEntityDescription.insertNewObjectForEntityForName(XORStoreClassNameKey, inManagedObjectContext: context) as XORStore
+                    println(newStore.description)
+//                    if let newStore = NSEntityDescription.insertNewObjectForEntityForName(XORStoreClassNameKey, inManagedObjectContext: context) as? XORStore {
+//                        
+                        newStore.ciphertext         = sensitiveData ^ newKeyBundle.key
+                        newStore.scryptIterations   = newKeyBundle.i
+                        newStore.scryptMemoryFactor = newKeyBundle.N
+                        newStore.scryptSalt         = newKeyBundle.salt
+                        newStore.verificationTag    = newKeyBundle.tag
+                        
+                        store = newStore
+//                    }
                 }
             }
         }
         
-        return newStore
+        return store
     }
 }
