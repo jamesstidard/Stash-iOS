@@ -35,4 +35,12 @@ class Scrypt {
         
         return nil
     }
+    
+    class func rValueFrom(N: UInt64) -> UInt32? {
+        // N needs to be of power 2
+        if (N%2==0 && N>1) {
+            return UInt32(N*2/(256/64))
+        }
+        return nil
+    }
 }

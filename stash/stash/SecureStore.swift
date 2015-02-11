@@ -10,8 +10,8 @@ import CoreData
 
 class SecureStore: NSManagedObject {
     @NSManaged var ciphertext: NSData
-    @NSManaged var scryptIterations: Int64
-    @NSManaged var scryptMemoryFactor: Int64
+    @NSManaged var scryptIterations: Int
+    @NSManaged var scryptMemoryFactor: UInt64
     @NSManaged var scryptSalt: NSData
     @NSManaged var verificationTag: NSData
 }

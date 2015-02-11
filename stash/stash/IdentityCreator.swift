@@ -79,11 +79,11 @@ extension Identity
                 
                 if let newIdentity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as? Identity {
                     
-                    newIdentity.name = name
-                    newIdentity.lockKey = lockKey
+                    newIdentity.name      = name
+                    newIdentity.lockKey   = lockKey
                     newIdentity.masterKey = securedMasterKey!
                     newIdentity.unlockKey = securedUnlockKey!
-                    
+
                     bundle = (newIdentity, rescueCodeBundle!.string)
                 }
             })

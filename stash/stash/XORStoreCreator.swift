@@ -51,8 +51,8 @@ extension XORStore {
             newStore = NSEntityDescription.insertNewObjectForEntityForName(XORStoreClassNameKey, inManagedObjectContext: context) as XORStore
             
             newStore.ciphertext         = ciphertext
-            newStore.scryptIterations   = Int64(i)
-            newStore.scryptMemoryFactor = Int64(N)
+            newStore.scryptIterations   = i
+            newStore.scryptMemoryFactor = N
             newStore.scryptSalt         = salt!
             newStore.verificationTag    = verificationTag!
         }
