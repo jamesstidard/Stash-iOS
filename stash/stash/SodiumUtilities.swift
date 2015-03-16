@@ -22,7 +22,7 @@ class SodiumUtilities {
             
             if var bytes = NSMutableData(length: length) {
                 var bytesPtr = UnsafeMutablePointer<UInt8>(bytes.bytes)
-                randombytes_buf(bytesPtr, UInt(length))
+                randombytes_buf(bytesPtr, length)
                 return bytes
             }
         }

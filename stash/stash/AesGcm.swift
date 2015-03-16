@@ -114,7 +114,7 @@ class AesGcm {
         let context         = EVP_CIPHER_CTX_new()
         var outLength: CInt = 0
         var cipherLength    = posibleCipherData?.length ?? 0
-        var out             = posibleCipherData?.mutableCopy() as NSMutableData
+        var out             = posibleCipherData?.mutableCopy() as! NSMutableData
         var outPtr          = UnsafeMutablePointer<UInt8>(out.mutableBytes)
         
         

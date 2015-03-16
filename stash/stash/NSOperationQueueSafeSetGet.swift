@@ -12,7 +12,7 @@ extension NSOperationQueue {
     
     func safelySet(setBlock: () -> Void) {
         
-        let setOperation = NSBlockOperation(setBlock)
+        let setOperation = NSBlockOperation(block: setBlock)
         
         self.addOperationWith(qualityOfService: .UserInitiated,
                                       priority: .VeryHigh,

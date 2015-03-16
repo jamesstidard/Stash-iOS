@@ -17,11 +17,13 @@ class ManagedObjectContextTestCase: XCTestCase {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         
-        let bundle  = NSBundle(forClass: ManagedObjectContextTestCase.self)
+        let bundle  = NSBundle(forClass: Stash.self)
         if let modelURL = bundle.URLForResource("Model", withExtension: "momd") {
-            if let model = NSManagedObjectModel(contentsOfURL: modelURL) {
+            if let model = NSManagedObjectModel(contentsOfURL: modelURL)?.copy() as? NSManagedObjectModel {
+//                (model.entities as! [NSEntityDescription]).map{$0.managedObjectClassName = "stash.\($0.managedObjectClassName)"}
                 let coord = NSPersistentStoreCoordinator(managedObjectModel: model)
                 let store = coord.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil, error: nil)
+
                 let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
                 context.persistentStoreCoordinator = coord
                 self.context = context

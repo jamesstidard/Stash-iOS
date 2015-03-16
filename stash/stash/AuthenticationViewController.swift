@@ -33,8 +33,11 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
     {
         if keyPath == StashPropertyContextKey {
+            self.context = stash.context
+            
             contextContracts?.map { $0.context = self.context } // Pass everyone the belated context
             contextContracts = nil
+            
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
@@ -43,7 +46,7 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var destinationVC = segue.destinationViewController as UIViewController
+        var destinationVC = segue.destinationViewController as! UIViewController
         
         // upwrap navigation controllers
         if let navigationController = destinationVC as? UINavigationController {

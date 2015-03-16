@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cxn-lT-0OS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7525" systemVersion="14C1510" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cxn-lT-0OS">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7516"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
@@ -110,7 +110,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amF-lu-JG5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="pFo-UL-OCa" kind="embed" id="Vke-Sy-YeG"/>
+                                    <segue destination="pFo-UL-OCa" kind="embed" identifier="ScannerViewControllerSegue" id="Vke-Sy-YeG"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
@@ -140,7 +140,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="D0V-m0-bm2" kind="show" id="svv-OO-E0c"/>
+                        <segue destination="D0V-m0-bm2" kind="show" identifier="identitiesListSegue" id="svv-OO-E0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -212,7 +212,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="ZkI-Tv-HsZ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ZkI-Tv-HsZ">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZkI-Tv-HsZ" id="lJA-ys-K5g">
                                     <autoresizingMask key="autoresizingMask"/>
@@ -225,7 +225,7 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <segue destination="zzm-BE-xgg" kind="show" id="9d5-yE-5R3"/>
+                        <segue destination="zzm-BE-xgg" kind="show" identifier="identityDetailSegue" id="9d5-yE-5R3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mK6-4Y-RgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -26,7 +26,7 @@ extension NSOperationQueue {
                         waitUntilFinished wait: Bool,
                                          block: () -> Void)
     {
-        let operationBlock = NSBlockOperation(block)
+        let operationBlock = NSBlockOperation(block: block)
         
         operationBlock.qualityOfService = qos
         operationBlock.queuePriority    = priority

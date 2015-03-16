@@ -12,6 +12,6 @@ extension NSData {
     
     func secureMemZero() {
         let selfPtr = UnsafeMutablePointer<UInt8>(self.bytes)
-        sodium_memzero(selfPtr, UInt(self.length * sizeof(UInt8)))
+        sodium_memzero(selfPtr, self.length * sizeof(UInt8))
     }
 }

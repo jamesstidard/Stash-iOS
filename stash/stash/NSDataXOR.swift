@@ -10,7 +10,7 @@ import Foundation
 
 infix operator ^ { associativity left precedence 140 }
 func ^(left: NSData, right: NSData) -> NSData {
-    var result    = left.mutableCopy() as NSMutableData
+    var result    = left.mutableCopy() as! NSMutableData
     var resultPtr = UnsafeMutablePointer<UInt8>(result.bytes)
     var rightPtr  = UnsafeMutablePointer<UInt8>(right.bytes)
     var leftPtr   = UnsafeMutablePointer<UInt8>(left.bytes)
@@ -23,7 +23,7 @@ func ^(left: NSData, right: NSData) -> NSData {
 }
 
 func ^(left: NSMutableData, right: NSMutableData) -> NSMutableData {
-    var result    = left.mutableCopy() as NSMutableData
+    var result    = left.mutableCopy() as! NSMutableData
     var resultPtr = UnsafeMutablePointer<UInt8>(result.bytes)
     var rightPtr  = UnsafeMutablePointer<UInt8>(right.bytes)
     var leftPtr   = UnsafeMutablePointer<UInt8>(left.bytes)

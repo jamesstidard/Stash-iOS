@@ -27,7 +27,7 @@ class Scrypt {
                 var saltPtr     = (salt != nil)     ? UnsafeMutablePointer<UInt8>(salt!.bytes)     : nil
                 var outPtr      = UnsafeMutablePointer<UInt8>(out.bytes)
                 
-                if crypto_pwhash_scryptsalsa208sha256_ll(passwordPtr, UInt(passwordLength), saltPtr, UInt(saltLength), N, r, p, outPtr, UInt(MaxSaltBytes)) == SodiumSuccess {
+                if crypto_pwhash_scryptsalsa208sha256_ll(passwordPtr, Int(passwordLength), saltPtr, Int(saltLength), N, r, p, outPtr, Int(MaxSaltBytes)) == SodiumSuccess {
                     return out
                 }
             }

@@ -44,11 +44,11 @@ extension GCMStore {
         var newStore: GCMStore!
         
         context.performBlockAndWait {
-            newStore = NSEntityDescription.insertNewObjectForEntityForName(GCMStoreClassNameKey, inManagedObjectContext: context) as GCMStore
+            newStore = NSEntityDescription.insertNewObjectForEntityForName(GCMStoreClassNameKey, inManagedObjectContext: context) as! GCMStore
             
             newStore.ciphertext         = resultBundle.cipherData!
-            newStore.scryptIterations   = i
-            newStore.scryptMemoryFactor = N
+            newStore.scryptIterations   = Int64(i)
+            newStore.scryptMemoryFactor = Int64(N)
             newStore.scryptSalt         = salt!
             newStore.verificationTag    = resultBundle.tag!
             newStore.nonce              = nonce!

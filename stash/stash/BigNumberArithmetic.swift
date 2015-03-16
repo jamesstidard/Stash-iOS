@@ -12,8 +12,8 @@ infix operator /% { associativity left precedence 140 }
 func /%(inout bigNumberData: NSMutableData, divisor: UInt32) -> UInt32 {
     
     // Get pointer to dividend data and allocate a big number type from it
-    var bigNumberDataPtr = UnsafeMutablePointer<Byte>(bigNumberData.mutableBytes)
-    var bigNumber        = BN_bin2bn(bigNumberDataPtr, Int32(bigNumberData.length * sizeof(Byte)), nil)
+    var bigNumberDataPtr = UnsafeMutablePointer<UInt8>(bigNumberData.mutableBytes)
+    var bigNumber        = BN_bin2bn(bigNumberDataPtr, Int32(bigNumberData.length * sizeof(UInt8)), nil)
     
     // Perform combined division/modulus operation
     let remainder = BN_div_word(bigNumber, divisor)
@@ -26,9 +26,9 @@ func /%(inout bigNumberData: NSMutableData, divisor: UInt32) -> UInt32 {
 }
 
 func /%(dividend: NSData, divisor: UInt32) -> (quotient: NSData, remainder: UInt32) {
-    var mutableQuatient = dividend.mutableCopy() as NSMutableData
+    var mutableQuatient = dividend.mutableCopy() as! NSMutableData
     let remainder       = &mutableQuatient /% divisor
-    let quotient        = mutableQuatient.copy() as NSData
+    let quotient        = mutableQuatient.copy() as! NSData
     
     mutableQuatient.secureMemZero()
     return (quotient, remainder)

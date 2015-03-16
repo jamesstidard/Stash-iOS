@@ -34,9 +34,9 @@ extension NSData {
         return data(usingLeastSignificantBytes: sizeof(T), fromValues: values)
     }
     
-    private class func toByteArray<T>(var value: T) -> [Byte] {
+    private class func toByteArray<T>(var value: T) -> [UInt8] {
         return withUnsafePointer(&value) {
-            Array(UnsafeBufferPointer(start: UnsafePointer<Byte>($0), count: sizeof(T)))
+            Array(UnsafeBufferPointer(start: UnsafePointer<UInt8>($0), count: sizeof(T)))
         }
     }
 }

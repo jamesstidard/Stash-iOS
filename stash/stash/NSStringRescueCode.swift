@@ -21,7 +21,7 @@ extension NSString {
         
         
         var rescueCode        = NSMutableString()
-        var dividend          = data.mutableCopy() as NSMutableData
+        var dividend          = data.mutableCopy() as! NSMutableData
         var remainder: UInt32 = 0
         
         for _ in 1...RescueCodeLength {

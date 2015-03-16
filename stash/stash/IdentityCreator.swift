@@ -41,20 +41,20 @@ extension Identity
             var securedUnlockKey: GCMStore?
             var securedMasterKey: XORStore?
             
-            let threadGroup = dispatch_group_create()
-            dispatch_group_enter(threadGroup)
-            dispatch_group_enter(threadGroup)
+//            let threadGroup = dispatch_group_create()
+//            dispatch_group_enter(threadGroup)
+//            dispatch_group_enter(threadGroup)
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
                 securedUnlockKey = GCMStore.createGCMStore(&unlockKey, password: rescueCodeBundle!.data, context: context)
-                dispatch_group_leave(threadGroup)
-            })
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
+//                dispatch_group_leave(threadGroup)
+//            })
+//            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
                 securedMasterKey = XORStore.createXORStore(&masterKey!, password: passwordData!, context: context)
-                dispatch_group_leave(threadGroup)
-            })
+//                dispatch_group_leave(threadGroup)
+//            })
         
-            dispatch_group_wait(threadGroup, DISPATCH_TIME_FOREVER)
+//            dispatch_group_wait(threadGroup, DISPATCH_TIME_FOREVER)
             
             if securedUnlockKey == nil || securedMasterKey == nil {
                 return nil
@@ -68,10 +68,11 @@ extension Identity
             rescueCodeBundle!.data.secureMemZero()
             
 
-            // Check if Identity with same name exists
+            
             var bundle: (identity: Identity, rescueCode: String)?
             
             context.performBlockAndWait({
+                // Check if Identity with same name exists
                 let predicate        = NSPredicate(format: "%K == %@", argumentArray: [IdentityPropertyNameKey, name])
                 if let priorIdentity = NSManagedObject.managedObjectWithEntityName(IdentityClassNameKey, predicate: predicate, context: context) {
                     return
@@ -108,7 +109,7 @@ extension Identity
             return nil
         }
         
-        return (rescueCodeString!, rescueCodeData!)
+        return (rescueCodeString! as String, rescueCodeData!)
     }
     
 }

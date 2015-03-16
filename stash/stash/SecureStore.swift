@@ -2,16 +2,19 @@
 //  SecureStore.swift
 //  stash
 //
-//  Created by James Stidard on 09/02/2015.
+//  Created by James Stidard on 11/02/2015.
 //  Copyright (c) 2015 James Stidard. All rights reserved.
 //
 
+import Foundation
 import CoreData
 
 class SecureStore: NSManagedObject {
+
     @NSManaged var ciphertext: NSData
-    @NSManaged var scryptIterations: Int
-    @NSManaged var scryptMemoryFactor: UInt64
+    @NSManaged var scryptIterations: Int64
+    @NSManaged var scryptMemoryFactor: Int64
     @NSManaged var scryptSalt: NSData
     @NSManaged var verificationTag: NSData
+
 }

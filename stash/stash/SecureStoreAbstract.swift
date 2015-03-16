@@ -28,8 +28,8 @@ extension SecureStore {
     }
     
     func keyFromPassword(password: NSData) -> NSData? {
-        let i = self.scryptIterations
-        let N = self.scryptMemoryFactor
+        let i = Int(self.scryptIterations)
+        let N = UInt64(self.scryptMemoryFactor)
         let r = Scrypt.rValueFrom(N)
         let p = EnScryptDefaultParallelisation
         
