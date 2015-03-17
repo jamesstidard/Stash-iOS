@@ -34,16 +34,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Identity Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kWb-XN-4oD">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Identity Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kWb-XN-4oD">
                                 <rect key="frame" x="16" y="102" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
-                                <rect key="frame" x="290" y="140" width="20" height="20"/>
-                            </activityIndicatorView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9A-y6-9nQ">
-                                <rect key="frame" x="269" y="168" width="62" height="30"/>
+                                <rect key="frame" x="269" y="214" width="62" height="30"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -51,15 +48,26 @@
                                     <action selector="continueButtonPressed:" destination="dEm-bV-LLs" eventType="touchUpInside" id="E59-Rl-r6K"/>
                                 </connections>
                             </button>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2S-nC-v7x">
+                                <rect key="frame" x="16" y="140" width="568" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            </textField>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
+                                <rect key="frame" x="290" y="186" width="20" height="20"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="centerX" secondItem="dGC-nt-BTE" secondAttribute="centerX" id="2db-wB-Eyp"/>
+                            <constraint firstItem="T2S-nC-v7x" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="PWp-Mt-OlN"/>
+                            <constraint firstItem="T2S-nC-v7x" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="Ttd-LY-TVS"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="g1d-8X-e21"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="top" secondItem="dGC-nt-BTE" secondAttribute="bottom" constant="8" id="gW6-7u-l4P"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="top" secondItem="F3a-fl-itp" secondAttribute="bottom" constant="38" id="m76-bq-u0Q"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="plY-jN-P8O"/>
-                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="ppd-NC-wh2"/>
+                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="T2S-nC-v7x" secondAttribute="bottom" constant="16" id="s8L-ws-aOq"/>
+                            <constraint firstItem="T2S-nC-v7x" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="sEj-JX-4sf"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="centerX" secondItem="kWb-XN-4oD" secondAttribute="centerX" id="z90-nt-iI8"/>
                         </constraints>
                     </view>
@@ -73,6 +81,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
+                        <outlet property="passwordTextField" destination="T2S-nC-v7x" id="FhV-Mq-LpC"/>
                         <segue destination="2pF-wr-CV3" kind="show" identifier="rescueCodeViewControllerSegue" id="ajj-Uq-363"/>
                     </connections>
                 </viewController>
@@ -141,7 +150,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <segue destination="D0V-m0-bm2" kind="show" identifier="identitiesListSegue" id="svv-OO-E0c"/>
+                        <segue destination="D0V-m0-bm2" kind="show" identifier="IdentitiesListSegue" id="svv-OO-E0c"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -21,6 +21,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     var identityBundle: (identity: Identity, rescueCode: String)?
     
     @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 
@@ -48,6 +49,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     }
     
     @IBAction func continueButtonPressed(sender: UIButton) {
+        sender.enabled = false
+        
         // Stop the harvester and get the seed
         if var seed = self.stopHarvesting() {
             
@@ -57,8 +60,9 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                 backgroundContext.parentContext = Stash.sharedInstance.context
             })
             
-            let name     = nameTextField.text
-            var password = "password"
+            let name     = nameTextField.text as String
+            var password = passwordTextField.text as String
+            
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
                 if let result = Identity.createIdentity(name, password: &password, seed: &seed, context: backgroundContext)
                 {
@@ -69,6 +73,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                         {
                             self.identityBundle = (identity, result.rescueCode)
                             self.performSegueWithIdentifier(RescueCodeSegueId, sender: nil)
+                            
+                            sender.enabled = true
                         }
                     })
                 }
