@@ -8,30 +8,25 @@
 
 import UIKit
 
+let RescueCodeSegueId = "rescueCodeViewControllerSegue"
+
 class RescueCodeViewController: UIViewController, IdentityHolder {
     
-    weak var identity: Identity?
+    @IBOutlet weak var rescueCodeLabel: UILabel!
+    
+    var identity: Identity?
+    var rescueCode: String?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        self.rescueCodeLabel.text = self.rescueCode
     }
     
 
     @IBAction func doneButtonPressed(sender: AnyObject) {
-        identity?.managedObjectContext?.performBlock({ () -> Void in
-            var error: NSError?
-            self.identity?.managedObjectContext?.save(&error)
-            if error != nil {
-                NSLog("Error saving context: \(error?.description)")
-            }
-        })
+        var error: NSError?
+        self.identity?.managedObjectContext?.saveUpParentHierarchyAndWait(&error)
         dismissViewControllerAnimated(true, completion: nil)
     }
     /*

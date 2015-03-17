@@ -73,6 +73,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
+                        <segue destination="2pF-wr-CV3" kind="show" identifier="rescueCodeViewControllerSegue" id="ajj-Uq-363"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3G-2g-nOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -179,6 +180,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="rescueCodeLabel" destination="efH-vx-McV" id="JYk-kf-egw"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -21,8 +21,10 @@ extension XORStore {
     // change password
     func changePassword(oldPassword: NSData, newPassword: NSData) -> Bool {
         // try decrypt under old password
-        if let decryptedData = self.decryptCipherTextWithPassword(oldPassword),
-               newKeyBundle  = XORStore.makeKeyFromPassword(newPassword) {
+        if let
+            decryptedData = self.decryptCipherTextWithPassword(oldPassword),
+            newKeyBundle  = XORStore.makeKeyFromPassword(newPassword)
+        {
             // encrypt and store new cipher data under new key and update properties of new key
             self.ciphertext         = decryptedData ^ newKeyBundle.key
             self.scryptIterations   = Int64(newKeyBundle.i)

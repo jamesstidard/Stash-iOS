@@ -31,16 +31,17 @@ class Stash: NSObject {
     
     private func setupCoreDataStack() {
         // Create model object from data model
-        if let modelURL = mainBundle.URLForResource("Model", withExtension: "momd"),
-               (model, storeCoordinator) = Stash.createModelAndCoordinator(modelURL) {
-                
+        if let
+            modelURL                  = mainBundle.URLForResource("Model", withExtension: "momd"),
+            (model, storeCoordinator) = Stash.createModelAndCoordinator(modelURL)
+        {
             // BACKGROUND: Attach stores in background as reading from disk / performing migration can take a long time
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), { () -> Void in
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), {
                 let storeURL = Stash.persistentStoreDiskURL()
                 let store    = Stash.attachStore(storeURL, toStoreCoordinator: storeCoordinator)
                     
                 // MAIN QUEUE: callback to main queue and setup context
-                dispatch_sync(dispatch_get_main_queue(), { () -> Void in
+                dispatch_sync(dispatch_get_main_queue(), {
                     let context = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
                     context.persistentStoreCoordinator = storeCoordinator;
                         

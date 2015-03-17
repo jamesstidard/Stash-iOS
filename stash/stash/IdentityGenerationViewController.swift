@@ -18,7 +18,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
     lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)
     lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
-    var identity: Identity?
+    var identityBundle: (identity: Identity, rescueCode: String)?
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -52,7 +52,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         if var seed = self.stopHarvesting() {
             
             // create a child context as making a identity can take a while
-            let backgroundContext           = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+            let backgroundContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
             backgroundContext.performBlockAndWait({
                 backgroundContext.parentContext = Stash.sharedInstance.context
             })
@@ -60,8 +60,17 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
             let name     = nameTextField.text
             var password = "password"
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
-                if let result = Identity.createIdentity(name, password: &password, seed: &seed, context: backgroundContext) {
-                    self.identity = result.identity
+                if let result = Identity.createIdentity(name, password: &password, seed: &seed, context: backgroundContext)
+                {
+                    backgroundContext.save(nil)
+                    
+                    dispatch_sync(dispatch_get_main_queue(), {
+                        if let identity = self.context?.objectWithID(result.identity.objectID) as? Identity
+                        {
+                            self.identityBundle = (identity, result.rescueCode)
+                            self.performSegueWithIdentifier(RescueCodeSegueId, sender: nil)
+                        }
+                    })
                 }
             })
             
@@ -69,8 +78,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     }
     
     @IBAction func cancelButtonPressed(sender: UIBarButtonItem) {
-        if identity != nil {
-            context?.deleteObject(identity!)
+        if let identity = identityBundle?.identity {
+            context?.deleteObject(identity)
         }
         dismissViewControllerAnimated(true, completion: nil)
     }
@@ -80,8 +89,13 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let destinationVC = segue.destinationViewController as? IdentityHolder {
-            destinationVC.identity = identity
+        if let
+            destinationVC = segue.destinationViewController as? RescueCodeViewController,
+            identity      = self.identityBundle?.identity,
+            rescueCode    = self.identityBundle?.rescueCode
+        {
+            destinationVC.identity   = identity
+            destinationVC.rescueCode = rescueCode
         }
     }
     
