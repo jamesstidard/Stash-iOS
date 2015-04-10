@@ -7,8 +7,6 @@
 //
 import UIKit
 
-
-
 class IdentityViewController: UIViewController
 {
     static let StoryboardID = "IdentityViewController"
@@ -16,7 +14,11 @@ class IdentityViewController: UIViewController
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
-    weak var identity: Identity?
+    weak var identity: Identity? {
+        didSet {
+            self.nameLabel.text = identity?.name
+        }
+    }
     
     
     override func viewDidLoad() {
