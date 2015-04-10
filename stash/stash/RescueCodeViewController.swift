@@ -8,9 +8,9 @@
 
 import UIKit
 
-let RescueCodeSegueId = "rescueCodeViewControllerSegue"
-
 class RescueCodeViewController: UIViewController, IdentityHolder {
+    
+    static let SegueID = "rescueCodeViewControllerSegue"
     
     @IBOutlet weak var rescueCodeLabel: UILabel!
     

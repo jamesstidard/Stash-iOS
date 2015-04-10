@@ -9,9 +9,9 @@
 import UIKit
 import CoreData
 
-let IdentityCreationSegueId = "IdentityCreationSegue"
-
 class IdentityGenerationViewController: UIViewController, ContextDriven {
+    
+    static let SegueID = "IdentityCreationSegue"
     
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
@@ -77,7 +77,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                         if let identity = self.context?.objectWithID(result.identity.objectID) as? Identity
                         {
                             self.identityBundle = (identity, result.rescueCode)
-                            self.performSegueWithIdentifier(RescueCodeSegueId, sender: nil)
+                            self.performSegueWithIdentifier(RescueCodeViewController.SegueID, sender: nil)
                             
                             sender.enabled = true
                         }

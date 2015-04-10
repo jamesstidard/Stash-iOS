@@ -268,7 +268,7 @@
         <!--Identity View Controller-->
         <scene sceneID="ImD-Jg-xf4">
             <objects>
-                <viewController id="xp8-I1-ux5" customClass="IdentityViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="IdentityViewController" id="xp8-I1-ux5" customClass="IdentityViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="QjE-C4-ZdQ"/>
                         <viewControllerLayoutGuide type="bottom" id="JbT-hA-9wS"/>

@@ -7,8 +7,12 @@
 //
 import UIKit
 
+
+
 class IdentityViewController: UIViewController
 {
+    static let StoryboardID = "IdentityViewController"
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
