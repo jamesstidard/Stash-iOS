@@ -12,8 +12,8 @@ import CoreData
 class AuthenticationViewController: UIViewController, ContextDriven, IdentitySelectorViewControllerDelegate {
     
     let stash = Stash.sharedInstance
-    lazy var context :NSManagedObjectContext? = self.stash.context // give the context as much time as we can to initialise
-    lazy var contextContracts :[ContextDriven]? = [ContextDriven]()//If we spawn anything that needs a context while before it's been initilised, we add them to this list and pass that context once it is ready.
+    lazy var context :NSManagedObjectContext?   = self.stash.context // give the context as much time as we can to initialise
+    lazy var contextContracts :[ContextDriven]? = [ContextDriven]() //If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
     
     
     override func viewDidLoad() {
@@ -32,6 +32,7 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
     {
+        // If this is the context we've been waiting for, tell anyone we have contracts with and set it locally
         if keyPath == StashPropertyContextKey {
             self.context = stash.context
             
@@ -49,10 +50,11 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
         var destinationVC = segue.destinationViewController as! UIViewController
         
         // upwrap navigation controllers
-        if let navigationController = destinationVC as? UINavigationController {
-            if let rootVC = navigationController.viewControllers?[0] as? UIViewController {
+        if let
+            navigationController = destinationVC as? UINavigationController,
+            rootVC               = navigationController.viewControllers?[0] as? UIViewController
+        {
                 destinationVC = rootVC
-            }
         }
         
         // if requires a context pass it ours
@@ -61,6 +63,7 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
             (self.context != nil) ? vc.context = self.context : contextContracts?.append(vc)
         }
         
+        // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? IdentitySelectorViewController {
             vc.selectorDelegate = self
         }

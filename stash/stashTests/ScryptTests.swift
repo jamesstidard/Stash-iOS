@@ -14,7 +14,7 @@ class ScryptTests: XCTestCase {
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        SodiumUtilities.initialiseSodium()
+        SodiumUtilities.initialise()
     }
     
     override func tearDown() {
