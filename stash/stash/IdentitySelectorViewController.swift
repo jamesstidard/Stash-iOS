@@ -9,9 +9,12 @@
 import UIKit
 import CoreData
 
-let IdentitySelectorVCSegueId = "IdentitySelectorViewControllerSegue"
-
-class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsControllerDelegate, ContextDriven {
+class IdentitySelectorViewController: UIViewController,
+    NSFetchedResultsControllerDelegate,
+    ContextDriven,
+    UIPageViewControllerIndexTranslatorDelegate
+{
+    static let SegueID = "IdentitySelectorViewControllerSegue"
 
     var context :NSManagedObjectContext? {
         didSet {
@@ -19,7 +22,9 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
             identitiesFRC?.performFetch(nil)
         }
     }
-    var identitiesFRC: NSFetchedResultsController?
+    var identitiesFRC:         NSFetchedResultsController?
+    var pageVC:                UIPageViewController?
+    var pageVCTranslator:      UIPageViewControllerIndexTranslator?
     weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
     
     
@@ -49,22 +54,63 @@ class IdentitySelectorViewController: UIPageViewController, NSFetchedResultsCont
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
-        return
+    func numberOfPagesInPageViewController(pageViewController: UIPageViewController) -> Int
+    {
+        return self.identitiesFRC?.fetchedObjects?.count ?? 0
     }
     
-    
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAtIndex index: Int) -> UIViewController?
+    {
+        if let
+            identity   = self.identitiesFRC?.fetchedObjects?[index] as? Identity,
+            identityVC = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
+        
+        {
+            identityVC.identity = identity
+            return identityVC
+        }
+        return nil
     }
-    */
+    
+    var previousIdentity: Identity?
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    {
+        // If the controller is going to change, we dont want to change the currently prespented identity
+        let currentPage       = self.pageVCTranslator?.currentPage as? IdentityViewController
+        self.previousIdentity = currentPage?.identity
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        // if the previous identity is avalible in the updated array then focus that
+        if let
+            pageVC      = self.pageVC,
+            identities  = self.identitiesFRC?.fetchedObjects as? [Identity],
+            previous    = self.previousIdentity,
+            index       = find(identities, previous),
+            vcToDisplay = self.pageViewController(pageVC, viewControllerAtIndex: index)
+        {
+            pageVC.setViewControllers([vcToDisplay], direction: .Forward, animated: false, completion: nil)
+        }
+        // else focus the first identity
+        else if let
+            pageVC      = self.pageVC,
+            vcToDisplay = self.pageViewController(pageVC, viewControllerAtIndex: 0)
+        {
+            pageVC.setViewControllers([vcToDisplay], direction: .Forward, animated: true, completion: nil)
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        var destinationVC = segue.destinationViewController as! UIViewController
+        
+        if let vc = destinationVC as? UIPageViewController {
+            // set up out translator so we can use the pageVC more like a tableview
+            self.pageVC = vc
+            self.pageVCTranslator = UIPageViewControllerIndexTranslator(pageViewController: vc, delegate: self)
+        }
+    }
 }
 
 

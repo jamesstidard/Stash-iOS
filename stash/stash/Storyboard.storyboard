@@ -128,7 +128,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
                                 <connections>
-                                    <segue destination="9I4-YT-lKA" kind="embed" identifier="IdentitySelectorViewControllerSegue" id="Nqh-xd-jwf"/>
+                                    <segue destination="9gE-bv-hw2" kind="embed" id="v64-3j-W2X"/>
                                 </connections>
                             </containerView>
                         </subviews>
@@ -218,6 +218,38 @@
             </objects>
             <point key="canvasLocation" x="-508" y="2278"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="u4E-uu-MeY">
+            <objects>
+                <viewController id="9gE-bv-hw2" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="SGg-q3-jUD"/>
+                        <viewControllerLayoutGuide type="bottom" id="sDi-tn-NdZ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UBR-tG-i8h">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Em-pv-Kb1">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                                <connections>
+                                    <segue destination="nwQ-dX-GNc" kind="embed" id="4uI-LZ-QHI"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2Em-pv-Kb1" firstAttribute="top" secondItem="SGg-q3-jUD" secondAttribute="bottom" id="VKf-Hv-Y7H"/>
+                            <constraint firstItem="sDi-tn-NdZ" firstAttribute="top" secondItem="2Em-pv-Kb1" secondAttribute="bottom" id="gs9-JR-k5u"/>
+                            <constraint firstItem="2Em-pv-Kb1" firstAttribute="leading" secondItem="UBR-tG-i8h" secondAttribute="leadingMargin" constant="-16" id="w6K-zH-KP5"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="2Em-pv-Kb1" secondAttribute="trailing" constant="-16" id="ziA-Wk-2rK"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qKv-LY-SJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-508" y="2703"/>
+        </scene>
         <!--Table View Controller-->
         <scene sceneID="wI9-lj-xK8">
             <objects>
@@ -265,6 +297,14 @@
             </objects>
             <point key="canvasLocation" x="169" y="3308"/>
         </scene>
+        <!--Page View Controller-->
+        <scene sceneID="EXd-4d-VLi">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="nwQ-dX-GNc" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="eXW-Lc-Zio" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="169" y="2703"/>
+        </scene>
         <!--Identity View Controller-->
         <scene sceneID="ImD-Jg-xf4">
             <objects>
@@ -311,15 +351,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLM-DT-Pww" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="2703"/>
-        </scene>
-        <!--Identity Selector View Controller-->
-        <scene sceneID="qf5-LW-0JE">
-            <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="9I4-YT-lKA" customClass="IdentitySelectorViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bo1-tI-wAt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-508" y="2703"/>
+            <point key="canvasLocation" x="851" y="2703"/>
         </scene>
     </scenes>
 </document>
