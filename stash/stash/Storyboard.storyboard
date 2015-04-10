@@ -44,6 +44,7 @@
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <state key="selected" title="Cancel"/>
                                 <connections>
                                     <action selector="continueButtonPressed:" destination="dEm-bV-LLs" eventType="touchUpInside" id="E59-Rl-r6K"/>
                                 </connections>

@@ -13,6 +13,10 @@ let IdentityCreationSegueId = "IdentityCreationSegue"
 
 class IdentityGenerationViewController: UIViewController, ContextDriven {
     
+    @IBOutlet weak var nameTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    
     var context: NSManagedObjectContext?
     var entropyMachine = EntropyMachine()
     lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
@@ -20,9 +24,13 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
     var identityBundle: (identity: Identity, rescueCode: String)?
     
-    @IBOutlet weak var nameTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    private lazy var queue: NSOperationQueue = {
+        var newQueue              = NSOperationQueue()
+        newQueue.name             = "Identity Creation Queue"
+        newQueue.qualityOfService = .Background
+        newQueue.maxConcurrentOperationCount = 1 // Serial queue
+        return newQueue
+        }()
     
 
     override func viewDidLoad() {
@@ -55,10 +63,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         if var seed = self.stopHarvesting() {
             
             // create a child context as making a identity can take a while
-            let backgroundContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-            backgroundContext.performBlockAndWait({
-                backgroundContext.parentContext = Stash.sharedInstance.context
-            })
+            let backgroundContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType, parentContext: self.context)
             
             let name     = nameTextField.text as String
             var password = passwordTextField.text as String

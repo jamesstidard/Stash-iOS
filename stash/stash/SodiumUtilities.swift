@@ -12,7 +12,7 @@ var SodiumSuccess :Int32 { return 0 }
 
 class SodiumUtilities {
     
-    class func initialiseSodium() {
+    class func initialise() {
         sodium_init()
     }
     

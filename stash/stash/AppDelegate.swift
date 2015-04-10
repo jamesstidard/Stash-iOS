@@ -15,7 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var stash: Stash = Stash.sharedInstance
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject : AnyObject]?) -> Bool {
-        SodiumUtilities.initialiseSodium()
+        OpenSSLUtilities.initialiseCryptoLibrary()
+        SodiumUtilities.initialise()
         
         return true
     }

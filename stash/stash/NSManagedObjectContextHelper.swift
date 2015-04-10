@@ -10,6 +10,12 @@ import CoreData
 
 extension NSManagedObjectContext
 {
+    convenience init(concurrencyType: NSManagedObjectContextConcurrencyType, parentContext parent: NSManagedObjectContext?)
+    {
+        self.init(concurrencyType: concurrencyType)
+        self.parentContext = parent
+    }
+    
     func saveUpParentHierarchyAndWait(inout error: NSError?)
     {
         self.saveUpParentHierarchyAndWait(nil, error: &error)

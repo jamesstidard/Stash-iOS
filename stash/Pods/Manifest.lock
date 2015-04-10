@@ -1,13 +1,13 @@
 PODS:
-  - libsodium (1.0.1)
-  - OpenSSL (1.0.200)
+  - libsodium (1.0.2)
+  - OpenSSL (1.0.201)
 
 DEPENDENCIES:
   - libsodium (< 2.0)
   - OpenSSL (~> 1.0)
 
 SPEC CHECKSUMS:
-  libsodium: ac34cc59b942350fb1377380cfb31f05c3d6170e
-  OpenSSL: 4c7be3eca71139f52984542d8c4c0752154d26c3
+  libsodium: d1b482e7628e0298de350375a4ab981b5cc8c71b
+  OpenSSL: 4e990d04b14015c49c800c400b86ae44a4818a5c
 
-COCOAPODS: 0.34.4
+COCOAPODS: 0.36.3
