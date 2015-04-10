@@ -21,13 +21,14 @@
 		7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
 		7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C3182E81A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */; };
+		7C3420B01AD850A200338126 /* IdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420AF1AD850A200338126 /* IdentityViewController.swift */; };
+		7C3420B11AD850A200338126 /* IdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420AF1AD850A200338126 /* IdentityViewController.swift */; };
 		7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
 		7C446C361AD82B7000201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C446C371AD82C9D00201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C499BB11AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */; };
-		7C499BB51AB7DADC005B2DD2 /* IdentityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7C499BB41AB7DADC005B2DD2 /* IdentityView.xib */; };
 		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
 		7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */; };
 		7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
@@ -132,11 +133,11 @@
 		7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSOperationQueueHelper.swift; sourceTree = "<group>"; };
 		7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyMachine.swift; sourceTree = "<group>"; };
 		7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmEncryptExtIV256.rsp; sourceTree = "<group>"; };
+		7C3420AF1AD850A200338126 /* IdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityViewController.swift; sourceTree = "<group>"; };
 		7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringDataFromHex.swift; sourceTree = "<group>"; };
 		7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
 		7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSSLUtilities.swift; sourceTree = "<group>"; };
 		7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextHelper.swift; sourceTree = "<group>"; };
-		7C499BB41AB7DADC005B2DD2 /* IdentityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IdentityView.xib; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AESGCMTests.swift; sourceTree = "<group>"; };
 		7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
@@ -230,7 +231,6 @@
 			isa = PBXGroup;
 			children = (
 				7C49EB381A1146A500023BE0 /* Storyboard.storyboard */,
-				7C499BB41AB7DADC005B2DD2 /* IdentityView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -305,6 +305,7 @@
 				7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */,
 				7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */,
 				7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */,
+				7C3420AF1AD850A200338126 /* IdentityViewController.swift */,
 				7CA20BC61A742E180021B631 /* Identity Creation */,
 			);
 			name = Controllers;
@@ -540,7 +541,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				7CCCFB8C19685D9200DF3442 /* Images.xcassets in Resources */,
-				7C499BB51AB7DADC005B2DD2 /* IdentityView.xib in Resources */,
 				7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -611,6 +611,7 @@
 				7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */,
+				7C3420B01AD850A200338126 /* IdentityViewController.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
 				7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */,
@@ -672,6 +673,7 @@
 				7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
 				7C9336A11A8B9A7100D3E53B /* XORStorePasswordManagement.swift in Sources */,
+				7C3420B11AD850A200338126 /* IdentityViewController.swift in Sources */,
 				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
 				7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */,
 				7C87AAA61A28347F00DC3EC7 /* GyroHarvester.swift in Sources */,
