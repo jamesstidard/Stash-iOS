@@ -14,14 +14,11 @@ class IdentityViewController: UIViewController
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     
-    weak var identity: Identity? {
-        didSet {
-            self.nameLabel.text = identity?.name
-        }
-    }
+    weak var identity: Identity?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.nameLabel.text = self.identity?.name
     }
 }

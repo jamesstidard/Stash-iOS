@@ -32,13 +32,13 @@ class UIPageViewControllerIndexTranslator: NSObject, UIPageViewControllerDelegat
         self.currentIndex = index
         self.wrap         = shouldWrap
         
-        assert(pageVC.spineLocation == .None,
-            "UIPageViewControllerIndexTranslator can't be used with PageVC's that present multiple ViewControllers at once")
+//        assert(pageVC.spineLocation == .None,
+//            "UIPageViewControllerIndexTranslator can't be used with PageVC's that present multiple ViewControllers at once")
     }
     
     convenience init(pageViewController pageVC: UIPageViewController, delegate: UIPageViewControllerIndexTranslatorDelegate)
     {
-        self.init(pageViewController: pageVC, delegate: delegate, startingIndex: 0, shouldWrap: true)
+        self.init(pageViewController: pageVC, delegate: delegate, startingIndex: 0, shouldWrap: false)
     }
     
     
@@ -76,7 +76,7 @@ class UIPageViewControllerIndexTranslator: NSObject, UIPageViewControllerDelegat
     {
         if
             let   totalPage = self.delegate?.numberOfPagesInPageViewController(pageViewController)
-            where totalPage > self.currentIndex
+            where totalPage > self.currentIndex + 1
         {
             self.currentIndex++
             return self.delegate?.pageViewController(pageViewController, viewControllerAtIndex: self.currentIndex)

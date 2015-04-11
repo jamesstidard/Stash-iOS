@@ -20,6 +20,7 @@ class IdentitySelectorViewController: UIViewController,
         didSet {
             createIdentitiesFetchedResultsController()
             identitiesFRC?.performFetch(nil)
+            self.controllerDidChangeContent(identitiesFRC!)
         }
     }
     var identitiesFRC:         NSFetchedResultsController?
@@ -71,6 +72,8 @@ class IdentitySelectorViewController: UIViewController,
         }
         return nil
     }
+    
+    
     
     var previousIdentity: Identity?
     func controllerWillChangeContent(controller: NSFetchedResultsController)

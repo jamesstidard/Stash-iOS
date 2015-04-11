@@ -218,10 +218,10 @@
             </objects>
             <point key="canvasLocation" x="-508" y="2278"/>
         </scene>
-        <!--View Controller-->
+        <!--Identity Selector View Controller-->
         <scene sceneID="u4E-uu-MeY">
             <objects>
-                <viewController id="9gE-bv-hw2" sceneMemberID="viewController">
+                <viewController id="9gE-bv-hw2" customClass="IdentitySelectorViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="SGg-q3-jUD"/>
                         <viewControllerLayoutGuide type="bottom" id="sDi-tn-NdZ"/>
@@ -300,7 +300,7 @@
         <!--Page View Controller-->
         <scene sceneID="EXd-4d-VLi">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="nwQ-dX-GNc" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nwQ-dX-GNc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eXW-Lc-Zio" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="169" y="2703"/>
