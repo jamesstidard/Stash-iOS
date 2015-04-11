@@ -12,9 +12,13 @@ import CoreData
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
     ContextDriven,
-    UIPageViewControllerIndexTranslatorDelegate
+    UIPageViewControllerDelegate,
+    UIPageViewControllerDataSource
 {
     static let SegueID = "IdentitySelectorViewControllerSegue"
+    
+    private var pendingPage: IdentityViewController?
+    private var currentPage: IdentityViewController?
 
     var context :NSManagedObjectContext? {
         didSet {
@@ -25,7 +29,6 @@ class IdentitySelectorViewController: UIViewController,
     }
     var identitiesFRC:         NSFetchedResultsController?
     var pageVC:                UIPageViewController?
-    var pageVCTranslator:      UIPageViewControllerIndexTranslator?
     weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
     
     
@@ -42,11 +45,11 @@ class IdentitySelectorViewController: UIViewController,
     
     private func createIdentitiesFetchedResultsController() {
         if let context = self.context {
-            let fetchRequest             = NSFetchRequest(entityName: IdentityClassNameKey)
-            fetchRequest.sortDescriptors = [NSSortDescriptor(key: IdentityPropertyNameKey, ascending: true)]
+            let request             = NSFetchRequest(entityName: IdentityClassNameKey)
+            request.sortDescriptors = [NSSortDescriptor(key: IdentityPropertyNameKey, ascending: true, selector: "localizedCaseInsensitiveCompare:")]
             
             identitiesFRC = NSFetchedResultsController(
-                fetchRequest: fetchRequest,
+                fetchRequest: request,
                 managedObjectContext: context,
                 sectionNameKeyPath: nil,
                 cacheName: nil)
@@ -55,32 +58,47 @@ class IdentitySelectorViewController: UIViewController,
         }
     }
     
-    func numberOfPagesInPageViewController(pageViewController: UIPageViewController) -> Int
-    {
-        return self.identitiesFRC?.fetchedObjects?.count ?? 0
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+        self.pendingPage = pendingViewControllers.first as? IdentityViewController
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAtIndex index: Int) -> UIViewController?
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool)
+    {
+        if completed {
+            self.currentPage = self.pendingPage
+        }
+    }
+    
+    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
         if let
-            identity   = self.identitiesFRC?.fetchedObjects?[index] as? Identity,
-            identityVC = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
-        
+            viewController  = viewController as? IdentityViewController,
+            currentIdentity = viewController.identity,
+            allIdentities   = self.identitiesFRC?.fetchedObjects as? [Identity],
+            previousIndex   = find(allIdentities, currentIdentity) -? 1,
+            identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
-            identityVC.identity = identity
+            identityVC.identity = (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last
             return identityVC
         }
+        
         return nil
     }
     
-    
-    
-    var previousIdentity: Identity?
-    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
     {
-        // If the controller is going to change, we dont want to change the currently prespented identity
-        let currentPage       = self.pageVCTranslator?.currentPage as? IdentityViewController
-        self.previousIdentity = currentPage?.identity
+        if let
+            viewController  = viewController as? IdentityViewController,
+            currentIdentity = viewController.identity,
+            allIdentities   = self.identitiesFRC?.fetchedObjects as? [Identity],
+            nextIndex       = find(allIdentities, currentIdentity) +? 1,
+            identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
+        {
+            identityVC.identity = (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first
+            return identityVC
+        }
+        
+        return nil
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController)
@@ -89,18 +107,19 @@ class IdentitySelectorViewController: UIViewController,
         if let
             pageVC      = self.pageVC,
             identities  = self.identitiesFRC?.fetchedObjects as? [Identity],
-            previous    = self.previousIdentity,
-            index       = find(identities, previous),
-            vcToDisplay = self.pageViewController(pageVC, viewControllerAtIndex: index)
+            previous    = self.currentPage?.identity,
+            index       = find(identities, previous)
         {
-            pageVC.setViewControllers([vcToDisplay], direction: .Forward, animated: false, completion: nil)
+            pageVC.setViewControllers([self.currentPage!], direction: .Forward, animated: false, completion: nil)
         }
         // else focus the first identity
         else if let
-            pageVC      = self.pageVC,
-            vcToDisplay = self.pageViewController(pageVC, viewControllerAtIndex: 0)
+            pageVC     = self.pageVC,
+            identity   = self.identitiesFRC?.fetchedObjects?.first as? Identity,
+            identityVC = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
-            pageVC.setViewControllers([vcToDisplay], direction: .Forward, animated: true, completion: nil)
+            identityVC.identity = identity
+            pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }
     
@@ -111,7 +130,8 @@ class IdentitySelectorViewController: UIViewController,
         if let vc = destinationVC as? UIPageViewController {
             // set up out translator so we can use the pageVC more like a tableview
             self.pageVC = vc
-            self.pageVCTranslator = UIPageViewControllerIndexTranslator(pageViewController: vc, delegate: self)
+            self.pageVC?.dataSource = self
+            self.pageVC?.delegate   = self
         }
     }
 }
