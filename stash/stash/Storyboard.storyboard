@@ -122,7 +122,7 @@
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amF-lu-JG5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
-                                    <segue destination="pFo-UL-OCa" kind="embed" identifier="ScannerViewControllerSegue" id="Vke-Sy-YeG"/>
+                                    <segue destination="DNZ-MW-Z49" kind="presentation" identifier="IdentityManagementSegue" id="0RW-u1-8vq"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
@@ -151,9 +151,6 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <connections>
-                        <segue destination="D0V-m0-bm2" kind="show" identifier="IdentitiesListSegue" id="svv-OO-E0c"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -250,6 +247,22 @@
             </objects>
             <point key="canvasLocation" x="-508" y="2703"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="oEm-CE-v9k">
+            <objects>
+                <navigationController id="DNZ-MW-Z49" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="SFZ-OB-Q6m">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="D0V-m0-bm2" kind="relationship" relationship="rootViewController" id="R9E-sx-xQP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="T36-WS-QG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1360" y="3308"/>
+        </scene>
         <!--Table View Controller-->
         <scene sceneID="wI9-lj-xK8">
             <objects>
@@ -259,10 +272,18 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" id="ZkI-Tv-HsZ">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="Identity Cell" textLabel="A93-Pd-2FX" style="IBUITableViewCellStyleDefault" id="ZkI-Tv-HsZ">
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZkI-Tv-HsZ" id="lJA-ys-K5g">
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="A93-Pd-2FX">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                             </tableViewCell>
                         </prototypes>
@@ -271,6 +292,9 @@
                             <outlet property="delegate" destination="D0V-m0-bm2" id="Qd7-lp-ajA"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" id="MC5-Sx-fYl">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e6C-e2-wnb"/>
+                    </navigationItem>
                     <connections>
                         <segue destination="zzm-BE-xgg" kind="show" identifier="identityDetailSegue" id="9d5-yE-5R3"/>
                     </connections>

@@ -22,8 +22,8 @@ class IdentitySelectorViewController: UIViewController,
 
     var context :NSManagedObjectContext? {
         didSet {
-            createIdentitiesFetchedResultsController()
-            identitiesFRC?.performFetch(nil)
+            self.createIdentitiesFetchedResultsController()
+            self.identitiesFRC?.performFetch(nil)
             self.controllerDidChangeContent(identitiesFRC!)
         }
     }
@@ -45,16 +45,7 @@ class IdentitySelectorViewController: UIViewController,
     
     private func createIdentitiesFetchedResultsController() {
         if let context = self.context {
-            let request             = NSFetchRequest(entityName: IdentityClassNameKey)
-            request.sortDescriptors = [NSSortDescriptor(key: IdentityPropertyNameKey, ascending: true, selector: "localizedCaseInsensitiveCompare:")]
-            
-            identitiesFRC = NSFetchedResultsController(
-                fetchRequest: request,
-                managedObjectContext: context,
-                sectionNameKeyPath: nil,
-                cacheName: nil)
-            identitiesFRC?.delegate = self
-            identitiesFRC?.fetchRequest.fetchLimit = 5
+            self.identitiesFRC = Identity.fetchedResultsController(context, delegate: self)
         }
     }
     
