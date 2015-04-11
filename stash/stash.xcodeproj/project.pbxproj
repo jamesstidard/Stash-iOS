@@ -220,12 +220,12 @@
 			isa = PBXGroup;
 			children = (
 				7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */,
+				7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */,
 				7CB285651A8BC9970019A2EC /* GCMStore.swift */,
 				7CB2855F1A8BC9970019A2EC /* Identity.swift */,
 				7CB285621A8BC9970019A2EC /* SecureStore.swift */,
 				7CB285591A8BC9960019A2EC /* Settings.swift */,
 				7CB2855C1A8BC9970019A2EC /* XORStore.swift */,
-				7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */,
 				7CF72AE41A891C610070D512 /* Identity */,
 				7C9336931A8B976200D3E53B /* SecureStore */,
 				7CF72AE51A891C770070D512 /* XORStore */,

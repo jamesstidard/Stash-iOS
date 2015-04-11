@@ -21,7 +21,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zSz-Xy-eIc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-508" y="1515"/>
+            <point key="canvasLocation" x="224" y="3375"/>
         </scene>
         <!--New Identity-->
         <scene sceneID="mKi-8H-h2b">
@@ -89,12 +89,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h3G-2g-nOh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="1515"/>
+            <point key="canvasLocation" x="901" y="3375"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1I6-mU-XGt">
             <objects>
-                <navigationController id="cxn-lT-0OS" sceneMemberID="viewController">
+                <navigationController navigationBarHidden="YES" id="cxn-lT-0OS" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D2J-aP-fhU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -121,9 +121,6 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amF-lu-JG5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                                <connections>
-                                    <segue destination="DNZ-MW-Z49" kind="presentation" identifier="IdentityManagementSegue" id="0RW-u1-8vq"/>
-                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
@@ -133,6 +130,7 @@
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="amF-lu-JG5" firstAttribute="leading" secondItem="39i-W5-6E2" secondAttribute="leadingMargin" constant="-16" id="4OF-bM-Tjs"/>
                             <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="h28-Z8-Wug" secondAttribute="bottom" id="8sG-tg-ZlL"/>
@@ -143,16 +141,18 @@
                             <constraint firstItem="h28-Z8-Wug" firstAttribute="height" secondItem="39i-W5-6E2" secondAttribute="height" multiplier="0.2" id="YgA-jl-1Fz"/>
                             <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="amF-lu-JG5" secondAttribute="bottom" id="wke-3s-kpL"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="HQ9-gY-6LS" appends="YES" id="T6m-1I-opO"/>
+                        </connections>
                     </view>
-                    <navigationItem key="navigationItem" id="iRz-ZF-L4g">
-                        <barButtonItem key="rightBarButtonItem" title="New Identity" id="bij-OL-TWK">
-                            <connections>
-                                <segue destination="dge-9u-UHH" kind="presentation" identifier="IdentityCreationSegue" modalPresentationStyle="fullScreen" modalTransitionStyle="coverVertical" id="AvF-pq-IV3"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="iRz-ZF-L4g"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="up" id="HQ9-gY-6LS">
+                    <connections>
+                        <segue destination="DNZ-MW-Z49" kind="presentation" identifier="IdentityManagementSegue" id="K9W-pT-8im"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-1360" y="2348"/>
         </scene>
@@ -194,7 +194,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQy-Eg-l4R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="851" y="1515"/>
+            <point key="canvasLocation" x="1583" y="3375"/>
         </scene>
         <!--Scanner View Controller-->
         <scene sceneID="gKV-Ne-pQ2">
@@ -261,12 +261,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="T36-WS-QG0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1360" y="3308"/>
+            <point key="canvasLocation" x="-1360" y="4244"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Identity Management Table View Controller-->
         <scene sceneID="wI9-lj-xK8">
             <objects>
-                <tableViewController id="D0V-m0-bm2" sceneMemberID="viewController">
+                <tableViewController id="D0V-m0-bm2" customClass="IdentityManagementTableViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="asY-yC-aaa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -293,7 +293,16 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" id="MC5-Sx-fYl">
-                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e6C-e2-wnb"/>
+                        <barButtonItem key="leftBarButtonItem" title="Close" id="yRd-Dq-9d6">
+                            <connections>
+                                <action selector="closePressed:" destination="D0V-m0-bm2" id="ptd-HL-p3L"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="e6C-e2-wnb">
+                            <connections>
+                                <segue destination="dge-9u-UHH" kind="presentation" id="QsP-5L-DUW"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="zzm-BE-xgg" kind="show" identifier="identityDetailSegue" id="9d5-yE-5R3"/>
@@ -301,7 +310,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mK6-4Y-RgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-508" y="3308"/>
+            <point key="canvasLocation" x="-508" y="4244"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="BIt-sO-EVS">
@@ -319,7 +328,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l73-aK-tvV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="3308"/>
+            <point key="canvasLocation" x="224" y="4244"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="EXd-4d-VLi">

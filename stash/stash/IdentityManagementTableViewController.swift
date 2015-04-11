@@ -91,4 +91,28 @@ class IdentityManagementTableViewController: UITableViewController,
     {
         self.tableView.endUpdates()
     }
+    
+    // MARK: Navigation
+    @IBAction func closePressed(sender: UIBarButtonItem)
+    {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    // MARK: - Navigation
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var destinationVC = segue.destinationViewController as! UIViewController
+        
+        // upwrap navigation controllers
+        if let
+            navigationController = destinationVC as? UINavigationController,
+            rootVC               = navigationController.viewControllers?[0] as? UIViewController
+        {
+            destinationVC = rootVC
+        }
+        
+        // if requires a context pass it ours
+        if let vc = destinationVC as? ContextDriven {
+            vc.context = self.context
+        }
+    }
 }
