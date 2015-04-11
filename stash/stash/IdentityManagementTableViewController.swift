@@ -66,8 +66,7 @@ class IdentityManagementTableViewController: UITableViewController,
     
     func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
     {
-        switch type
-        {
+        switch type {
         case .Insert: self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
         case .Delete: self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
         default:      return
@@ -76,8 +75,7 @@ class IdentityManagementTableViewController: UITableViewController,
     
     func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
     {
-        switch type
-        {
+        switch type {
         case .Insert: self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
         case .Delete: self.tableView.deleteRowsAtIndexPaths([indexPath!],    withRowAnimation: .Fade)
         case .Update: self.configureCell(self.tableView.cellForRowAtIndexPath(indexPath!)!, atIndexPath: indexPath!)
