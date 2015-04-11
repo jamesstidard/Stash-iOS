@@ -328,8 +328,8 @@
 				7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */,
 				7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */,
 				7C3420AF1AD850A200338126 /* IdentityViewController.swift */,
-				7CA20BC61A742E180021B631 /* Identity Creation */,
 				7C957EBF1AD96ED500E4E040 /* Identity Management */,
+				7CA20BC61A742E180021B631 /* Identity Creation */,
 				7C3420B21AD8540E00338126 /* Miscellany */,
 			);
 			name = Controllers;

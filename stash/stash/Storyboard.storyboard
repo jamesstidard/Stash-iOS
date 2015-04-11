@@ -250,7 +250,7 @@
         <!--Navigation Controller-->
         <scene sceneID="oEm-CE-v9k">
             <objects>
-                <navigationController id="DNZ-MW-Z49" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="IdentityManagementNavigationController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="DNZ-MW-Z49" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="SFZ-OB-Q6m">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -266,7 +266,7 @@
         <!--Identity Management Table View Controller-->
         <scene sceneID="wI9-lj-xK8">
             <objects>
-                <tableViewController id="D0V-m0-bm2" customClass="IdentityManagementTableViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="IdentityManagementTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D0V-m0-bm2" customClass="IdentityManagementTableViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="asY-yC-aaa">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
