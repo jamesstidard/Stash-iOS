@@ -95,6 +95,7 @@
         <scene sceneID="1I6-mU-XGt">
             <objects>
                 <navigationController navigationBarHidden="YES" id="cxn-lT-0OS" sceneMemberID="viewController">
+                    <nil key="simulatedStatusBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="D2J-aP-fhU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -210,9 +211,24 @@
                     <view key="view" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="lp5-0f-NXW">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-CC-PXO">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="TFc-CC-PXO" secondAttribute="trailing" constant="-16" id="UZ1-lq-w1Z"/>
+                            <constraint firstItem="TFc-CC-PXO" firstAttribute="leading" secondItem="lp5-0f-NXW" secondAttribute="leadingMargin" constant="-16" id="aPU-xJ-EId"/>
+                            <constraint firstItem="Cd4-3k-5e3" firstAttribute="top" secondItem="TFc-CC-PXO" secondAttribute="bottom" id="ckQ-1z-uBv"/>
+                            <constraint firstItem="TFc-CC-PXO" firstAttribute="top" secondItem="Nvt-je-lN7" secondAttribute="bottom" id="dhZ-pj-xd6"/>
+                        </constraints>
                     </view>
                     <toolbarItems/>
+                    <connections>
+                        <outlet property="previewView" destination="TFc-CC-PXO" id="79c-jR-ug3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYa-TV-y2s" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
