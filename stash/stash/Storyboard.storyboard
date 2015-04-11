@@ -36,12 +36,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Identity Name" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kWb-XN-4oD">
-                                <rect key="frame" x="16" y="102" width="568" height="30"/>
+                                <rect key="frame" x="16" y="58" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9A-y6-9nQ">
-                                <rect key="frame" x="269" y="214" width="62" height="30"/>
+                                <rect key="frame" x="269" y="170" width="62" height="30"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -51,12 +51,12 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="T2S-nC-v7x">
-                                <rect key="frame" x="16" y="140" width="568" height="30"/>
+                                <rect key="frame" x="16" y="96" width="568" height="30"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
-                                <rect key="frame" x="290" y="186" width="20" height="20"/>
+                                <rect key="frame" x="290" y="142" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -121,6 +121,9 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="amF-lu-JG5">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <connections>
+                                    <segue destination="pFo-UL-OCa" kind="embed" id="eV3-9B-ySt"/>
+                                </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
                                 <rect key="frame" x="0.0" y="480" width="600" height="120"/>
@@ -255,6 +258,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="hle-5n-ym4">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
                     <connections>
                         <segue destination="D0V-m0-bm2" kind="relationship" relationship="rootViewController" id="R9E-sx-xQP"/>
                     </connections>
@@ -263,7 +269,7 @@
             </objects>
             <point key="canvasLocation" x="-1360" y="4244"/>
         </scene>
-        <!--Identity Management Table View Controller-->
+        <!--Identities-->
         <scene sceneID="wI9-lj-xK8">
             <objects>
                 <tableViewController storyboardIdentifier="IdentityManagementTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="D0V-m0-bm2" customClass="IdentityManagementTableViewController" customModule="stash" customModuleProvider="target" sceneMemberID="viewController">
@@ -292,7 +298,7 @@
                             <outlet property="delegate" destination="D0V-m0-bm2" id="Qd7-lp-ajA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="MC5-Sx-fYl">
+                    <navigationItem key="navigationItem" title="Identities" id="MC5-Sx-fYl">
                         <barButtonItem key="leftBarButtonItem" title="Close" id="yRd-Dq-9d6">
                             <connections>
                                 <action selector="closePressed:" destination="D0V-m0-bm2" id="ptd-HL-p3L"/>
