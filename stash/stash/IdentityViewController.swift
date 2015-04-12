@@ -15,6 +15,11 @@ class IdentityViewController: UIViewController
     @IBOutlet weak var nameLabel: UILabel!
     
     weak var identity: Identity?
+    var promptForPassword = false {
+        didSet {
+            
+        }
+    }
     
     
     override func viewDidLoad() {

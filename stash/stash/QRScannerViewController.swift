@@ -12,7 +12,7 @@ import AVFoundation
 
 protocol QRScannerViewControllerDelegate: class
 {
-    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSQRLLink: NSURL)
+    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSqrlLink: NSURL?)
 }
 
 
@@ -21,8 +21,15 @@ class QRScannerViewController: UIViewController,
     NSURLSessionTaskDelegate
 {
     @IBOutlet weak var previewView: UIView!
+    @IBOutlet weak var shadeView: UIView!
     
     weak var delegate: QRScannerViewControllerDelegate?
+    private var sqrlLink: NSURL? = nil {
+        didSet {
+            self.shadeView.hidden = (self.sqrlLink == nil) ? true : false
+            self.delegate?.qrScannerViewController(self, didFindSqrlLink: self.sqrlLink)
+        }
+    }
     
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     private var captureDevice:     AVCaptureDevice?
@@ -66,6 +73,13 @@ class QRScannerViewController: UIViewController,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         self.stopSession()
+    }
+    
+    
+    // MARK: - UI Actions
+    @IBAction func dismissPressed(sender: UIButton)
+    {
+        self.sqrlLink = nil
     }
     
     
@@ -117,15 +131,19 @@ class QRScannerViewController: UIViewController,
         fromConnection connection: AVCaptureConnection!)
     {
         // NOTE: Callback still in backgroud queue
-        // See if there are any QRCode's. if so take the first and see if it's a url then validate it's a sqrl-link
-        if let
-            QRCode        = metadataObjects.filter({$0.type == AVMetadataObjectTypeQRCode}).first as? AVMetadataMachineReadableCodeObject,
-            sqrlLink      = NSURL(string: QRCode.stringValue)
-        where
-            sqrlLink.isValidSqrlLink()
+        dispatch_async(dispatch_get_main_queue())
         {
-            dispatch_async(dispatch_get_main_queue()) {
-                self.delegate?.qrScannerViewController(self, didFindSQRLLink: sqrlLink)
+            if self.sqrlLink == nil { return }
+            
+            // See if there are any QRCode's. if so take the first and see if it's a url then validate it's a sqrl-link
+            // Also if we are already handling a sqrl link we dont need to worry about another
+            if let
+                QRCode   = metadataObjects.filter({$0.type == AVMetadataObjectTypeQRCode}).first as? AVMetadataMachineReadableCodeObject,
+                sqrlLink = NSURL(string: QRCode.stringValue)
+                where
+                sqrlLink.isValidSqrlLink()
+            {
+                self.sqrlLink = sqrlLink
             }
         }
     }

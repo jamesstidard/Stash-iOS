@@ -212,22 +212,55 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-CC-PXO">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TFc-CC-PXO" userLabel="Camera Preview">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AdZ-mP-vgH" userLabel="Shader">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Found SQRL Link" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJB-gC-Lan">
+                                        <rect key="frame" x="232" y="289" width="136" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sx8-9L-oeF">
+                                        <rect key="frame" x="273" y="318" width="54" height="30"/>
+                                        <state key="normal" title="Dismiss">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="dismissPressed:" destination="pFo-UL-OCa" eventType="touchUpInside" id="fpS-LQ-84P"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.14999999999999999" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="centerX" secondItem="jJB-gC-Lan" secondAttribute="centerX" id="KaZ-Nb-OwG"/>
+                                    <constraint firstItem="jJB-gC-Lan" firstAttribute="centerX" secondItem="Sx8-9L-oeF" secondAttribute="centerX" id="Oct-pJ-GPk"/>
+                                    <constraint firstItem="Sx8-9L-oeF" firstAttribute="top" secondItem="jJB-gC-Lan" secondAttribute="bottom" constant="8" id="Z2b-DU-VjE"/>
+                                    <constraint firstItem="jJB-gC-Lan" firstAttribute="centerY" secondItem="AdZ-mP-vgH" secondAttribute="centerY" id="y7y-Io-OlD"/>
+                                </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="AdZ-mP-vgH" firstAttribute="leading" secondItem="lp5-0f-NXW" secondAttribute="leadingMargin" constant="-16" id="DB7-fD-txU"/>
+                            <constraint firstItem="Cd4-3k-5e3" firstAttribute="top" secondItem="AdZ-mP-vgH" secondAttribute="bottom" id="Fob-gK-7mC"/>
                             <constraint firstAttribute="trailingMargin" secondItem="TFc-CC-PXO" secondAttribute="trailing" constant="-16" id="UZ1-lq-w1Z"/>
                             <constraint firstItem="TFc-CC-PXO" firstAttribute="leading" secondItem="lp5-0f-NXW" secondAttribute="leadingMargin" constant="-16" id="aPU-xJ-EId"/>
                             <constraint firstItem="Cd4-3k-5e3" firstAttribute="top" secondItem="TFc-CC-PXO" secondAttribute="bottom" id="ckQ-1z-uBv"/>
                             <constraint firstItem="TFc-CC-PXO" firstAttribute="top" secondItem="Nvt-je-lN7" secondAttribute="bottom" id="dhZ-pj-xd6"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="AdZ-mP-vgH" secondAttribute="trailing" constant="-16" id="sAs-nA-Hqy"/>
+                            <constraint firstItem="AdZ-mP-vgH" firstAttribute="top" secondItem="Nvt-je-lN7" secondAttribute="bottom" id="sIR-c0-afO"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
                     <connections>
                         <outlet property="previewView" destination="TFc-CC-PXO" id="79c-jR-ug3"/>
+                        <outlet property="shadeView" destination="AdZ-mP-vgH" id="xa5-Ab-pcg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYa-TV-y2s" userLabel="First Responder" sceneMemberID="firstResponder"/>

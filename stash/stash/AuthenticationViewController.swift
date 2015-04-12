@@ -9,8 +9,11 @@
 import UIKit
 import CoreData
 
-class AuthenticationViewController: UIViewController, ContextDriven, IdentitySelectorViewControllerDelegate {
-    
+class AuthenticationViewController: UIViewController,
+    ContextDriven,
+    IdentitySelectorViewControllerDelegate,
+    QRScannerViewControllerDelegate
+{
     let stash = Stash.sharedInstance
     lazy var context :NSManagedObjectContext?   = self.stash.context // give the context as much time as we can to initialise
     lazy var contextContracts :[ContextDriven]? = [ContextDriven]() //If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
@@ -43,6 +46,12 @@ class AuthenticationViewController: UIViewController, ContextDriven, IdentitySel
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
+    }
+    
+    // MARK: - Scanner
+    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink: NSURL?)
+    {
+        
     }
     
     // MARK: - Navigation

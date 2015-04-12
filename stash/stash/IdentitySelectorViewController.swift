@@ -9,6 +9,12 @@
 import UIKit
 import CoreData
 
+
+protocol IdentitySelectorViewControllerDelegate :class {
+    
+}
+
+
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
     ContextDriven,
@@ -17,9 +23,12 @@ class IdentitySelectorViewController: UIViewController,
 {
     static let SegueID = "IdentitySelectorViewControllerSegue"
     
-    private var pendingPage: IdentityViewController?
-    private var currentPage: IdentityViewController?
-
+    private var identitiesFRC: NSFetchedResultsController?
+    private var pageVC:        UIPageViewController?
+    private var pendingPage:   IdentityViewController?
+    private var currentPage:   IdentityViewController?
+    
+    weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
     var context :NSManagedObjectContext? {
         didSet {
             self.createIdentitiesFetchedResultsController()
@@ -27,11 +36,17 @@ class IdentitySelectorViewController: UIViewController,
             self.controllerDidChangeContent(identitiesFRC!)
         }
     }
-    var identitiesFRC:         NSFetchedResultsController?
-    var pageVC:                UIPageViewController?
-    weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
+    var promptForPassword = false {
+        didSet {
+            if let vcs = self.pageVC?.viewControllers as? [IdentityViewController] {
+                vcs.map { $0.promptForPassword = self.promptForPassword }
+            }
+        }
+    }
     
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -43,12 +58,16 @@ class IdentitySelectorViewController: UIViewController,
         // Dispose of any resources that can be recreated.
     }
     
-    private func createIdentitiesFetchedResultsController() {
-        if let context = self.context {
-            self.identitiesFRC = Identity.fetchedResultsController(context, delegate: self)
-        }
-    }
     
+    // MARK: - SQRL Link signage
+    func responseForSqrlLink(sqrlLink: NSURL?, response: NSURLSessionTask -> Void)
+    {
+        // only ask for password if there is a sqrl link to respond to
+        self.promptForPassword = (sqrlLink == nil) ? false : true
+    }
+
+    
+    // MARK: - Page View Controller
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
         self.pendingPage = pendingViewControllers.first as? IdentityViewController
     }
@@ -70,6 +89,7 @@ class IdentitySelectorViewController: UIViewController,
             identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
             identityVC.identity = (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last
+            identityVC.promptForPassword = self.promptForPassword
             return identityVC
         }
         
@@ -86,10 +106,19 @@ class IdentitySelectorViewController: UIViewController,
             identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
             identityVC.identity = (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first
+            identityVC.promptForPassword = self.promptForPassword
             return identityVC
         }
         
         return nil
+    }
+    
+    
+    // MARK: - FRC
+    private func createIdentitiesFetchedResultsController() {
+        if let context = self.context {
+            self.identitiesFRC = Identity.fetchedResultsController(context, delegate: self)
+        }
     }
     
     func controllerDidChangeContent(controller: NSFetchedResultsController)
@@ -110,10 +139,13 @@ class IdentitySelectorViewController: UIViewController,
             identityVC = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
             identityVC.identity = identity
+            identityVC.promptForPassword = self.promptForPassword
             pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }
     
+    
+    // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
     {
         var destinationVC = segue.destinationViewController as! UIViewController
@@ -127,7 +159,3 @@ class IdentitySelectorViewController: UIViewController,
     }
 }
 
-
-protocol IdentitySelectorViewControllerDelegate :class {
-    
-}
