@@ -9,10 +9,20 @@
 import UIKit
 import AVFoundation
 
+
+protocol QRScannerViewControllerDelegate: class
+{
+    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSQRLLink: NSURL)
+}
+
+
 class QRScannerViewController: UIViewController,
-    AVCaptureMetadataOutputObjectsDelegate
+    AVCaptureMetadataOutputObjectsDelegate,
+    NSURLSessionTaskDelegate
 {
     @IBOutlet weak var previewView: UIView!
+    
+    weak var delegate: QRScannerViewControllerDelegate?
     
     private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
     private var captureDevice:     AVCaptureDevice?
@@ -79,9 +89,9 @@ class QRScannerViewController: UIViewController,
             output.setMetadataObjectsDelegate(self, queue: dispatchQueue)
             output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
             
-            self.videoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
+            self.videoPreviewLayer               = AVCaptureVideoPreviewLayer(session: self.captureSession)
             self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            self.videoPreviewLayer?.frame = self.previewView.layer.bounds
+            self.videoPreviewLayer?.frame        = self.previewView.layer.bounds
             self.previewView.layer.addSublayer(self.videoPreviewLayer)
             
             self.captureSession.startRunning()
@@ -107,7 +117,17 @@ class QRScannerViewController: UIViewController,
         fromConnection connection: AVCaptureConnection!)
     {
         // NOTE: Callback still in backgroud queue
-        
+        // See if there are any QRCode's. if so take the first and see if it's a url then validate it's a sqrl-link
+        if let
+            QRCode        = metadataObjects.filter({$0.type == AVMetadataObjectTypeQRCode}).first as? AVMetadataMachineReadableCodeObject,
+            sqrlLink      = NSURL(string: QRCode.stringValue)
+        where
+            sqrlLink.isValidSqrlLink()
+        {
+            dispatch_async(dispatch_get_main_queue()) {
+                self.delegate?.qrScannerViewController(self, didFindSQRLLink: sqrlLink)
+            }
+        }
     }
     
 
