@@ -12,7 +12,7 @@ import AVFoundation
 
 protocol QRScannerViewControllerDelegate: class
 {
-    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSqrlLink: NSURL?)
+    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?)
 }
 
 
@@ -72,7 +72,7 @@ class QRScannerViewController: UIViewController,
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        self.stopSession()
+        //self.stopSession()
     }
     
     
@@ -133,7 +133,7 @@ class QRScannerViewController: UIViewController,
         // NOTE: Callback still in backgroud queue
         dispatch_async(dispatch_get_main_queue())
         {
-            if self.sqrlLink == nil { return }
+            if self.sqrlLink != nil { return }
             
             // See if there are any QRCode's. if so take the first and see if it's a url then validate it's a sqrl-link
             // Also if we are already handling a sqrl link we dont need to worry about another

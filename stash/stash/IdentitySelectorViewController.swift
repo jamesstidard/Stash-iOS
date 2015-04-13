@@ -28,12 +28,17 @@ class IdentitySelectorViewController: UIViewController,
     private var pendingPage:   IdentityViewController?
     private var currentPage:   IdentityViewController?
     
-    weak var selectorDelegate: IdentitySelectorViewControllerDelegate?
+    weak var delegate: IdentitySelectorViewControllerDelegate?
     var context :NSManagedObjectContext? {
         didSet {
             self.createIdentitiesFetchedResultsController()
             self.identitiesFRC?.performFetch(nil)
             self.controllerDidChangeContent(identitiesFRC!)
+        }
+    }
+    var sqrlLink: NSURL? = nil {
+        didSet {
+            self.promptForPassword = (sqrlLink == nil) ? false : true
         }
     }
     var promptForPassword = false {
@@ -56,14 +61,6 @@ class IdentitySelectorViewController: UIViewController,
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-    }
-    
-    
-    // MARK: - SQRL Link signage
-    func responseForSqrlLink(sqrlLink: NSURL?, response: NSURLSessionTask -> Void)
-    {
-        // only ask for password if there is a sqrl link to respond to
-        self.promptForPassword = (sqrlLink == nil) ? false : true
     }
 
     

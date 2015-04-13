@@ -13,11 +13,15 @@ class IdentityViewController: UIViewController
     
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var detailLabel: UILabel!
+    @IBOutlet weak var nameLabelCenterY: NSLayoutConstraint!
     
     weak var identity: Identity?
     var promptForPassword = false {
         didSet {
-            
+            if self.detailLabel != nil {
+                self.detailLabel.hidden = !promptForPassword
+            }
         }
     }
     

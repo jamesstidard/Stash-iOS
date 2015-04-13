@@ -17,6 +17,7 @@ class AuthenticationViewController: UIViewController,
     let stash = Stash.sharedInstance
     lazy var context :NSManagedObjectContext?   = self.stash.context // give the context as much time as we can to initialise
     lazy var contextContracts :[ContextDriven]? = [ContextDriven]() //If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
+    weak var selectorVC: IdentitySelectorViewController?
     
     
     override func viewDidLoad() {
@@ -49,9 +50,9 @@ class AuthenticationViewController: UIViewController,
     }
     
     // MARK: - Scanner
-    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink: NSURL?)
+    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?)
     {
-        
+        self.selectorVC?.sqrlLink = sqrlLink
     }
     
     // MARK: - Navigation
@@ -73,8 +74,14 @@ class AuthenticationViewController: UIViewController,
         }
         
         // if is the identity selector view controller, we want to know what's selected.
+        if let vc = destinationVC as? QRScannerViewController {
+            vc.delegate     = self
+        }
+        
+        // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? IdentitySelectorViewController {
-            vc.selectorDelegate = self
+            vc.delegate     = self
+            self.selectorVC = vc
         }
     }
 }
