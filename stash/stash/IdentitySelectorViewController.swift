@@ -10,7 +10,8 @@ import UIKit
 import CoreData
 
 
-protocol IdentitySelectorViewControllerDelegate :class {
+protocol IdentitySelectorViewControllerDelegate: class
+{
     
 }
 
