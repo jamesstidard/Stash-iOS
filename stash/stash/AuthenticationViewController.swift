@@ -11,15 +11,22 @@ import CoreData
 
 class AuthenticationViewController: UIViewController,
     ContextDriven,
-    IdentitySelectorViewControllerDelegate,
-    QRScannerViewControllerDelegate
+    IdentityRepository,
+    SqrlLinkRepository
 {
-    let stash = Stash.sharedInstance
-    lazy var context :NSManagedObjectContext?   = self.stash.context // give the context as much time as we can to initialise
-    lazy var contextContracts :[ContextDriven]? = [ContextDriven]() //If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
+    @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
+    
+    let notificationCenter                      = NSNotificationCenter.defaultCenter()
+    let stash                                   = Stash.sharedInstance
+    lazy var context :NSManagedObjectContext?   = self.stash.context// give the context as much time as we can to initialise
+    lazy var contextContracts :[ContextDriven]? = [ContextDriven]()//If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
     weak var selectorVC: IdentitySelectorViewController?
     
+    var sqrlLink: NSURL? = nil
+    var identityBundle:(identity: Identity, password: String)? = nil
     
+    
+    // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -27,6 +34,18 @@ class AuthenticationViewController: UIViewController,
         if stash.context == nil {
             stash.addObserver(self, forKeyPath: StashPropertyContextKey, options: .New, context: nil)
         }
+        
+        // listen out for the keyboard so we can move the identity selector view up
+        notificationCenter.addObserver(
+            self,
+            selector: "keyboardPositionChanged:",
+            name: UIKeyboardWillShowNotification,
+            object: nil)
+        notificationCenter.addObserver(
+            self,
+            selector: "keyboardPositionChanged:",
+            name: UIKeyboardWillHideNotification,
+            object: nil)
     }
     
     override func didReceiveMemoryWarning() {
@@ -46,6 +65,34 @@ class AuthenticationViewController: UIViewController,
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
         } else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
+    
+    // MARK: - Keyboard Response
+    func keyboardPositionChanged(notification: NSNotification)
+    {
+        if let
+            kbInfo     = notification.userInfo,
+            curveRaw   = kbInfo[UIKeyboardAnimationCurveUserInfoKey]?.integerValue,
+            duration   = kbInfo[UIKeyboardAnimationDurationUserInfoKey]?.doubleValue,
+            startFrame = kbInfo[UIKeyboardFrameBeginUserInfoKey]?.CGRectValue(),
+            endFrame   = kbInfo[UIKeyboardFrameEndUserInfoKey]?.CGRectValue()
+        {
+            let showing      = notification.name == UIKeyboardWillShowNotification
+            let startYOrigin = startFrame.origin.y
+            let endYOrigin   = endFrame.origin.y
+            let yDelta       = startYOrigin - endYOrigin
+            
+            self.view.layoutIfNeeded()
+            UIView.animateWithDuration(
+                duration,
+                delay: 0,
+                options: UIViewAnimationOptions(UInt(curveRaw)),
+                animations: {
+                    self.selectorContainerBottomConstraint.constant += yDelta
+                    self.view.layoutIfNeeded()
+                },
+                completion: nil)
         }
     }
     

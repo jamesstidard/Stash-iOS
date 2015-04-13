@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 		7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
+		7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9B1ADC653D00F6863B /* Repositories.swift */; };
+		7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
 		7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */; };
 		7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
 		7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */; };
@@ -128,6 +130,8 @@
 /* Begin PBXFileReference section */
 		7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStorePasswordManagement.swift; sourceTree = "<group>"; };
+		7C277F9B1ADC653D00F6863B /* Repositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
+		7C277F9D1ADC660700F6863B /* ContextDriven.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextDriven.swift; sourceTree = "<group>"; };
 		7C2AF2A91A72AD1500B48192 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreator.swift; sourceTree = "<group>"; };
 		7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionSingleton.swift; sourceTree = "<group>"; };
@@ -285,11 +289,13 @@
 			name = Extentions;
 			sourceTree = "<group>";
 		};
-		7C3420B21AD8540E00338126 /* Miscellany */ = {
+		7C3420B21AD8540E00338126 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				7C277F9B1ADC653D00F6863B /* Repositories.swift */,
+				7C277F9D1ADC660700F6863B /* ContextDriven.swift */,
 			);
-			name = Miscellany;
+			name = Protocols;
 			sourceTree = "<group>";
 		};
 		7C6C08721ADB16EF00AF344B /* SQRLProtocol */ = {
@@ -344,7 +350,7 @@
 				7C3420AF1AD850A200338126 /* IdentityViewController.swift */,
 				7C957EBF1AD96ED500E4E040 /* Identity Management */,
 				7CA20BC61A742E180021B631 /* Identity Creation */,
-				7C3420B21AD8540E00338126 /* Miscellany */,
+				7C3420B21AD8540E00338126 /* Protocols */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -653,6 +659,7 @@
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,
 				7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */,
 				7C3420B01AD850A200338126 /* IdentityViewController.swift in Sources */,
+				7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */,
 				7C2B902E1A282BA5009F0589 /* NSOperationQueueHelper.swift in Sources */,
 				7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */,
 				7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */,
@@ -670,6 +677,7 @@
 				7CA1C9CE1A8730F600CC0A97 /* AesGcm.swift in Sources */,
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
 				7CB285601A8BC9970019A2EC /* Identity.swift in Sources */,
+				7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */,
 				7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */,
 				7C957EC31AD96FD100E4E040 /* IdentityFetchedResultsController.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,

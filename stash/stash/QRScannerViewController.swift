@@ -10,12 +10,6 @@ import UIKit
 import AVFoundation
 
 
-protocol QRScannerViewControllerDelegate: class
-{
-    func qrScannerViewController(qrScannerViewController: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?)
-}
-
-
 class QRScannerViewController: UIViewController,
     AVCaptureMetadataOutputObjectsDelegate,
     NSURLSessionTaskDelegate
@@ -23,11 +17,14 @@ class QRScannerViewController: UIViewController,
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var shadeView: UIView!
     
-    weak var delegate: QRScannerViewControllerDelegate?
-    private var sqrlLink: NSURL? = nil {
-        didSet {
+    weak var delegate: SqrlLinkRepository?
+    private var sqrlLink: NSURL? {
+        set {
+            self.delegate?.sqrlLink = newValue
             self.shadeView.hidden = (self.sqrlLink == nil) ? true : false
-            self.delegate?.qrScannerViewController(self, didFindSqrlLink: self.sqrlLink)
+        }
+        get {
+            return self.delegate?.sqrlLink
         }
     }
     
@@ -72,7 +69,6 @@ class QRScannerViewController: UIViewController,
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        //self.stopSession()
     }
     
     

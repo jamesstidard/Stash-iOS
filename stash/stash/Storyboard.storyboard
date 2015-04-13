@@ -128,7 +128,7 @@
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug">
-                                <rect key="frame" x="0.0" y="480" width="600" height="120"/>
+                                <rect key="frame" x="0.0" y="510" width="600" height="90"/>
                                 <connections>
                                     <segue destination="9gE-bv-hw2" kind="embed" id="v64-3j-W2X"/>
                                 </connections>
@@ -143,7 +143,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="h28-Z8-Wug" secondAttribute="trailing" constant="-16" id="EfM-aa-EHK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="amF-lu-JG5" secondAttribute="trailing" constant="-16" id="FPc-h3-OR9"/>
                             <constraint firstItem="amF-lu-JG5" firstAttribute="top" secondItem="39i-W5-6E2" secondAttribute="topMargin" id="K3X-Xu-TRM"/>
-                            <constraint firstItem="h28-Z8-Wug" firstAttribute="height" secondItem="39i-W5-6E2" secondAttribute="height" multiplier="0.2" id="YgA-jl-1Fz"/>
+                            <constraint firstItem="h28-Z8-Wug" firstAttribute="height" secondItem="39i-W5-6E2" secondAttribute="height" multiplier="0.15" id="YgA-jl-1Fz"/>
                             <constraint firstItem="ROc-JE-XZh" firstAttribute="top" secondItem="amF-lu-JG5" secondAttribute="bottom" id="wke-3s-kpL"/>
                         </constraints>
                         <connections>
@@ -151,6 +151,9 @@
                         </connections>
                     </view>
                     <navigationItem key="navigationItem" id="iRz-ZF-L4g"/>
+                    <connections>
+                        <outlet property="selectorContainerBottomConstraint" destination="8sG-tg-ZlL" id="WgS-xQ-4ct"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="up" id="HQ9-gY-6LS">
@@ -277,11 +280,11 @@
                         <viewControllerLayoutGuide type="bottom" id="sDi-tn-NdZ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="UBR-tG-i8h">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Em-pv-Kb1">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                                 <connections>
                                     <segue destination="nwQ-dX-GNc" kind="embed" id="4uI-LZ-QHI"/>
                                 </connections>
@@ -298,7 +301,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qKv-LY-SJW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-508" y="2703"/>
+            <point key="canvasLocation" x="-508" y="2831"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="oEm-CE-v9k">
@@ -393,7 +396,7 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="nwQ-dX-GNc" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eXW-Lc-Zio" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="169" y="2703"/>
+            <point key="canvasLocation" x="224" y="2831"/>
         </scene>
         <!--Identity View Controller-->
         <scene sceneID="ImD-Jg-xf4">
@@ -404,54 +407,79 @@
                         <viewControllerLayoutGuide type="bottom" id="JbT-hA-9wS"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dR3-pV-Jxx">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="bezel" placeholder="Password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WHc-Nj-6r6">
+                                <rect key="frame" x="16" y="8" width="568" height="74"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
+                            </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="tqL-zg-KBD">
-                                <rect key="frame" x="0.0" y="0.0" width="120" height="120"/>
+                                <rect key="frame" x="0.0" y="0.0" width="90" height="90"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="tqL-zg-KBD" secondAttribute="height" multiplier="1:1" id="iUX-4W-snB"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johny Appleseed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sf-Im-QVf">
-                                <rect key="frame" x="136" y="26" width="448" height="34"/>
+                                <rect key="frame" x="106" y="11" width="478" height="34"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="28"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPM-iw-oOR">
-                                <rect key="frame" x="136" y="68" width="448" height="21"/>
+                                <rect key="frame" x="106" y="53" width="478" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="tqL-zg-KBD" firstAttribute="leading" secondItem="dR3-pV-Jxx" secondAttribute="leadingMargin" constant="-16" id="4hm-jP-PbO"/>
+                            <constraint firstItem="WHc-Nj-6r6" firstAttribute="trailing" secondItem="dR3-pV-Jxx" secondAttribute="trailingMargin" id="91V-fl-1Np"/>
                             <constraint firstItem="JbT-hA-9wS" firstAttribute="top" secondItem="tqL-zg-KBD" secondAttribute="bottom" id="AIO-gV-JWh"/>
                             <constraint firstItem="0sf-Im-QVf" firstAttribute="leading" secondItem="tqL-zg-KBD" secondAttribute="trailing" constant="16" id="DH0-wr-7E8"/>
                             <constraint firstItem="tqL-zg-KBD" firstAttribute="top" secondItem="QjE-C4-ZdQ" secondAttribute="bottom" id="E3c-gK-d1Q"/>
                             <constraint firstItem="KPM-iw-oOR" firstAttribute="trailing" secondItem="dR3-pV-Jxx" secondAttribute="trailingMargin" id="NzD-P5-elh"/>
+                            <constraint firstItem="WHc-Nj-6r6" firstAttribute="top" secondItem="QjE-C4-ZdQ" secondAttribute="bottom" constant="8" id="TBE-r1-BqI"/>
+                            <constraint firstItem="JbT-hA-9wS" firstAttribute="top" secondItem="WHc-Nj-6r6" secondAttribute="bottom" constant="8" id="UOM-px-730"/>
                             <constraint firstItem="KPM-iw-oOR" firstAttribute="top" secondItem="0sf-Im-QVf" secondAttribute="bottom" constant="8" id="dWf-Fg-R0B"/>
                             <constraint firstItem="KPM-iw-oOR" firstAttribute="leading" secondItem="0sf-Im-QVf" secondAttribute="leading" id="iCt-O0-58W"/>
+                            <constraint firstItem="WHc-Nj-6r6" firstAttribute="leading" secondItem="dR3-pV-Jxx" secondAttribute="leadingMargin" id="qqI-kR-2fu"/>
                             <constraint firstItem="tqL-zg-KBD" firstAttribute="centerY" secondItem="0sf-Im-QVf" secondAttribute="bottom" id="uRc-ua-70M"/>
                             <constraint firstItem="0sf-Im-QVf" firstAttribute="trailing" secondItem="dR3-pV-Jxx" secondAttribute="trailingMargin" id="yTq-hG-Zel"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Rp1-CI-PwQ" appends="YES" id="xuo-3e-PRR"/>
+                            <outletCollection property="gestureRecognizers" destination="uNR-RG-WeA" appends="YES" id="4gN-dY-N2S"/>
+                        </connections>
                     </view>
                     <nil key="simulatedStatusBarMetrics"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="120"/>
+                    <size key="freeformSize" width="600" height="90"/>
                     <connections>
                         <outlet property="detailLabel" destination="KPM-iw-oOR" id="tog-Bq-DGF"/>
                         <outlet property="imageView" destination="tqL-zg-KBD" id="Xm9-Md-NL7"/>
                         <outlet property="nameLabel" destination="0sf-Im-QVf" id="1Wq-8N-7cP"/>
                         <outlet property="nameLabelCenterY" destination="uRc-ua-70M" id="inD-57-T6C"/>
+                        <outlet property="passwordField" destination="WHc-Nj-6r6" id="jty-9N-3Mu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLM-DT-Pww" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="Rp1-CI-PwQ">
+                    <connections>
+                        <action selector="didTap:" destination="xp8-I1-ux5" id="Yw6-0U-bI5"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <swipeGestureRecognizer direction="down" id="uNR-RG-WeA">
+                    <connections>
+                        <action selector="swipedDown:" destination="xp8-I1-ux5" id="qVb-Dm-Zu9"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="851" y="2703"/>
+            <point key="canvasLocation" x="901" y="2831"/>
         </scene>
     </scenes>
 </document>

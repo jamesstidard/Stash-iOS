@@ -10,12 +10,6 @@ import UIKit
 import CoreData
 
 
-protocol IdentitySelectorViewControllerDelegate: class
-{
-    
-}
-
-
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
     ContextDriven,
@@ -29,7 +23,7 @@ class IdentitySelectorViewController: UIViewController,
     private var pendingPage:   IdentityViewController?
     private var currentPage:   IdentityViewController?
     
-    weak var delegate: IdentitySelectorViewControllerDelegate?
+    weak var delegate: IdentityRepository?
     var context :NSManagedObjectContext? {
         didSet {
             self.createIdentitiesFetchedResultsController()
@@ -42,7 +36,7 @@ class IdentitySelectorViewController: UIViewController,
             self.promptForPassword = (sqrlLink == nil) ? false : true
         }
     }
-    var promptForPassword = false {
+    private var promptForPassword = false {
         didSet {
             if let vcs = self.pageVC?.viewControllers as? [IdentityViewController] {
                 vcs.map { $0.promptForPassword = self.promptForPassword }
@@ -63,7 +57,23 @@ class IdentitySelectorViewController: UIViewController,
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    // MARK: - User Authorisation
+    
+    
+    
+    // MARK: - Helpers
+    class func configureIdentityViewController(
+        identityVC: IdentityViewController,
+        withIdentity identity: Identity?,
+        promptForPassword prompt: Bool) -> IdentityViewController
+    {
+        identityVC.identity = identity
+        identityVC.promptForPassword = prompt
+        return identityVC
+    }
+    
     
     // MARK: - Page View Controller
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
@@ -86,9 +96,10 @@ class IdentitySelectorViewController: UIViewController,
             previousIndex   = find(allIdentities, currentIdentity) -? 1,
             identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
-            identityVC.identity = (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last
-            identityVC.promptForPassword = self.promptForPassword
-            return identityVC
+            return self.dynamicType.configureIdentityViewController(
+                identityVC,
+                withIdentity: (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last,
+                promptForPassword: self.promptForPassword)
         }
         
         return nil
@@ -103,9 +114,10 @@ class IdentitySelectorViewController: UIViewController,
             nextIndex       = find(allIdentities, currentIdentity) +? 1,
             identityVC      = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
-            identityVC.identity = (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first
-            identityVC.promptForPassword = self.promptForPassword
-            return identityVC
+            return self.dynamicType.configureIdentityViewController(
+                identityVC,
+                withIdentity: (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first,
+                promptForPassword: self.promptForPassword)
         }
         
         return nil
@@ -136,8 +148,10 @@ class IdentitySelectorViewController: UIViewController,
             identity   = self.identitiesFRC?.fetchedObjects?.first as? Identity,
             identityVC = self.storyboard?.instantiateViewControllerWithIdentifier(IdentityViewController.StoryboardID) as? IdentityViewController
         {
-            identityVC.identity = identity
-            identityVC.promptForPassword = self.promptForPassword
+            self.dynamicType.configureIdentityViewController(
+                identityVC,
+                withIdentity: identity,
+                promptForPassword: self.promptForPassword)
             pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }
