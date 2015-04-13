@@ -12,30 +12,42 @@ import CoreData
 class AuthenticationViewController: UIViewController,
     ContextDriven,
     IdentityRepository,
-    SqrlLinkRepository
+    SqrlLinkRepository,
+    NSURLSessionTaskDelegate
 {
     @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
     
-    let notificationCenter                      = NSNotificationCenter.defaultCenter()
-    let stash                                   = Stash.sharedInstance
-    lazy var context :NSManagedObjectContext?   = self.stash.context// give the context as much time as we can to initialise
-    lazy var contextContracts :[ContextDriven]? = [ContextDriven]()//If we segue to anything that needs a context while before it's been initilised, we add them to this list and pass them the context once we have it.
+    lazy var session: NSURLSession = NSURLSession(configuration: nil, delegate: self, delegateQueue: nil)
+    lazy var notificationCenter    = NSNotificationCenter.defaultCenter()
+    
+    lazy var stash: Stash                       = Stash.sharedInstance
+    lazy var context: NSManagedObjectContext?   = self.stash.context
+    lazy var contextContracts :[ContextDriven]? = [ContextDriven]()
+    // If we segue to anything that needs a context while before it's been initilised,
+    // we add them to this list and pass them the context once we have it.
+    
     weak var selectorVC: IdentitySelectorViewController?
     
-    var sqrlLink: NSURL? = nil
-    var identityBundle:(identity: Identity, password: String)? = nil
+    var sqrlLink: NSURL? = nil {
+        didSet { self.selectorVC?.sqrlLink = sqrlLink }
+    }
+    var identityBundle:(identity: Identity, password: String)? = nil {
+        didSet { self.performLogin() }
+    }
     
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.session = NSURLSession(configuration: nil, delegate: self, delegateQueue: nil)
+        
         // If the moc has yet to be initialised, start listening for it
         if stash.context == nil {
             stash.addObserver(self, forKeyPath: StashPropertyContextKey, options: .New, context: nil)
         }
         
-        // listen out for the keyboard so we can move the identity selector view up
+        // listen out for the keyboard so we can move the identity selector view up/down
         notificationCenter.addObserver(
             self,
             selector: "keyboardPositionChanged:",
@@ -53,6 +65,28 @@ class AuthenticationViewController: UIViewController,
         // Dispose of any resources that can be recreated.
     }
     
+    
+    // MARK: - SQRL
+    func performLogin()
+    {
+        
+    }
+    
+    
+    // MARK: - NSURLSession
+    func URLSession(
+        session: NSURLSession,
+        task: NSURLSessionTask,
+        willPerformHTTPRedirection response: NSHTTPURLResponse,
+        newRequest request: NSURLRequest,
+        completionHandler: (NSURLRequest!) -> Void)
+    {
+        // SQRL shouldn't follow to any redirects
+        completionHandler(nil)
+    }
+    
+    
+    // MARK: - Context Watching
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
     {
         // If this is the context we've been waiting for, tell anyone we have contracts with and set it locally
@@ -67,6 +101,7 @@ class AuthenticationViewController: UIViewController,
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
     }
+    
     
     // MARK: - Keyboard Response
     func keyboardPositionChanged(notification: NSNotification)
@@ -96,11 +131,13 @@ class AuthenticationViewController: UIViewController,
         }
     }
     
+    
     // MARK: - Scanner
     func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?)
     {
         self.selectorVC?.sqrlLink = sqrlLink
     }
+    
     
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

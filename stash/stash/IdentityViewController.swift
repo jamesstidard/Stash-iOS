@@ -25,6 +25,7 @@ class IdentityViewController: UIViewController,
     @IBOutlet weak var nameLabelCenterY: NSLayoutConstraint!
     @IBOutlet weak var passwordField: UITextField!
     
+    weak var delegate: IdentityRepository?
     weak var identity: Identity?
     var promptForPassword = false {
         didSet {
@@ -69,7 +70,9 @@ class IdentityViewController: UIViewController,
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         // handle user password submission
-        
+        if let identity = self.identity, password = textField.text {
+            self.delegate?.identityBundle = (identity, password)
+        }
         
         return true
     }

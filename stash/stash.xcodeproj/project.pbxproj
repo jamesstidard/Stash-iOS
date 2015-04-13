@@ -11,6 +11,9 @@
 		7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
 		7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9B1ADC653D00F6863B /* Repositories.swift */; };
 		7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
+		7C277F9F1ADC788600F6863B /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9B1ADC653D00F6863B /* Repositories.swift */; };
+		7C277FA01ADC788800F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
+		7C277FA21ADC80D000F6863B /* IdentitySqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA11ADC80D000F6863B /* IdentitySqrl.swift */; };
 		7C2AF2AA1A72AD1500B48192 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */; };
 		7C2AF2B51A72B4D300B48192 /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
 		7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */; };
@@ -132,6 +135,7 @@
 		7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStorePasswordManagement.swift; sourceTree = "<group>"; };
 		7C277F9B1ADC653D00F6863B /* Repositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		7C277F9D1ADC660700F6863B /* ContextDriven.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextDriven.swift; sourceTree = "<group>"; };
+		7C277FA11ADC80D000F6863B /* IdentitySqrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentitySqrl.swift; sourceTree = "<group>"; };
 		7C2AF2A91A72AD1500B48192 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreator.swift; sourceTree = "<group>"; };
 		7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreMotionSingleton.swift; sourceTree = "<group>"; };
@@ -466,6 +470,7 @@
 				7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */,
 				7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */,
 				7C957EC21AD96FD100E4E040 /* IdentityFetchedResultsController.swift */,
+				7C277FA11ADC80D000F6863B /* IdentitySqrl.swift */,
 			);
 			name = Identity;
 			sourceTree = "<group>";
@@ -666,6 +671,7 @@
 				7C2B902A1A281DD0009F0589 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B902C1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift in Sources */,
 				7CB2855A1A8BC9960019A2EC /* Settings.swift in Sources */,
+				7C277FA21ADC80D000F6863B /* IdentitySqrl.swift in Sources */,
 				7C957EC11AD96F4100E4E040 /* IdentityManagementTableViewController.swift in Sources */,
 				7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */,
 				7CB285631A8BC9970019A2EC /* SecureStore.swift in Sources */,
@@ -718,6 +724,7 @@
 				7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */,
 				7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */,
 				7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */,
+				7C277FA01ADC788800F6863B /* ContextDriven.swift in Sources */,
 				7C5A8D7C1A8B9BAE004407C1 /* NSStringRescueCode.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,
 				7CB2855E1A8BC9970019A2EC /* XORStore.swift in Sources */,
@@ -746,6 +753,7 @@
 				7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
 				7C9336A21A8B9A7400D3E53B /* GCMStoreCreator.swift in Sources */,
+				7C277F9F1ADC788600F6863B /* Repositories.swift in Sources */,
 				7C2B90241A280760009F0589 /* CoreMotionSingleton.swift in Sources */,
 				7C5A8D741A8B9B74004407C1 /* HmacSha256.swift in Sources */,
 				7C87AAAA1A2834F700DC3EC7 /* EntropyHarvester.swift in Sources */,

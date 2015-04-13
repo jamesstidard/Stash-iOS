@@ -66,11 +66,13 @@ class IdentitySelectorViewController: UIViewController,
     // MARK: - Helpers
     class func configureIdentityViewController(
         identityVC: IdentityViewController,
-        withIdentity identity: Identity?,
-        promptForPassword prompt: Bool) -> IdentityViewController
+        identity: Identity?,
+        promptForPassword prompt: Bool,
+        delegate: IdentityRepository?) -> IdentityViewController
     {
-        identityVC.identity = identity
+        identityVC.identity          = identity
         identityVC.promptForPassword = prompt
+        identityVC.delegate          = delegate
         return identityVC
     }
     
@@ -98,8 +100,9 @@ class IdentitySelectorViewController: UIViewController,
         {
             return self.dynamicType.configureIdentityViewController(
                 identityVC,
-                withIdentity: (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last,
-                promptForPassword: self.promptForPassword)
+                identity: (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last,
+                promptForPassword: self.promptForPassword,
+                delegate: self.delegate)
         }
         
         return nil
@@ -116,8 +119,9 @@ class IdentitySelectorViewController: UIViewController,
         {
             return self.dynamicType.configureIdentityViewController(
                 identityVC,
-                withIdentity: (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first,
-                promptForPassword: self.promptForPassword)
+                identity: (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first,
+                promptForPassword: self.promptForPassword,
+                delegate: self.delegate)
         }
         
         return nil
@@ -150,8 +154,9 @@ class IdentitySelectorViewController: UIViewController,
         {
             self.dynamicType.configureIdentityViewController(
                 identityVC,
-                withIdentity: identity,
-                promptForPassword: self.promptForPassword)
+                identity: identity,
+                promptForPassword: self.promptForPassword,
+                delegate: self.delegate)
             pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }
