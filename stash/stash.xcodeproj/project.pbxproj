@@ -67,7 +67,6 @@
 		7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
 		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
-		7C9336921A8B943A00D3E53B /* ManagedObjectContextTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */; };
 		7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
 		7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
 		7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
@@ -164,7 +163,6 @@
 		7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumUtilities.swift; sourceTree = "<group>"; };
 		7C881DAB1A76E20B0017B785 /* Scrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrypt.swift; sourceTree = "<group>"; };
 		7C881DAD1A76E22D0017B785 /* EnScrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScrypt.swift; sourceTree = "<group>"; };
-		7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextTestCase.swift; sourceTree = "<group>"; };
 		7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStoreAbstract.swift; sourceTree = "<group>"; };
 		7C957EC01AD96F4100E4E040 /* IdentityManagementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityManagementTableViewController.swift; sourceTree = "<group>"; };
 		7C957EC21AD96FD100E4E040 /* IdentityFetchedResultsController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityFetchedResultsController.swift; sourceTree = "<group>"; };
@@ -417,7 +415,6 @@
 				7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */,
 				7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */,
 				7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */,
-				7C9336911A8B943A00D3E53B /* ManagedObjectContextTestCase.swift */,
 				7CAFACD41ADC231D00C077BC /* CoreDataTestCase.swift */,
 				7CAFACD61ADC24D700C077BC /* XORTests.swift */,
 				7CCCFB9519685D9200DF3442 /* Supporting Files */,
@@ -716,7 +713,6 @@
 				7C5A8D7C1A8B9BAE004407C1 /* NSStringRescueCode.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,
 				7CB2855E1A8BC9970019A2EC /* XORStore.swift in Sources */,
-				7C9336921A8B943A00D3E53B /* ManagedObjectContextTestCase.swift in Sources */,
 				7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */,
 				7CB1ECD11A8BA9F700C57400 /* AppDelegate.swift in Sources */,
 				7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */,
