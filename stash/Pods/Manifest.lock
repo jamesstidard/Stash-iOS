@@ -1,12 +1,15 @@
 PODS:
+  - Base64 (1.0.1)
   - libsodium (1.0.2)
   - OpenSSL (1.0.201)
 
 DEPENDENCIES:
+  - Base64 (~> 1.0)
   - libsodium (< 2.0)
   - OpenSSL (~> 1.0)
 
 SPEC CHECKSUMS:
+  Base64: 4924bf3ca6fa559a5161ef717291bd450eb7bd1a
   libsodium: d1b482e7628e0298de350375a4ab981b5cc8c71b
   OpenSSL: 4e990d04b14015c49c800c400b86ae44a4818a5c
 

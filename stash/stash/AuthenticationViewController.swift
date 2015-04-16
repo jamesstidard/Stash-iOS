@@ -69,7 +69,82 @@ class AuthenticationViewController: UIViewController,
     // MARK: - SQRL
     func performLogin()
     {
+        if let
+            identity  = self.identityBundle?.identity,
+            password  = self.identityBundle?.password,
+            sqrlLink  = self.sqrlLink,
+            masterKey = identity.masterKey.decryptCipherTextWithPassword(password),
+            request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, withMasterKey: masterKey)
+        {
+            let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+            task.resume()
+        }
+    }
+    
+    func handleServerResponse(data: NSData!, response: NSURLResponse!, error: NSError!) -> Void
+    {
+        if let
+            message     = data.sqrlServerResponse(),
+            serverName  = message[.ServersFriendlyName],
+            tifRaw      = message[.TIF]?.toInt(),
+            identity    = self.identityBundle?.identity,
+            password    = self.identityBundle?.password,
+            masterKey   = identity.masterKey.decryptCipherTextWithPassword(password),
+            responseURL = response.URL
+        where
+            tifRaw > 0
+        {
+            let tif = TIF(UInt(tifRaw))
+            
+            // If NO current id or previous id on the server
+            if tif & (.CurrentIDMatch | .PreviousIDMatch) == nil {
+                self.handleCreateIdentity(
+                    serverName,
+                    serverURL: responseURL,
+                    serverMessage: data,
+                    masterKey: masterKey,
+                    lockKey: identity.lockKey)
+            }
+            // if current id
+            else if tif & .CurrentIDMatch {
+                
+            }
+        }
+    }
+    
+    func handleCreateIdentity(
+        serverName: String,
+        serverURL: NSURL,
+        serverMessage: NSData,
+        masterKey: NSData,
+        lockKey: NSData)
+    {
+        if let
+            serverValue = NSString(data: serverMessage, encoding: NSASCIIStringEncoding) as? String,
+            request = NSMutableURLRequest(createIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey, identityLockKey: lockKey)
+        {
+            self.promptCreateNewAccount(serverName, createRequest: request)
+        }
+    }
+    
+    func promptCreateNewAccount(serverName: String, createRequest: NSMutableURLRequest)
+    {
+        let alert = UIAlertController(
+            title: serverName,
+            message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
+            preferredStyle: .Alert)
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+        let createAction = UIAlertAction(title: "Create", style: .Default) { _ in
+            let task = self.session.dataTaskWithRequest(createRequest, completionHandler: self.handleServerResponse)
+            task.resume()
+        }
+        alert.addAction(cancelAction)
+        alert.addAction(createAction)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
     }
     
     

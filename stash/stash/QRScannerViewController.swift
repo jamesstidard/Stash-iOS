@@ -137,7 +137,7 @@ class QRScannerViewController: UIViewController,
                 QRCode   = metadataObjects.filter({$0.type == AVMetadataObjectTypeQRCode}).first as? AVMetadataMachineReadableCodeObject,
                 sqrlLink = NSURL(string: QRCode.stringValue)
                 where
-                sqrlLink.isValidSqrlLink()
+                sqrlLink.isValidSqrlLink
             {
                 self.sqrlLink = sqrlLink
             }

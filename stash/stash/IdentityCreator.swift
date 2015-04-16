@@ -30,10 +30,11 @@ extension Identity
         }
         
         if let (var unlockKey, var lockKey) = Ed25519.keyPairFromSeed(identitySeed) {
+            var optionalUnlockKey: NSData? = unlockKey // needed to satify CGMStore inout
             
-            var masterKey = EnHash.sha256(unlockKey!, iterations: 16)
+            var masterKey = EnHash.sha256(optionalUnlockKey!, iterations: 16)
             
-            if unlockKey == nil || masterKey == nil {
+            if masterKey == nil {
                 return nil
             }
             
@@ -46,7 +47,7 @@ extension Identity
             dispatch_group_enter(threadGroup)
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
-                securedUnlockKey = GCMStore.createGCMStore(&unlockKey, password: rescueCodeBundle!.data, context: context)
+                securedUnlockKey = GCMStore.createGCMStore(&optionalUnlockKey, password: rescueCodeBundle!.data, context: context)
                 dispatch_group_leave(threadGroup)
             })
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
@@ -60,7 +61,7 @@ extension Identity
                 return nil
             }
             
-            unlockKey!.secureMemZero()
+            unlockKey.secureMemZero()
             masterKey!.secureMemZero()
             identitySeed.secureMemZero()
             passwordData!.secureMemZero()

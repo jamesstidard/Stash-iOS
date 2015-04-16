@@ -10,9 +10,22 @@ import Foundation
 
 extension XORStore {
     
-    func decryptCipherTextWithPassword(password: NSData) -> NSData?
+    func decryptCipherTextWithPassword(password: String) -> NSData?
     {
-        if let key = keyFromPassword(password) where isValidKey(key) {
+        return self.decryptCipherTextWithPassword(password, passwordEncoding: NSUTF8StringEncoding)
+    }
+    
+    func decryptCipherTextWithPassword(password: String, passwordEncoding: NSStringEncoding) -> NSData?
+    {
+        if let passwordData = password.dataUsingEncoding(passwordEncoding, allowLossyConversion: false) {
+            return self.decryptCipherTextWithPasswordData(passwordData)
+        }
+        return nil
+    }
+    
+    func decryptCipherTextWithPasswordData(passwordData: NSData) -> NSData?
+    {
+        if let key = self.keyFromPassword(passwordData) where self.isValidKey(key) {
             return self.ciphertext ^ key
         }
         return nil
@@ -22,7 +35,7 @@ extension XORStore {
     func changePassword(oldPassword: NSData, newPassword: NSData) -> Bool {
         // try decrypt under old password
         if let
-            decryptedData = self.decryptCipherTextWithPassword(oldPassword),
+            decryptedData = self.decryptCipherTextWithPasswordData(oldPassword),
             newKeyBundle  = XORStore.makeKeyFromPassword(newPassword)
         {
             // encrypt and store new cipher data under new key and update properties of new key

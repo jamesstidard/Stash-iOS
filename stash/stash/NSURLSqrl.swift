@@ -10,7 +10,35 @@ import Foundation
 
 extension NSURL
 {
-    func sqrlSiteKeyString() -> String?
+    var urlData: NSData? {
+        return self.absoluteString?.dataUsingEncoding(NSASCIIStringEncoding)
+    }
+    
+    var sqrlResponseURL: NSURL?
+        {
+            if var
+                components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false),
+                scheme     = self.scheme?.lowercaseString
+                where
+                scheme == "sqrl" || scheme == "qrl"
+            {
+                // strip url of superfluous info
+                components.user     = nil
+                components.password = nil
+                components.port     = nil
+                
+                // compose sqrl response url
+                components.scheme = (scheme == "sqrl") ? "https" : "http"
+                components.host   = components.host?.lowercaseString
+                
+                return components.URL
+            }
+            
+            return nil
+    }
+    
+    
+    var sqrlSiteKeyString: String?
     {
         if self.host == nil { return nil } // The service has got to atleast have a domain, right?
         
@@ -35,36 +63,43 @@ extension NSURL
         return siteKeyString
     }
     
-    
-    func sqrlResponseURL() -> NSURL?
+    var sqrlBase64URLString: String?
     {
-        if var
-            components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false),
-            scheme     = self.scheme?.lowercaseString
-        where
-            scheme == "sqrl" || scheme == "qrl"
-        {
-            // strip url of superfluous info
-            components.user     = nil
-            components.password = nil
-            components.port     = nil
-            
-            // compose sqrl response url
-            components.scheme = (scheme == "sqrl") ? "https" : "http"
-            components.host   = components.host?.lowercaseString
-            
-            return components.URL
-        }
-        
-        return nil
+            return self.absoluteString?.base64URLEncodedString(padding: false)
     }
     
     
-    func isValidSqrlLink() -> Bool
+    var isValidSqrlLink: Bool
+        {
+            return
+                (self.scheme == "sqrl" || self.scheme == "qrl") &&
+                    self.host != nil &&
+                    self.query?.lowercaseString.rangeOfString("nut=") != nil
+    }
+    
+    func urlByReplacingQueryPath(pathWithQuery: String) -> NSURL?
     {
-        return
-            (self.scheme == "sqrl" || self.scheme == "qrl") &&
-            self.host != nil &&
-            self.query?.lowercaseString.rangeOfString("nut=") != nil
+        if var
+            components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
+        {
+            let parts = split(pathWithQuery, maxSplit: 1, allowEmptySlices: false) { $0 == "?" }
+            if parts.count != 2 { return nil }
+            
+            // compose sqrl response url
+            components.path  = parts[0]
+            components.query = parts[1]
+                
+            return components.URL
+        }
+            
+        return nil
+    }
+    
+    func sqrlSiteKeyHash(hashFunction hash: (message: NSData, key: NSData) -> NSData?, masterKey: NSData) -> NSData?
+    {
+        if let siteKeyData = self.sqrlSiteKeyString?.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false) {
+            return hash(message: siteKeyData, key: masterKey)
+        }
+        return nil
     }
 }

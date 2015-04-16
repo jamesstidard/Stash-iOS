@@ -10,16 +10,16 @@ import Foundation
 
 extension NSData
 {
-    func base64URLEncodedStringWithOptions(options: NSDataBase64EncodingOptions) -> String
+    func base64URLString() -> String
     {
-        return self.base64EncodedStringWithOptions(options)
+        return self.base64String()
                    .stringByReplacingOccurrencesOfString("+", withString: "-")
                    .stringByReplacingOccurrencesOfString("/", withString: "_")
     }
     
-    func base64URLEncodedStringWithOptions(options: NSDataBase64EncodingOptions, padding: Bool) -> String
+    func base64URLString(#padding: Bool) -> String
     {
-        var string       = self.base64URLEncodedStringWithOptions(options)
+        var string       = self.base64URLString()
         return (padding) ? string : string.stringByReplacingOccurrencesOfString("=", withString: "")
     }
 }

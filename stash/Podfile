@@ -5,3 +5,4 @@ link_with 'stash', 'stashTests'
 
 pod 'libsodium', '< 2.0'
 pod 'OpenSSL', '~> 1.0'
+pod 'Base64', '~> 1.0'
