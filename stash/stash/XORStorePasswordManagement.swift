@@ -38,7 +38,7 @@ extension XORStore {
     
     func decryptCipherText(
         touchIDPromptMessage prompt: String?,
-        passwordRequiredCallback getPassword: (Void -> String)) -> NSData?
+        passwordRequiredCallback getPassword: (() -> String)) -> NSData?
     {
         // try and get key from keychain
         if let

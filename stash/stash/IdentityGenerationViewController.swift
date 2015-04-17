@@ -102,7 +102,6 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                     }
                 }
             }
-            
         }
     }
     

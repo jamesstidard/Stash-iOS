@@ -126,9 +126,8 @@ extension Identity
                 return
             }
             
-            if let newIdentity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as? Identity {
-                newIdentity.name      = name
-            }
+            newIdentity = NSEntityDescription.insertNewObjectForEntityForName(IdentityClassNameKey, inManagedObjectContext: context) as? Identity
+            newIdentity?.name = name
         }
         return newIdentity
     }
@@ -191,7 +190,11 @@ extension Identity
                 identity.unlockKey = securedUnlockKey
                 
                 // decrypt masterkey to set keychain
-                if touchID { identity.masterKey.decryptCipherTextWithPasswordData(passwordData) }
+                if touchID {
+                    identity.masterKey.decryptCipherText(touchIDPromptMessage: "Link your TouchID to \(name) identity.)") {
+                        return password
+                    }
+                }
                 
                 identitySeed.secureMemZero()
                 rescueCodeSeed.secureMemZero()
