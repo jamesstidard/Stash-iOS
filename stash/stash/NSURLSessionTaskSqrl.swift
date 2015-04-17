@@ -17,7 +17,6 @@ extension NSMutableURLRequest
     convenience init?(queryForSqrlLink sqrlLink: NSURL, withMasterKey masterKey: NSData)
     {
         self.init()
-        self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
         if !self.dynamicType.setForQueryURL(&URL, method: &HTTPMethod, body: &HTTPBody, forSqrlLink: sqrlLink, withMasterKey: masterKey) {
             return nil
         }
@@ -27,7 +26,6 @@ extension NSMutableURLRequest
     {
         self.init()
         self.URL = serverURL
-        self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
         if !self.dynamicType.setForCreationURL(URL: &URL!, method: &HTTPMethod, body: &HTTPBody, withMasterKey: masterKey, identityLockKey: identityLockKey, serverValue: serverValue) {
             return nil
         }
@@ -37,7 +35,6 @@ extension NSMutableURLRequest
     {
         self.init()
         self.URL = serverURL
-        self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
         if !self.dynamicType.setForLoginURL(&URL, method: &HTTPMethod, body: &HTTPBody, serverValue: serverValue, withMasterKey: masterKey) {
             return nil
         }
@@ -141,7 +138,7 @@ extension NSMutableURLRequest
             let idk = siteKeyPair.publicKey.base64URLString(padding: false)
             
             if var
-                clientValue = String("ver=1\r\nidk=\(idk)\r\ncmd=ident\r\n").base64URLEncodedString(padding: false),
+                clientValue = String("ver=1\r\ncmd=ident\r\nidk=\(idk)\r\n").base64URLEncodedString(padding: false),
                 payload     = clientValue.dataUsingEncoding(NSASCIIStringEncoding)?.mutableCopy() as? NSMutableData,
                 serverData  = serverValue.dataUsingEncoding(NSASCIIStringEncoding)
             {

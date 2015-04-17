@@ -17,7 +17,12 @@ class AuthenticationViewController: UIViewController,
 {
     @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
     
-    lazy var session: NSURLSession = NSURLSession(configuration: nil, delegate: self, delegateQueue: nil)
+    var sessionConfig: NSURLSessionConfiguration = {
+        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
+        config.HTTPAdditionalHeaders = ["User-Agent" : "Stash/1"]
+        return config
+    }()
+    lazy var session: NSURLSession = NSURLSession(configuration: self.sessionConfig, delegate: self, delegateQueue: nil)
     lazy var notificationCenter    = NSNotificationCenter.defaultCenter()
     
     lazy var stash: Stash                       = Stash.sharedInstance
@@ -39,8 +44,6 @@ class AuthenticationViewController: UIViewController,
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.session = NSURLSession(configuration: nil, delegate: self, delegateQueue: nil)
         
         // If the moc has yet to be initialised, start listening for it
         if stash.context == nil {
@@ -170,6 +173,7 @@ class AuthenticationViewController: UIViewController,
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
+    
     
     // MARK: - NSURLSession
     func URLSession(
