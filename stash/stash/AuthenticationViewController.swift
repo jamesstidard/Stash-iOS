@@ -107,7 +107,7 @@ class AuthenticationViewController: UIViewController,
             }
             // if current id
             else if tif & .CurrentIDMatch {
-                
+                self.handleLoginIdentity(serverName, serverURL: responseURL, serverMessage: data, masterKey: masterKey)
             }
         }
     }
@@ -121,32 +121,55 @@ class AuthenticationViewController: UIViewController,
     {
         if let
             serverValue = NSString(data: serverMessage, encoding: NSASCIIStringEncoding) as? String,
-            request = NSMutableURLRequest(createIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey, identityLockKey: lockKey)
+            request     = NSMutableURLRequest(createIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey, identityLockKey: lockKey)
         {
-            self.promptCreateNewAccount(serverName, createRequest: request)
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let create = UIAlertAction(title: "Create", style: .Default) { _ in
+                let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+                task.resume()
+            }
+            self.showAlert(
+                serverName,
+                message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
+                actions: cancel, create)
         }
     }
     
-    func promptCreateNewAccount(serverName: String, createRequest: NSMutableURLRequest)
+    func handleLoginIdentity(
+        serverName: String,
+        serverURL: NSURL,
+        serverMessage: NSData,
+        masterKey: NSData)
+    {
+        if let
+            serverValue = NSString(data: serverMessage, encoding: NSASCIIStringEncoding) as? String,
+            request     = NSMutableURLRequest(loginIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey)
+        {
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let login = UIAlertAction(title: "Login", style: .Default) { _ in
+                let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+                task.resume()
+            }
+            self.showAlert(
+                serverName,
+                message: "Would you like to log into your \(serverName) account?",
+                actions: cancel, login)
+        }
+    }
+    
+    func showAlert(title: String, message: String, actions: UIAlertAction...)
     {
         let alert = UIAlertController(
-            title: serverName,
-            message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
+            title: title,
+            message: message,
             preferredStyle: .Alert)
         
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let createAction = UIAlertAction(title: "Create", style: .Default) { _ in
-            let task = self.session.dataTaskWithRequest(createRequest, completionHandler: self.handleServerResponse)
-            task.resume()
-        }
-        alert.addAction(cancelAction)
-        alert.addAction(createAction)
+        actions.map { alert.addAction($0) }
         
         dispatch_async(dispatch_get_main_queue()) {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
     
     // MARK: - NSURLSession
     func URLSession(

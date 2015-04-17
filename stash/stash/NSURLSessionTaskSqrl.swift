@@ -18,7 +18,9 @@ extension NSMutableURLRequest
     {
         self.init()
         self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
-        self.dynamicType.setForQueryURL(&URL, method: &HTTPMethod, body: &HTTPBody, forSqrlLink: sqrlLink, withMasterKey: masterKey)
+        if !self.dynamicType.setForQueryURL(&URL, method: &HTTPMethod, body: &HTTPBody, forSqrlLink: sqrlLink, withMasterKey: masterKey) {
+            return nil
+        }
     }
     
     convenience init?(createIdentForServerURL serverURL: NSURL, serverValue: String, masterKey: NSData, identityLockKey: NSData)
@@ -26,16 +28,66 @@ extension NSMutableURLRequest
         self.init()
         self.URL = serverURL
         self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
-        self.dynamicType.setForIdentURL(URL: &URL!, method: &HTTPMethod, body: &HTTPBody, withMasterKey: masterKey, identityLockKey: identityLockKey, serverValue: serverValue)
+        if !self.dynamicType.setForCreationURL(URL: &URL!, method: &HTTPMethod, body: &HTTPBody, withMasterKey: masterKey, identityLockKey: identityLockKey, serverValue: serverValue) {
+            return nil
+        }
     }
     
-    private class func setForIdentURL(
+    convenience init?(loginIdentForServerURL serverURL: NSURL, serverValue: String, masterKey: NSData)
+    {
+        self.init()
+        self.URL = serverURL
+        self.addValue("Stash/1", forHTTPHeaderField: "User-Agent")
+        if !self.dynamicType.setForLoginURL(&URL, method: &HTTPMethod, body: &HTTPBody, serverValue: serverValue, withMasterKey: masterKey) {
+            return nil
+        }
+    }
+    
+    private class func setForQueryURL(
+        inout inoutURL: NSURL?,
+        inout method inoutMethod: String,
+        inout body inoutBody:NSData?,
+        forSqrlLink sqrlLink: NSURL,
+        withMasterKey masterKey: NSData) -> Bool
+    {
+        if var
+            siteHash    = sqrlLink.sqrlSiteKeyHash(hashFunction: HmacSha256.hash, masterKey: masterKey),
+            siteKeyPair = Ed25519.keyPairFromSeed(siteHash),
+            siteURLData = sqrlLink.urlData,
+            signedURL   = Ed25519.signatureForMessage(siteURLData, secretKey: siteKeyPair.secretKey),
+            serverValue = sqrlLink.sqrlBase64URLString
+        {
+            let idk = siteKeyPair.publicKey.base64URLString(padding: false)
+            
+            if var
+                clientValue = String("ver=1\r\nidk=\(idk)\r\ncmd=query\r\n").base64URLEncodedString(padding: false),
+                payload     = clientValue.dataUsingEncoding(NSASCIIStringEncoding)?.mutableCopy() as? NSMutableData,
+                serverData  = serverValue.dataUsingEncoding(NSASCIIStringEncoding)
+            {
+                payload.appendData(serverData)
+                if let
+                    ids = Ed25519.signatureForMessage(payload, secretKey: siteKeyPair.secretKey)?.base64URLString(padding: false),
+                    url = sqrlLink.sqrlResponseURL
+                {
+                    let postBody = "server=\(serverValue)&client=\(clientValue)&ids=\(ids)"
+                    
+                    inoutURL    = url
+                    inoutMethod = "POST"
+                    inoutBody   = postBody.dataUsingEncoding(NSASCIIStringEncoding)
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    private class func setForCreationURL(
         inout URL inoutURL: NSURL,
         inout method inoutMethod: String,
         inout body inoutBody:NSData?,
         withMasterKey masterKey: NSData,
         identityLockKey identityLock: NSData,
-        serverValue: String)
+        serverValue: String) -> Bool
     {
         if var
             (randomLock, serverUnlock) = Ed25519.keyPair(),
@@ -66,45 +118,49 @@ extension NSMutableURLRequest
                     inoutURL    = url
                     inoutMethod = "POST"
                     inoutBody   = postBody.dataUsingEncoding(NSASCIIStringEncoding)
+                    return true
                 }
             }
-            
         }
+        return false
     }
     
-    private class func setForQueryURL(
+    private class func setForLoginURL(
         inout inoutURL: NSURL?,
         inout method inoutMethod: String,
         inout body inoutBody:NSData?,
-        forSqrlLink sqrlLink: NSURL,
-        withMasterKey masterKey: NSData)
+        serverValue: String,
+        withMasterKey masterKey: NSData) -> Bool
     {
         if var
-            siteHash    = sqrlLink.sqrlSiteKeyHash(hashFunction: HmacSha256.hash, masterKey: masterKey),
+            siteHash    = inoutURL?.sqrlSiteKeyHash(hashFunction: HmacSha256.hash, masterKey: masterKey),
             siteKeyPair = Ed25519.keyPairFromSeed(siteHash),
-            siteURLData = sqrlLink.urlData,
-            signedURL   = Ed25519.signatureForMessage(siteURLData, secretKey: siteKeyPair.secretKey),
-            serverValue = sqrlLink.sqrlBase64URLString
+            siteURLData = inoutURL?.urlData,
+            signedURL   = Ed25519.signatureForMessage(siteURLData, secretKey: siteKeyPair.secretKey)
         {
             let idk = siteKeyPair.publicKey.base64URLString(padding: false)
             
             if var
-                clientValue = String("ver=1\r\nidk=\(idk)\r\ncmd=query\r\n").base64URLEncodedString(padding: false),
+                clientValue = String("ver=1\r\nidk=\(idk)\r\ncmd=ident\r\n").base64URLEncodedString(padding: false),
                 payload     = clientValue.dataUsingEncoding(NSASCIIStringEncoding)?.mutableCopy() as? NSMutableData,
                 serverData  = serverValue.dataUsingEncoding(NSASCIIStringEncoding)
             {
                 payload.appendData(serverData)
                 if let
                     ids = Ed25519.signatureForMessage(payload, secretKey: siteKeyPair.secretKey)?.base64URLString(padding: false),
-                    url = sqrlLink.sqrlResponseURL
+                    serverMessages = serverValue.sqrlServerResponse(),
+                    newQueryPath   = serverMessages[.Query],
+                    url            = inoutURL?.urlByReplacingQueryPath(newQueryPath)
                 {
                     let postBody = "server=\(serverValue)&client=\(clientValue)&ids=\(ids)"
                     
                     inoutURL    = url
                     inoutMethod = "POST"
                     inoutBody   = postBody.dataUsingEncoding(NSASCIIStringEncoding)
+                    return true
                 }
             }
         }
+        return false
     }
 }

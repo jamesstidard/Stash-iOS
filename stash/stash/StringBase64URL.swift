@@ -25,6 +25,10 @@ extension String
     {
         string.stringByReplacingOccurrencesOfString("+", withString: "-")
               .stringByReplacingOccurrencesOfString("/", withString: "_")
-        self = NSString(fromBase64String: string) as String
+        if let string = NSString(fromBase64String: string) as? String {
+            self = string
+            return
+        }
+        self = ""
     }
 }
