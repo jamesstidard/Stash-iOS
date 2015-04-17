@@ -35,6 +35,7 @@
 		7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
 		7C43F4EF1AE0FD1500E4AC51 /* XORStoreKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */; };
+		7C43F4F11AE1273900E4AC51 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C43F4F01AE1273900E4AC51 /* LocalAuthentication.framework */; };
 		7C446C361AD82B7000201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C446C371AD82C9D00201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C499BB11AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */; };
@@ -163,6 +164,7 @@
 		7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringDataFromHex.swift; sourceTree = "<group>"; };
 		7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
 		7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreKeychain.swift; sourceTree = "<group>"; };
+		7C43F4F01AE1273900E4AC51 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSSLUtilities.swift; sourceTree = "<group>"; };
 		7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextHelper.swift; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C43F4F11AE1273900E4AC51 /* LocalAuthentication.framework in Frameworks */,
 				29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -522,6 +525,7 @@
 		D40AB57214049AA9FBD041A6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7C43F4F01AE1273900E4AC51 /* LocalAuthentication.framework */,
 				F68D602F74D33DC7D38BAA36 /* libPods.a */,
 			);
 			name = Frameworks;

@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import LocalAuthentication
 
 class IdentityGenerationViewController: UIViewController, ContextDriven {
     
@@ -16,6 +17,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var touchIDLabel: UILabel!
+    @IBOutlet weak var touchIDSwitch: UISwitch!
     
     var context: NSManagedObjectContext?
     var entropyMachine = EntropyMachine()
@@ -32,11 +35,23 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         return newQueue
         }()
     
+    private lazy var touchIDAvalible: Bool = {
+        return LAContext().canEvaluatePolicy(.DeviceOwnerAuthenticationWithBiometrics, error: nil)
+    }()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.startHarvesting()
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // disable or enable touchID settings depending on if it's avalible on the device
+        self.touchIDLabel.enabled  = self.touchIDAvalible
+        self.touchIDSwitch.enabled = self.touchIDAvalible
     }
 
     override func didReceiveMemoryWarning() {

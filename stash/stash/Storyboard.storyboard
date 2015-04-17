@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cxn-lT-0OS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="cxn-lT-0OS">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9A-y6-9nQ">
-                                <rect key="frame" x="269" y="170" width="62" height="30"/>
+                                <rect key="frame" x="269" y="225" width="62" height="30"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -57,21 +57,35 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
-                                <rect key="frame" x="290" y="142" width="20" height="20"/>
+                                <rect key="frame" x="290" y="197" width="20" height="20"/>
                             </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Touch ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7Ro-ge-sUC">
+                                <rect key="frame" x="16" y="146" width="511" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tVE-qc-T5H">
+                                <rect key="frame" x="535" y="141" width="51" height="31"/>
+                            </switch>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="centerX" secondItem="dGC-nt-BTE" secondAttribute="centerX" id="2db-wB-Eyp"/>
+                            <constraint firstItem="7Ro-ge-sUC" firstAttribute="top" secondItem="T2S-nC-v7x" secondAttribute="bottom" constant="20" id="7oz-pa-NIe"/>
+                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="7Ro-ge-sUC" secondAttribute="bottom" constant="30" id="Dp7-1K-TO4"/>
                             <constraint firstItem="T2S-nC-v7x" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="PWp-Mt-OlN"/>
+                            <constraint firstItem="7Ro-ge-sUC" firstAttribute="centerY" secondItem="tVE-qc-T5H" secondAttribute="centerY" id="T7E-jL-M3D"/>
                             <constraint firstItem="T2S-nC-v7x" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="Ttd-LY-TVS"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="g1d-8X-e21"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="top" secondItem="dGC-nt-BTE" secondAttribute="bottom" constant="8" id="gW6-7u-l4P"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="top" secondItem="F3a-fl-itp" secondAttribute="bottom" constant="38" id="m76-bq-u0Q"/>
+                            <constraint firstItem="tVE-qc-T5H" firstAttribute="leading" secondItem="7Ro-ge-sUC" secondAttribute="trailing" constant="8" id="oHX-cP-NEd"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="plY-jN-P8O"/>
-                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="T2S-nC-v7x" secondAttribute="bottom" constant="16" id="s8L-ws-aOq"/>
                             <constraint firstItem="T2S-nC-v7x" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="sEj-JX-4sf"/>
+                            <constraint firstItem="tVE-qc-T5H" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="yv9-H5-2Yi"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="centerX" secondItem="kWb-XN-4oD" secondAttribute="centerX" id="z90-nt-iI8"/>
+                            <constraint firstItem="7Ro-ge-sUC" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="zlT-zL-0Vl"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Identity" id="S9R-OI-bpC">
@@ -85,6 +99,8 @@
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>
                         <outlet property="nameTextField" destination="kWb-XN-4oD" id="dzi-PR-nzC"/>
                         <outlet property="passwordTextField" destination="T2S-nC-v7x" id="FhV-Mq-LpC"/>
+                        <outlet property="touchIDLabel" destination="7Ro-ge-sUC" id="zLM-3z-1hb"/>
+                        <outlet property="touchIDSwitch" destination="tVE-qc-T5H" id="oMK-RE-J8Z"/>
                         <segue destination="2pF-wr-CV3" kind="show" identifier="rescueCodeViewControllerSegue" id="ajj-Uq-363"/>
                     </connections>
                 </viewController>
