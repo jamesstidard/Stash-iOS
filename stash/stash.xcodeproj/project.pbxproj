@@ -34,6 +34,7 @@
 		7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
+		7C43F4EF1AE0FD1500E4AC51 /* XORStoreKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */; };
 		7C446C361AD82B7000201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C446C371AD82C9D00201228 /* OpenSSLUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */; };
 		7C499BB11AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */; };
@@ -161,6 +162,7 @@
 		7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalOperatorChaining.swift; sourceTree = "<group>"; };
 		7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringDataFromHex.swift; sourceTree = "<group>"; };
 		7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
+		7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreKeychain.swift; sourceTree = "<group>"; };
 		7C446C351AD82B7000201228 /* OpenSSLUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenSSLUtilities.swift; sourceTree = "<group>"; };
 		7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextHelper.swift; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
@@ -495,6 +497,7 @@
 			children = (
 				7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */,
 				7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */,
+				7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */,
 			);
 			name = XORStore;
 			sourceTree = "<group>";
@@ -715,6 +718,7 @@
 				7C277FA41ADD670B00F6863B /* NSURLSessionTaskSqrl.swift in Sources */,
 				7C2B90261A280B05009F0589 /* GyroHarvester.swift in Sources */,
 				7C5C1E451A75AA93009B92F7 /* IdentityHolderProtocol.swift in Sources */,
+				7C43F4EF1AE0FD1500E4AC51 /* XORStoreKeychain.swift in Sources */,
 				7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

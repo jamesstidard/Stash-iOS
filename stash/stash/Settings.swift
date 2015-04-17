@@ -13,6 +13,7 @@ class Settings: NSManagedObject {
 
     @NSManaged var hintLength: Int16
     @NSManaged var passwordVerificationLength: Int16
+    @NSManaged var touchIDEnabled: Boolean
     @NSManaged var identity: Identity?
 
 }

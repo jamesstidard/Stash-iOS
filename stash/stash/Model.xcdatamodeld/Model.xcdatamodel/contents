@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="6254" systemVersion="14C109" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="7549" systemVersion="14D136" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
     <entity name="GCMStore" representedClassName="stash.GCMStore" parentEntity="SecureStore" syncable="YES">
         <attribute name="nonce" attributeType="Binary" syncable="YES"/>
         <relationship name="identity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Identity" inverseName="unlockKey" inverseEntity="Identity" syncable="YES"/>
@@ -21,6 +21,7 @@
     <entity name="Settings" representedClassName="stash.Settings" syncable="YES">
         <attribute name="hintLength" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="passwordVerificationLength" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="touchIDEnabled" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <relationship name="identity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Identity" inverseName="settings" inverseEntity="Identity" syncable="YES"/>
     </entity>
     <entity name="XORStore" representedClassName="stash.XORStore" parentEntity="SecureStore" syncable="YES">
@@ -30,7 +31,7 @@
         <element name="GCMStore" positionX="-2810" positionY="-270" width="128" height="73"/>
         <element name="Identity" positionX="-3114" positionY="-198" width="128" height="118"/>
         <element name="SecureStore" positionX="-2880" positionY="-478" width="126" height="118"/>
-        <element name="Settings" positionX="-3330" positionY="-198" width="162" height="88"/>
+        <element name="Settings" positionX="-3330" positionY="-198" width="162" height="103"/>
         <element name="XORStore" positionX="-2954" positionY="-270" width="128" height="58"/>
     </elements>
 </model>

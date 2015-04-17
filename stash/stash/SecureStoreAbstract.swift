@@ -36,7 +36,7 @@ extension SecureStore {
         return nil
     }
     
-    func keyFromPassword(password: NSData) -> NSData? {
+    internal func keyFromPassword(password: NSData) -> NSData? {
         let i = Int(self.scryptIterations)
         let N = UInt64(self.scryptMemoryFactor)
         let r = Scrypt.rValueFrom(N)
@@ -48,7 +48,7 @@ extension SecureStore {
     }
     
     // verify key
-    func isValidKey(key: NSData) -> Bool {
+    internal func isValidKey(key: NSData) -> Bool {
         if let tag = XORStore.verificationTagFromKey(key) {
             return tag.isEqualToData(self.verificationTag)
         }
@@ -56,7 +56,7 @@ extension SecureStore {
     }
     
     // varification tag for key
-    class func verificationTagFromKey(key: NSData) -> NSData? {
+    internal class func verificationTagFromKey(key: NSData) -> NSData? {
         let VerificationBytes = 16
         return Sha256.hash(key)?.subdataWithRange(NSRange(location: 0, length: VerificationBytes))
     }
