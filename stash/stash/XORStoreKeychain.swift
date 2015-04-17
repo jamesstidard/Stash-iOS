@@ -10,7 +10,7 @@ import Foundation
 
 extension XORStore
 {
-    internal class func enableTouchID(identityName: String, key: NSData) -> Bool
+    internal class func addToKeychain(#identityName: String, key: NSData) -> Bool
     {
         var error: Unmanaged<CFError>?
         let sac = SecAccessControlCreateWithFlags(
@@ -27,7 +27,7 @@ extension XORStore
         return SecItemAdd(insert, nil) == errSecSuccess
     }
     
-    internal class func disableTouchID(identityName: String) -> Bool
+    internal class func removeFromKeychain(#identityName: String) -> Bool
     {
         let delete = NSDictionary(
             objects: [kSecClassGenericPassword as! String, "Stash", identityName],
@@ -36,17 +36,26 @@ extension XORStore
         return SecItemDelete(delete) == errSecSuccess
     }
     
-    internal class func updateTouchID(identityName: String, key: NSData) -> Bool
+    internal class func updateKeychain(#identityName: String, key: NSData, insertIfNeeded: Bool) -> Bool
     {
         let query = NSDictionary(
             objects: [kSecClassGenericPassword, "Stash", identityName],
             forKeys: [kSecClass as! String, kSecAttrService as! String, kSecAttrAccount as! String]) as CFDictionaryRef
         let update = NSDictionary(object: key, forKey: kSecValueData as! String) as CFDictionaryRef
         
-        return SecItemUpdate(query, update) == errSecSuccess
+        let result = SecItemUpdate(query, update)
+        
+        if result == errSecSuccess {
+            return true
+        }
+        else if result == errSecItemNotFound && insertIfNeeded {
+            return self.addToKeychain(identityName: identityName, key: key)
+        } else {
+            return false
+        }
     }
     
-    internal class func getKeyFromTouchID(identityName: String, authenticationPrompt prompt: String) -> NSData?
+    internal class func getKeyFromKeychain(#identityName: String, authenticationPrompt prompt: String) -> NSData?
     {
         let query = NSDictionary(
             objects: [kSecClassGenericPassword, "Stash", identityName, true, prompt],

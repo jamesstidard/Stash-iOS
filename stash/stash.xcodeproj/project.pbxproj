@@ -61,6 +61,9 @@
 		7C6C08741ADB171200AF344B /* NSURLSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08731ADB171200AF344B /* NSURLSqrl.swift */; };
 		7C6C08761ADB1CF700AF344B /* NSDataBase64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */; };
 		7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7A5D071A76F2500062515A /* EnScryptTests.swift */; };
+		7C7D29E71AE133370023E4E8 /* XORStoreKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */; };
+		7C7D29EA1AE13A6E0023E4E8 /* SettingsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */; };
+		7C7D29EB1AE13CCD0023E4E8 /* SettingsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */; };
 		7C87AAA21A28343400DC3EC7 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */; };
 		7C87AAA41A28346F00DC3EC7 /* NSOperationQueueSafeSetGet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */; };
@@ -178,6 +181,7 @@
 		7C6C08731ADB171200AF344B /* NSURLSqrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSqrl.swift; sourceTree = "<group>"; };
 		7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataBase64URL.swift; sourceTree = "<group>"; };
 		7C7A5D071A76F2500062515A /* EnScryptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScryptTests.swift; sourceTree = "<group>"; };
+		7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCreator.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
 		7C881DA31A76E14F0017B785 /* Ed25519.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ed25519.swift; sourceTree = "<group>"; };
 		7C881DA51A76E1880017B785 /* HmacSha256.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HmacSha256.swift; sourceTree = "<group>"; };
@@ -259,6 +263,7 @@
 				7C9336931A8B976200D3E53B /* SecureStore */,
 				7CF72AE51A891C770070D512 /* XORStore */,
 				7CF72AE61A891C8E0070D512 /* GCMStore */,
+				7C7D29E81AE13A570023E4E8 /* Settings */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -329,6 +334,14 @@
 				7CDD824A1ADFCF2600B85825 /* StringSqrlServerMessage.swift */,
 			);
 			name = SQRLProtocol;
+			sourceTree = "<group>";
+		};
+		7C7D29E81AE13A570023E4E8 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */,
+			);
+			name = Settings;
 			sourceTree = "<group>";
 		};
 		7C881DA21A76E0FB0017B785 /* Crypto */ = {
@@ -708,6 +721,7 @@
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
 				7CB285601A8BC9970019A2EC /* Identity.swift in Sources */,
 				7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */,
+				7C7D29EA1AE13A6E0023E4E8 /* SettingsCreator.swift in Sources */,
 				7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */,
 				7C957EC31AD96FD100E4E040 /* IdentityFetchedResultsController.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,
@@ -744,6 +758,7 @@
 				7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */,
 				7C5A8D791A8B9B74004407C1 /* EnHash.swift in Sources */,
 				7CAFACD71ADC24D700C077BC /* XORTests.swift in Sources */,
+				7C7D29EB1AE13CCD0023E4E8 /* SettingsCreator.swift in Sources */,
 				7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */,
 				7C87AAA51A28347200DC3EC7 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C5A8D761A8B9B74004407C1 /* Sha512.swift in Sources */,
@@ -751,6 +766,7 @@
 				7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */,
 				7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */,
 				7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */,
+				7C7D29E71AE133370023E4E8 /* XORStoreKeychain.swift in Sources */,
 				7C277FA01ADC788800F6863B /* ContextDriven.swift in Sources */,
 				7C5A8D7C1A8B9BAE004407C1 /* NSStringRescueCode.swift in Sources */,
 				7CA20BCC1A7436ED0021B631 /* Stash.swift in Sources */,

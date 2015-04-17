@@ -11,9 +11,6 @@ import CoreData
 
 class Settings: NSManagedObject {
 
-    @NSManaged var hintLength: Int16
-    @NSManaged var passwordVerificationLength: Int16
-    @NSManaged var touchIDEnabled: Boolean
+    @NSManaged var touchIDEnabled: Bool
     @NSManaged var identity: Identity?
-
 }

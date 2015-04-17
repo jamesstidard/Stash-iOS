@@ -17,10 +17,8 @@ extension XORStore {
         var store: XORStore?
         
         // make sure the plaintext is the same length as the hashed password so they can be safely XORd
-        if let
-            newKeyBundle = XORStore.makeKeyFromPassword(password, storageType: storageType)
-            where
-            newKeyBundle.key.length == sensitiveData.length
+        if let newKeyBundle = XORStore.makeKeyFromPassword(password, storageType: storageType)
+        where  newKeyBundle.key.length == sensitiveData.length
         {
             // Create the new store and assign its properties
             context.performBlockAndWait {

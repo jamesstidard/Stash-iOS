@@ -14,7 +14,7 @@ class Identity: NSManagedObject {
     @NSManaged var lockKey: NSData
     @NSManaged var name: String
     @NSManaged var masterKey: XORStore
-    @NSManaged var settings: Settings
+    @NSManaged var settings: Settings?
     @NSManaged var unlockKey: GCMStore
 
 }

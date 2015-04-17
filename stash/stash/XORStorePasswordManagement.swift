@@ -25,10 +25,33 @@ extension XORStore {
     
     func decryptCipherTextWithPasswordData(passwordData: NSData) -> NSData?
     {
-        if let key = self.keyFromPassword(passwordData) where self.isValidKey(key) {
+        if let key = self.keyFromPassword(passwordData) where self.isValidKey(key)
+        {
+            if (self.identity.settings?.touchIDEnabled == true) {
+                XORStore.updateKeychain(identityName: self.identity.name, key: key, insertIfNeeded: true)
+            }
+            
             return self.ciphertext ^ key
         }
         return nil
+    }
+    
+    func decryptCipherText(
+        touchIDPromptMessage prompt: String?,
+        passwordRequiredCallback getPassword: (Void -> String)) -> NSData?
+    {
+        // try and get key from keychain
+        if let
+            prompt = prompt,
+            key    = XORStore.getKeyFromKeychain(identityName: self.identity.name, authenticationPrompt: prompt)
+        where
+            self.isValidKey(key)
+        {
+            return self.ciphertext ^ key
+        }
+        
+        // else get password from callback
+        return decryptCipherTextWithPassword(getPassword())
     }
     
     // change password
@@ -38,6 +61,10 @@ extension XORStore {
             decryptedData = self.decryptCipherTextWithPasswordData(oldPassword),
             newKeyBundle  = XORStore.makeKeyFromPassword(newPassword)
         {
+            if (self.identity.settings?.touchIDEnabled == true) {
+                XORStore.updateKeychain(identityName: self.identity.name, key: newKeyBundle.key, insertIfNeeded: true)
+            }
+            
             // encrypt and store new cipher data under new key and update properties of new key
             self.ciphertext         = decryptedData ^ newKeyBundle.key
             self.scryptIterations   = Int64(newKeyBundle.i)
