@@ -51,7 +51,7 @@ extension Identity
                 dispatch_group_leave(threadGroup)
             })
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
-                securedMasterKey = XORStore.createXORStore(&masterKey!, password: passwordData!, context: context)
+                securedMasterKey = XORStore.createXORStore(&masterKey!, password: passwordData!, storageType: .Local, context: context)
                 dispatch_group_leave(threadGroup)
             })
         

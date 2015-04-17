@@ -10,18 +10,27 @@ import Foundation
 
 extension SecureStore {
     
-    class func makeKeyFromPassword(password: NSData) -> (key: NSData, salt: NSData, N: UInt64, i: Int, tag: NSData)? {
-        let N = EnScryptDefaultNCost
-        let r = EnScryptDefaultRCost
-        let p = EnScryptDefaultParallelisation
-        let i = EnScryptDefaultIterations
+    class func makeKeyFromPassword(password: NSData) -> (key: NSData, salt: NSData, N: UInt64, i: Int, tag: NSData)?
+    {
+        return self.makeKeyFromPassword(password, storageType: .Export)
+    }
+    
+    class func makeKeyFromPassword(password: NSData, storageType: EnScryptStorageType) -> (key: NSData, salt: NSData, N: UInt64, i: Int, tag: NSData)?
+    {
+        let params = EnScryptParameters(type: storageType)
+        return self.makeKeyFromPassword(password, enScriptParameters: params)
+    }
+    
+    class func makeKeyFromPassword(password: NSData, enScriptParameters params: EnScryptParameters) -> (key: NSData, salt: NSData, N: UInt64, i: Int, tag: NSData)?
+    {
+        let (N, r, p, i) = (params.N, params.r, params.p, params.i)
         
-        if let salt = SodiumUtilities.randomBytes(32) {
-            if let newKey = EnScrypt.salsa208Sha256(password, salt: salt, N: N, r: r, p: p, i: i) {
-                if let tag = XORStore.verificationTagFromKey(newKey) {
-                    return (newKey, salt, N, i, tag)
-                }
-            }
+        if let
+            salt   = SodiumUtilities.randomBytes(32),
+            newKey = EnScrypt.salsa208Sha256(password, salt: salt, N: N, r: r, p: p, i: i),
+            tag    = XORStore.verificationTagFromKey(newKey)
+        {
+            return (newKey, salt, N, i, tag)
         }
         
         return nil
@@ -33,9 +42,7 @@ extension SecureStore {
         let r = Scrypt.rValueFrom(N)
         let p = EnScryptDefaultParallelisation
         
-        if r == nil {
-            return nil
-        }
+        if r == nil { return nil }
         
         return EnScrypt.salsa208Sha256(password, salt: self.scryptSalt, N: N, r: r!, p: p, i: i)
     }
