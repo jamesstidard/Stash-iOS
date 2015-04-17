@@ -82,13 +82,16 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
             
             let name     = nameTextField.text as String
             var password = passwordTextField.text as String
+            let touchID  = (self.touchIDAvalible) ? self.touchIDSwitch.on : false
             
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), {
-                if let result = Identity.createIdentity(name, password: &password, seed: &seed, context: backgroundContext)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
+            {
+                if let result = Identity.createIdentity(name, password: &password, seed: &seed, touchID: touchID, context: backgroundContext)
                 {
                     backgroundContext.save(nil)
                     
-                    dispatch_sync(dispatch_get_main_queue(), {
+                    dispatch_sync(dispatch_get_main_queue())
+                    {
                         if let identity = self.context?.objectWithID(result.identity.objectID) as? Identity
                         {
                             self.identityBundle = (identity, result.rescueCode)
@@ -96,9 +99,9 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                             
                             sender.enabled = true
                         }
-                    })
+                    }
                 }
-            })
+            }
             
         }
     }
