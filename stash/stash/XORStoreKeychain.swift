@@ -10,10 +10,6 @@ import Foundation
 
 extension XORStore
 {
-    var onKeychain: Bool {
-        return XORStore.existsOnKeychain(identityName: self.identity.name)
-    }
-    
     func decryptCipherTextWithKeychain(authenticationPrompt prompt: String) -> NSData? {
         return XORStore.getKeyFromKeychain(identityName: self.identity.name, authenticationPrompt: prompt)
     }
@@ -78,9 +74,10 @@ extension XORStore
             forKeys: [kSecClass as! String, kSecAttrService as! String, kSecAttrAccount as! String, kSecReturnData as! String, kSecUseOperationPrompt as! String]) as CFDictionaryRef
         
         var dataTypeRef: Unmanaged<CFTypeRef>?
-        if  SecItemCopyMatching(query, &dataTypeRef) == errSecSuccess && dataTypeRef != nil
-        {
-            return dataTypeRef!.takeRetainedValue() as? NSData
+        if  SecItemCopyMatching(query, &dataTypeRef) == errSecSuccess {
+            if dataTypeRef != nil {
+                return dataTypeRef!.takeRetainedValue() as? NSData
+            }
         }
         return nil
     }

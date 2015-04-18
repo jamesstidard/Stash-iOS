@@ -143,7 +143,7 @@ class AuthenticationViewController: UIViewController,
             request    = NSMutableURLRequest(loginRequestForServerMessage: serverMessage, masterKey: masterKey)
         {
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            let create = UIAlertAction(title: "Create", style: .Default) { _ in
+            let login = UIAlertAction(title: "Login", style: .Default) { _ in
                 let task = self.session.dataTaskWithRequest(request) {
                     self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
                 }
@@ -151,8 +151,8 @@ class AuthenticationViewController: UIViewController,
             }
             self.showAlert(
                 serverName,
-                message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
-                actions: cancel, create)
+                message: "Would you like to log into your \(serverName) account?",
+                actions: cancel, login)
         }
     }
     

@@ -94,8 +94,10 @@ class IdentityViewController: UIViewController,
     @IBAction func didTap(sender: UITapGestureRecognizer)
     {
         // check if user tap is enabled
-        if self.promptForPassword && self.identity?.masterKey.onKeychain == true,
-        let key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
+        if
+            self.promptForPassword,
+        let
+            key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
         {
             self.delegate?.identityViewController(self, didSelectIdentity: identity!, withDecryptedMasterKey: key)
         }
