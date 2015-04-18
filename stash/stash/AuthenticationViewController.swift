@@ -31,6 +31,7 @@ class AuthenticationViewController: UIViewController,
     // If we segue to anything that needs a context while before it's been initilised,
     // we add them to this list and pass them the context once we have it.
     
+    weak var scannerVC: QRScannerViewController?
     weak var selectorVC: IdentitySelectorViewController?
     
     var sqrlLink: NSURL? = nil {
@@ -112,6 +113,10 @@ class AuthenticationViewController: UIViewController,
             else if tif & .CurrentIDMatch && lastCommand != .Ident {
                 self.loginIdentity(serverMessage: serverMessage, masterKey: masterKey)
             }
+            
+            else {
+                self.cleanUpSqrlTransaction(error: error)
+            }
         }
     }
     
@@ -131,7 +136,7 @@ class AuthenticationViewController: UIViewController,
             }
             self.showAlert(
                 serverName,
-                message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
+                message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
                 actions: cancel, create)
         }
     }
@@ -153,6 +158,16 @@ class AuthenticationViewController: UIViewController,
                 serverName,
                 message: "Would you like to log into your \(serverName) account?",
                 actions: cancel, login)
+        }
+    }
+    
+    func cleanUpSqrlTransaction(#error: NSError?)
+    {
+        dispatch_async(dispatch_get_main_queue())
+        {
+            if error == nil {
+                self.scannerVC?.sqrlLink = nil
+            }
         }
     }
     
@@ -256,7 +271,8 @@ class AuthenticationViewController: UIViewController,
         
         // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? QRScannerViewController {
-            vc.delegate     = self
+            vc.delegate    = self
+            self.scannerVC = vc
         }
         
         // if is the identity selector view controller, we want to know what's selected.

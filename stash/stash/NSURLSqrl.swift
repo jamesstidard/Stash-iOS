@@ -83,11 +83,10 @@ extension NSURL
             components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
         {
             let parts = split(pathWithQuery, maxSplit: 1, allowEmptySlices: false) { $0 == "?" }
-            if parts.count != 2 { return nil }
             
             // compose sqrl response url
-            components.path  = parts[0]
-            components.query = parts[1]
+            components.path  = (parts.count > 0) ? parts[0] : nil
+            components.query = (parts.count > 1) ? parts[1] : components.query
                 
             return components.URL
         }

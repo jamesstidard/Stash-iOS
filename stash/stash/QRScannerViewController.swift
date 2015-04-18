@@ -18,10 +18,10 @@ class QRScannerViewController: UIViewController,
     @IBOutlet weak var shadeView: UIView!
     
     weak var delegate: SqrlLinkRepository?
-    private var sqrlLink: NSURL? {
+    var sqrlLink: NSURL? {
         set {
             self.delegate?.sqrlLink = newValue
-            self.shadeView.hidden = (self.sqrlLink == nil) ? true : false
+            self.shadeView.hidden   = (self.sqrlLink == nil) ? true : false
         }
         get {
             return self.delegate?.sqrlLink
