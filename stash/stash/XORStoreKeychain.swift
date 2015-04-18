@@ -10,6 +10,14 @@ import Foundation
 
 extension XORStore
 {
+    var onKeychain: Bool {
+        return XORStore.existsOnKeychain(identityName: self.identity.name)
+    }
+    
+    func decryptCipherTextWithKeychain(authenticationPrompt prompt: String) -> NSData? {
+        return XORStore.getKeyFromKeychain(identityName: self.identity.name, authenticationPrompt: prompt)
+    }
+    
     internal class func addToKeychain(#identityName: String, key: NSData) -> Bool
     {
         var error: Unmanaged<CFError>?
@@ -53,6 +61,14 @@ extension XORStore
         } else {
             return false
         }
+    }
+    
+    internal class func existsOnKeychain(#identityName: String) -> Bool
+    {
+        let query = NSDictionary(
+            objects: [kSecClassGenericPassword, "Stash", identityName],
+            forKeys: [kSecClass as! String, kSecAttrService as! String, kSecAttrAccount as! String]) as CFDictionaryRef
+        return SecItemCopyMatching(query, nil) == errSecSuccess
     }
     
     internal class func getKeyFromKeychain(#identityName: String, authenticationPrompt prompt: String) -> NSData?

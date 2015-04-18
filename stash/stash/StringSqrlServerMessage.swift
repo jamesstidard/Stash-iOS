@@ -10,13 +10,21 @@ import Foundation
 
 extension String
 {
-    func sqrlServerResponse() -> [SqrlServerResponseKey:String]?
+    func sqrlServerValueDictionary() -> [SqrlServerResponseKey:String]?
     {
-        let postString = String(fromBase64URLString: self)
+        // Remove the server key if response has one
+        var workingCopy = self
+        if workingCopy.hasPrefix("server=") {
+            let range = self.startIndex ..< advance(workingCopy.startIndex, +7)
+            workingCopy.removeRange(range)
+        }
+        
+        // Convert value from base64url encoded to utf8 and find key value pairs within
+        workingCopy    = String(fromBase64URLString: workingCopy)
         var dictionary = [SqrlServerResponseKey:String]()
         var pair       = [String]()
             
-        for keyValue in (split(postString) { $0 == "\r\n" })
+        for keyValue in (split(workingCopy) { $0 == "\r\n" })
         {
             pair = split(keyValue, maxSplit: 1, allowEmptySlices: false) { $0 == "=" }
                 

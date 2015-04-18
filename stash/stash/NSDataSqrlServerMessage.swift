@@ -39,10 +39,10 @@ enum SqrlServerResponseKey: String
 
 extension NSData
 {
-    func sqrlServerResponse() -> [SqrlServerResponseKey:String]?
+    func sqrlServerValueDictionary() -> [SqrlServerResponseKey:String]?
     {
         if let postBase64URL = NSString(data: self, encoding: NSASCIIStringEncoding) as? String {
-            return postBase64URL.sqrlServerResponse()
+            return postBase64URL.sqrlServerValueDictionary()
         }
         return nil
     }

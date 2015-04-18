@@ -190,11 +190,7 @@ extension Identity
                 identity.unlockKey = securedUnlockKey
                 
                 // decrypt masterkey to set keychain
-                if touchID {
-                    identity.masterKey.decryptCipherText(touchIDPromptMessage: "Link your TouchID to \(name) identity.)") {
-                        return password
-                    }
-                }
+                if touchID { identity.masterKey.decryptCipherTextWithPasswordData(passwordData) }
                 
                 identitySeed.secureMemZero()
                 rescueCodeSeed.secureMemZero()

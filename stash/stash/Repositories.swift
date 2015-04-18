@@ -8,11 +8,6 @@
 
 import Foundation
 
-protocol IdentityRepository: class
-{
-    var identityBundle:(identity: Identity, password: String)? { get set }
-}
-
 protocol SqrlLinkRepository: class
 {
     var sqrlLink: NSURL? { get set }

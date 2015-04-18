@@ -7,6 +7,14 @@
 //
 import UIKit
 
+protocol IdentityViewControllerDelegate: class
+{
+    func identityViewController(
+        identityViewController: IdentityViewController,
+        didSelectIdentity identity: Identity,
+        withDecryptedMasterKey masterKey: NSData)
+}
+
 private enum IdenitiyViewControllerMode
 {
     case Inactive
@@ -25,7 +33,7 @@ class IdentityViewController: UIViewController,
     @IBOutlet weak var nameLabelCenterY: NSLayoutConstraint!
     @IBOutlet weak var passwordField: UITextField!
     
-    weak var delegate: IdentityRepository?
+    weak var delegate: IdentityViewControllerDelegate?
     weak var identity: Identity?
     var promptForPassword = false {
         didSet {
@@ -44,6 +52,7 @@ class IdentityViewController: UIViewController,
                     self.nameLabel.hidden     = false
                     self.detailLabel.hidden   = !promptForPassword
                     self.passwordField.hidden = true
+                    self.passwordField.text   = nil
                     self.passwordField.resignFirstResponder()
                     
                 case .PasswordGathering:
@@ -51,6 +60,7 @@ class IdentityViewController: UIViewController,
                     self.nameLabel.hidden     = true
                     self.detailLabel.hidden   = true
                     self.passwordField.hidden = false
+                    self.passwordField.text   = nil
                     self.passwordField.becomeFirstResponder()
                 }
                 self.passwordField.placeholder = "Password for \(self.identity!.name)"
@@ -70,10 +80,12 @@ class IdentityViewController: UIViewController,
     func textFieldShouldReturn(textField: UITextField) -> Bool
     {
         // handle user password submission
-        if let identity = self.identity, password = textField.text {
-            self.delegate?.identityBundle = (identity, password)
+        if let key = self.identity?.masterKey.decryptCipherTextWithPassword(textField.text)
+        {
+            self.delegate?.identityViewController(self, didSelectIdentity: self.identity!, withDecryptedMasterKey: key)
         }
         
+        self.mode = (self.promptForPassword) ? .Active : .Inactive
         return true
     }
     
@@ -82,7 +94,13 @@ class IdentityViewController: UIViewController,
     @IBAction func didTap(sender: UITapGestureRecognizer)
     {
         // check if user tap is enabled
-        if (self.promptForPassword) {
+        if self.promptForPassword && self.identity?.masterKey.onKeychain == true,
+        let key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
+        {
+            self.delegate?.identityViewController(self, didSelectIdentity: identity!, withDecryptedMasterKey: key)
+        }
+        else if self.promptForPassword
+        {
             self.mode = .PasswordGathering
         }
     }

@@ -11,8 +11,8 @@ import CoreData
 
 class AuthenticationViewController: UIViewController,
     ContextDriven,
-    IdentityRepository,
     SqrlLinkRepository,
+    IdentitySelectorViewControllerDelegate,
     NSURLSessionTaskDelegate
 {
     @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
@@ -35,9 +35,6 @@ class AuthenticationViewController: UIViewController,
     
     var sqrlLink: NSURL? = nil {
         didSet { self.selectorVC?.sqrlLink = sqrlLink }
-    }
-    var identityBundle:(identity: Identity, password: String)? = nil {
-        didSet { self.performLogin() }
     }
     
     
@@ -67,68 +64,69 @@ class AuthenticationViewController: UIViewController,
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+
     
-    
-    // MARK: - SQRL
-    func performLogin()
+    // MARK: - Identity Selector Delegate
+    func identitySelectorViewController(
+        identitySelectorViewController: IdentitySelectorViewController,
+        didSelectIdentity identity: Identity,
+        withDecryptedMasterKey masterKey: NSData)
     {
         if let
-            identity  = self.identityBundle?.identity,
-            password  = self.identityBundle?.password,
             sqrlLink  = self.sqrlLink,
-            masterKey = identity.masterKey.decryptCipherTextWithPassword(password),
-            request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, withMasterKey: masterKey)
+            request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
         {
-            let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+            let task = self.session.dataTaskWithRequest(request) {
+                self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Query, masterKey: masterKey, lockKey: identity.lockKey)
+            }
             task.resume()
         }
     }
     
-    func handleServerResponse(data: NSData!, response: NSURLResponse!, error: NSError!) -> Void
+    
+     // MARK: - SQRL
+    func handleServerResponse(
+        #data: NSData?,
+        response: NSURLResponse?,
+        error: NSError?,
+        lastCommand: SQRLCommand,
+        masterKey: NSData,
+        lockKey: NSData? = nil) -> Void
     {
         if let
-            message     = data.sqrlServerResponse(),
-            serverName  = message[.ServersFriendlyName],
-            tifRaw      = message[.TIF]?.toInt(),
-            identity    = self.identityBundle?.identity,
-            password    = self.identityBundle?.password,
-            masterKey   = identity.masterKey.decryptCipherTextWithPassword(password),
-            responseURL = response.URL
+            serverMessage = ServerMessage(data: data, response: response),
+            tifRaw        = serverMessage.dictionary[.TIF]?.toInt(),
+            serverName    = serverMessage.dictionary[.ServersFriendlyName]
         where
             tifRaw > 0
         {
             let tif = TIF(UInt(tifRaw))
             
-            // If NO current id or previous id on the server
-            if tif & (.CurrentIDMatch | .PreviousIDMatch) == nil {
-                self.handleCreateIdentity(
-                    serverName,
-                    serverURL: responseURL,
-                    serverMessage: data,
-                    masterKey: masterKey,
-                    lockKey: identity.lockKey)
+            // If NO current id or previous id on the server AND we didn't just create
+            if tif & (.CurrentIDMatch | .PreviousIDMatch) == nil && lastCommand != .Ident && lockKey != nil  {
+                self.createIdentity(serverMessage: serverMessage, masterKey: masterKey, lockKey: lockKey!)
             }
-            // if current id
-            else if tif & .CurrentIDMatch {
-                self.handleLoginIdentity(serverName, serverURL: responseURL, serverMessage: data, masterKey: masterKey)
+                
+                
+            // if current id exists and we havn't just performed a login
+            else if tif & .CurrentIDMatch && lastCommand != .Ident {
+                self.loginIdentity(serverMessage: serverMessage, masterKey: masterKey)
             }
         }
     }
     
-    func handleCreateIdentity(
-        serverName: String,
-        serverURL: NSURL,
-        serverMessage: NSData,
-        masterKey: NSData,
-        lockKey: NSData)
+    func createIdentity(#serverMessage: ServerMessage, masterKey: NSData, lockKey: NSData)
     {
         if let
-            serverValue = NSString(data: serverMessage, encoding: NSASCIIStringEncoding) as? String,
-            request     = NSMutableURLRequest(createIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey, identityLockKey: lockKey)
+            serverName = serverMessage.dictionary[.ServersFriendlyName],
+            request    = NSMutableURLRequest(createRequestForServerMessage: serverMessage, masterKey: masterKey, lockKey: lockKey)
         {
+            // Prompt user for to confirm and on confirmation send new request
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             let create = UIAlertAction(title: "Create", style: .Default) { _ in
-                let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+                let task = self.session.dataTaskWithRequest(request) {
+                    self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
+                }
                 task.resume()
             }
             self.showAlert(
@@ -138,25 +136,23 @@ class AuthenticationViewController: UIViewController,
         }
     }
     
-    func handleLoginIdentity(
-        serverName: String,
-        serverURL: NSURL,
-        serverMessage: NSData,
-        masterKey: NSData)
+    func loginIdentity(#serverMessage: ServerMessage, masterKey: NSData)
     {
         if let
-            serverValue = NSString(data: serverMessage, encoding: NSASCIIStringEncoding) as? String,
-            request     = NSMutableURLRequest(loginIdentForServerURL: serverURL, serverValue: serverValue, masterKey: masterKey)
+            serverName = serverMessage.dictionary[.ServersFriendlyName],
+            request    = NSMutableURLRequest(loginRequestForServerMessage: serverMessage, masterKey: masterKey)
         {
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            let login = UIAlertAction(title: "Login", style: .Default) { _ in
-                let task = self.session.dataTaskWithRequest(request, completionHandler: self.handleServerResponse)
+            let create = UIAlertAction(title: "Create", style: .Default) { _ in
+                let task = self.session.dataTaskWithRequest(request) {
+                    self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
+                }
                 task.resume()
             }
             self.showAlert(
                 serverName,
-                message: "Would you like to log into your \(serverName) account?",
-                actions: cancel, login)
+                message: "Looks like \(serverName) doesn't recognise you. Did you want to create an account with \(serverName)?",
+                actions: cancel, create)
         }
     }
     
@@ -235,8 +231,7 @@ class AuthenticationViewController: UIViewController,
     
     
     // MARK: - Scanner
-    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?)
-    {
+    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?) {
         self.selectorVC?.sqrlLink = sqrlLink
     }
     

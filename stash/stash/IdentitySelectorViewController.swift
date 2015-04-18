@@ -10,11 +10,18 @@ import UIKit
 import CoreData
 
 
+protocol IdentitySelectorViewControllerDelegate: class
+{
+    func identitySelectorViewController(identitySelectorViewController: IdentitySelectorViewController, didSelectIdentity identity: Identity, withDecryptedMasterKey masterKey: NSData)
+}
+
+
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
     ContextDriven,
     UIPageViewControllerDelegate,
-    UIPageViewControllerDataSource
+    UIPageViewControllerDataSource,
+    IdentityViewControllerDelegate
 {
     static let SegueID = "IdentitySelectorViewControllerSegue"
     
@@ -23,7 +30,7 @@ class IdentitySelectorViewController: UIViewController,
     private var pendingPage:   IdentityViewController?
     private var currentPage:   IdentityViewController?
     
-    weak var delegate: IdentityRepository?
+    weak var delegate: IdentitySelectorViewControllerDelegate?
     var context :NSManagedObjectContext? {
         didSet {
             self.createIdentitiesFetchedResultsController()
@@ -60,7 +67,13 @@ class IdentitySelectorViewController: UIViewController,
     
     
     // MARK: - User Authorisation
-    
+    func identityViewController(
+        identityViewController: IdentityViewController,
+        didSelectIdentity identity: Identity,
+        withDecryptedMasterKey masterKey: NSData)
+    {
+        self.delegate?.identitySelectorViewController(self, didSelectIdentity: identity, withDecryptedMasterKey: masterKey)
+    }
     
     
     // MARK: - Helpers
@@ -68,7 +81,7 @@ class IdentitySelectorViewController: UIViewController,
         identityVC: IdentityViewController,
         identity: Identity?,
         promptForPassword prompt: Bool,
-        delegate: IdentityRepository?) -> IdentityViewController
+        delegate: IdentityViewControllerDelegate?) -> IdentityViewController
     {
         identityVC.identity          = identity
         identityVC.promptForPassword = prompt
@@ -102,7 +115,7 @@ class IdentitySelectorViewController: UIViewController,
                 identityVC,
                 identity: (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last,
                 promptForPassword: self.promptForPassword,
-                delegate: self.delegate)
+                delegate: self)
         }
         
         return nil
@@ -121,7 +134,7 @@ class IdentitySelectorViewController: UIViewController,
                 identityVC,
                 identity: (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first,
                 promptForPassword: self.promptForPassword,
-                delegate: self.delegate)
+                delegate: self)
         }
         
         return nil
@@ -156,7 +169,7 @@ class IdentitySelectorViewController: UIViewController,
                 identityVC,
                 identity: identity,
                 promptForPassword: self.promptForPassword,
-                delegate: self.delegate)
+                delegate: self)
             pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }
