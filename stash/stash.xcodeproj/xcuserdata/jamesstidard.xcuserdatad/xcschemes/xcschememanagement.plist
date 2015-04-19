@@ -7,16 +7,26 @@
 		<key>stash-quicktests.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>4</integer>
+			<integer>1</integer>
 		</dict>
 		<key>stash.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
+		<key>stashAction.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>6</integer>
+		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>7CA51DDD1AE3DBDF002E9F45</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>7CCCFB8319685D9200DF3442</key>
 		<dict>
 			<key>primary</key>

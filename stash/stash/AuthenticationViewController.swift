@@ -107,8 +107,7 @@ class AuthenticationViewController: UIViewController,
             if tif & (.CurrentIDMatch | .PreviousIDMatch) == nil && lastCommand != .Ident && lockKey != nil  {
                 self.createIdentity(serverMessage: serverMessage, masterKey: masterKey, lockKey: lockKey!)
             }
-                
-                
+            
             // if current id exists and we havn't just performed a login
             else if tif & .CurrentIDMatch && lastCommand != .Ident {
                 self.loginIdentity(serverMessage: serverMessage, masterKey: masterKey)
