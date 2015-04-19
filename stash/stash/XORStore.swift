@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(XORStore)
 class XORStore: SecureStore {
 
     @NSManaged var identity: Identity

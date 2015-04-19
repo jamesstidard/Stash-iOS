@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(Settings)
 class Settings: NSManagedObject {
 
     @NSManaged var touchIDEnabled: Bool

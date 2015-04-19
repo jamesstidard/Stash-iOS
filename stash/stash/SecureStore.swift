@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(SecureStore)
 class SecureStore: NSManagedObject {
 
     @NSManaged var ciphertext: NSData

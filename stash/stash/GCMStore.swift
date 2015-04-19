@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(GCMStore)
 class GCMStore: SecureStore {
 
     @NSManaged var nonce: NSData

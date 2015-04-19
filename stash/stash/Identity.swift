@@ -9,6 +9,7 @@
 import Foundation
 import CoreData
 
+@objc(Identity)
 class Identity: NSManagedObject {
 
     @NSManaged var lockKey: NSData
