@@ -28,7 +28,6 @@
 		7C2B90301A2832DE009F0589 /* EntropyMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2B902F1A2832DE009F0589 /* EntropyMachine.swift */; };
 		7C3182E81A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */; };
 		7C3420B01AD850A200338126 /* IdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420AF1AD850A200338126 /* IdentityViewController.swift */; };
-		7C3420B11AD850A200338126 /* IdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420AF1AD850A200338126 /* IdentityViewController.swift */; };
 		7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
 		7C3420C41AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
 		7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
@@ -41,6 +40,42 @@
 		7C499BB11AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */; };
 		7C49EB391A1146A500023BE0 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7C49EB381A1146A500023BE0 /* Storyboard.storyboard */; };
 		7C57084E1A861EC20090EDB5 /* AESGCMTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */; };
+		7C58578D1AE42BC4008442DE /* Identity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2855F1A8BC9970019A2EC /* Identity.swift */; };
+		7C58578E1AE42BCC008442DE /* NSManagedObjectHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBD1A72DA290021B631 /* NSManagedObjectHelper.swift */; };
+		7C58578F1AE42BCC008442DE /* GCMStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB285651A8BC9970019A2EC /* GCMStore.swift */; };
+		7C5857901AE42BCC008442DE /* SecureStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB285621A8BC9970019A2EC /* SecureStore.swift */; };
+		7C5857911AE42BCC008442DE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB285591A8BC9960019A2EC /* Settings.swift */; };
+		7C5857921AE42BCC008442DE /* XORStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CB2855C1A8BC9970019A2EC /* XORStore.swift */; };
+		7C5857971AE42CB8008442DE /* Sha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABC1A88C45E0070D512 /* Sha256.swift */; };
+		7C5857981AE42CD4008442DE /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
+		7C5857991AE42D06008442DE /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
+		7C58579A1AE42D06008442DE /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
+		7C58579B1AE42D06008442DE /* IdentityFetchedResultsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C957EC21AD96FD100E4E040 /* IdentityFetchedResultsController.swift */; };
+		7C58579C1AE42D15008442DE /* NSStringRescueCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF30151A85D05700906534 /* NSStringRescueCode.swift */; };
+		7C58579D1AE42D1D008442DE /* NSDataSecureZero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */; };
+		7C58579E1AE42D26008442DE /* BigNumberArithmetic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CEF301B1A85D30300906534 /* BigNumberArithmetic.swift */; };
+		7C58579F1AE42D31008442DE /* GCMStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */; };
+		7C5857A01AE42D39008442DE /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
+		7C5857A11AE42D3C008442DE /* XORStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */; };
+		7C5857A21AE42D3C008442DE /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
+		7C5857A31AE42D3C008442DE /* XORStoreKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */; };
+		7C5857A41AE42D3F008442DE /* SettingsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */; };
+		7C5857A51AE42D42008442DE /* ServerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C93BCB11AE2DEED005EC6CC /* ServerMessage.swift */; };
+		7C5857A61AE42D45008442DE /* NSURLSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08731ADB171200AF344B /* NSURLSqrl.swift */; };
+		7C5857A71AE42D45008442DE /* NSURLSessionTaskSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA31ADD670B00F6863B /* NSURLSessionTaskSqrl.swift */; };
+		7C5857A81AE42D45008442DE /* NSDataSqrlServerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD82461ADEBE7800B85825 /* NSDataSqrlServerMessage.swift */; };
+		7C5857A91AE42D45008442DE /* StringSqrlServerMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CDD824A1ADFCF2600B85825 /* StringSqrlServerMessage.swift */; };
+		7C5857AA1AE42D4C008442DE /* NSDataXOR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CED8BB11A7AA64D004C4B56 /* NSDataXOR.swift */; };
+		7C5857AB1AE42D4C008442DE /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
+		7C5857AC1AE42D51008442DE /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
+		7C5857AD1AE42D51008442DE /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
+		7C5857AE1AE42D51008442DE /* Sha512.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA71A76E1B00017B785 /* Sha512.swift */; };
+		7C5857AF1AE42D52008442DE /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
+		7C5857B01AE42D52008442DE /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
+		7C5857B11AE42D52008442DE /* EnHash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ABA1A88C2EA0070D512 /* EnHash.swift */; };
+		7C5857B21AE42D66008442DE /* StringBase64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA51ADE59D100F6863B /* StringBase64URL.swift */; };
+		7C5857B31AE42D72008442DE /* NSDataBase64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */; };
+		7C5857B41AE42D82008442DE /* AesGcm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA1C9CD1A8730F600CC0A97 /* AesGcm.swift */; };
 		7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
 		7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA31A76E14F0017B785 /* Ed25519.swift */; };
 		7C5A8D741A8B9B74004407C1 /* HmacSha256.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA51A76E1880017B785 /* HmacSha256.swift */; };
@@ -78,6 +113,7 @@
 		7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */; };
 		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
+		7C8A5E681AE404A500F42EEC /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C8A5E671AE404A500F42EEC /* Action.js */; };
 		7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
 		7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
 		7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
@@ -101,6 +137,9 @@
 		7CA51DE31AE3DBE0002E9F45 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA51DE21AE3DBE0002E9F45 /* ActionViewController.swift */; };
 		7CA51DE51AE3DBE0002E9F45 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7CA51DE41AE3DBE0002E9F45 /* MainInterface.storyboard */; };
 		7CA51DE81AE3DBE0002E9F45 /* stashAction.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 7CA51DDE1AE3DBDF002E9F45 /* stashAction.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		7CA51DEF1AE3E8DC002E9F45 /* Stash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA20BBF1A72E1580021B631 /* Stash.swift */; };
+		7CA51DF01AE3E8FE002E9F45 /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2A81A72AD1500B48192 /* Model.xcdatamodeld */; };
+		7CA51DF41AE3ED45002E9F45 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7CA51DF31AE3ED45002E9F45 /* Images.xcassets */; };
 		7CA595191A297EE60047015A /* AccelerometerHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */; };
 		7CAFACD51ADC231D00C077BC /* CoreDataTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAFACD41ADC231D00C077BC /* CoreDataTestCase.swift */; };
 		7CAFACD71ADC24D700C077BC /* XORTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CAFACD61ADC24D700C077BC /* XORTests.swift */; };
@@ -137,6 +176,7 @@
 		7CF72ADF1A890DED0070D512 /* GCMStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72ADE1A890DED0070D512 /* GCMStoreCreator.swift */; };
 		7CF72AE31A891C2F0070D512 /* XORStoreCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CF72AE21A891C2F0070D512 /* XORStoreCreator.swift */; };
 		AA32FAA578F2246C685C15C5 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
+		B6BA48FC7CA346D7A0E3D573 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -198,6 +238,7 @@
 		7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSManagedObjectContextHelper.swift; sourceTree = "<group>"; };
 		7C49EB381A1146A500023BE0 /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
 		7C57084D1A861EC20090EDB5 /* AESGCMTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AESGCMTests.swift; sourceTree = "<group>"; };
+		7C5857951AE42C90008442DE /* stashAction-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stashAction-Bridging-Header.h"; sourceTree = "<group>"; };
 		7C5C1E3B1A755837009B92F7 /* QRScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QRScannerViewController.swift; sourceTree = "<group>"; };
 		7C5C1E3D1A7558C9009B92F7 /* AuthenticationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationViewController.swift; sourceTree = "<group>"; };
 		7C5C1E3F1A755C52009B92F7 /* IdentitySelectorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentitySelectorViewController.swift; sourceTree = "<group>"; };
@@ -215,6 +256,7 @@
 		7C881DA91A76E1E60017B785 /* SodiumUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SodiumUtilities.swift; sourceTree = "<group>"; };
 		7C881DAB1A76E20B0017B785 /* Scrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrypt.swift; sourceTree = "<group>"; };
 		7C881DAD1A76E22D0017B785 /* EnScrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScrypt.swift; sourceTree = "<group>"; };
+		7C8A5E671AE404A500F42EEC /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
 		7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStoreAbstract.swift; sourceTree = "<group>"; };
 		7C93BCB11AE2DEED005EC6CC /* ServerMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMessage.swift; sourceTree = "<group>"; };
 		7C957EC01AD96F4100E4E040 /* IdentityManagementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityManagementTableViewController.swift; sourceTree = "<group>"; };
@@ -232,6 +274,7 @@
 		7CA51DE41AE3DBE0002E9F45 /* MainInterface.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainInterface.storyboard; sourceTree = "<group>"; };
 		7CA51DED1AE3E634002E9F45 /* stash.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = stash.entitlements; sourceTree = "<group>"; };
 		7CA51DEE1AE3E739002E9F45 /* stashAction.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = stashAction.entitlements; sourceTree = "<group>"; };
+		7CA51DF31AE3ED45002E9F45 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		7CA595181A297EE60047015A /* AccelerometerHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccelerometerHarvesterTests.swift; sourceTree = "<group>"; };
 		7CAFACD41ADC231D00C077BC /* CoreDataTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataTestCase.swift; sourceTree = "<group>"; };
 		7CAFACD61ADC24D700C077BC /* XORTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORTests.swift; sourceTree = "<group>"; };
@@ -266,6 +309,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6BA48FC7CA346D7A0E3D573 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -456,6 +500,7 @@
 			children = (
 				7CA51DE41AE3DBE0002E9F45 /* MainInterface.storyboard */,
 				7CA51DE21AE3DBE0002E9F45 /* ActionViewController.swift */,
+				7C8A5E671AE404A500F42EEC /* Action.js */,
 				7CA51DE01AE3DBE0002E9F45 /* Supporting Files */,
 			);
 			path = stashAction;
@@ -464,6 +509,8 @@
 		7CA51DE01AE3DBE0002E9F45 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7CA51DF31AE3ED45002E9F45 /* Images.xcassets */,
+				7C5857951AE42C90008442DE /* stashAction-Bridging-Header.h */,
 				7CA51DEE1AE3E739002E9F45 /* stashAction.entitlements */,
 				7CA51DE11AE3DBE0002E9F45 /* Info.plist */,
 			);
@@ -622,9 +669,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7CA51DEB1AE3DBE0002E9F45 /* Build configuration list for PBXNativeTarget "stashAction" */;
 			buildPhases = (
+				7C5D7F817007B5248950514E /* Check Pods Manifest.lock */,
 				7CA51DDA1AE3DBDF002E9F45 /* Sources */,
 				7CA51DDB1AE3DBDF002E9F45 /* Frameworks */,
 				7CA51DDC1AE3DBDF002E9F45 /* Resources */,
+				54DC1A4D4A54D55FE4DBA1A3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -731,6 +780,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C8A5E681AE404A500F42EEC /* Action.js in Resources */,
+				7CA51DF41AE3ED45002E9F45 /* Images.xcassets in Resources */,
 				7CA51DE51AE3DBE0002E9F45 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,6 +807,36 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		54DC1A4D4A54D55FE4DBA1A3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C5D7F817007B5248950514E /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
 		F17A9E1575F0518994FCD263 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -793,7 +874,45 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C5857B41AE42D82008442DE /* AesGcm.swift in Sources */,
+				7C5857A01AE42D39008442DE /* SecureStoreAbstract.swift in Sources */,
 				7CA51DE31AE3DBE0002E9F45 /* ActionViewController.swift in Sources */,
+				7C5857A51AE42D42008442DE /* ServerMessage.swift in Sources */,
+				7CA51DEF1AE3E8DC002E9F45 /* Stash.swift in Sources */,
+				7C5857991AE42D06008442DE /* IdentityCreator.swift in Sources */,
+				7C5857B21AE42D66008442DE /* StringBase64URL.swift in Sources */,
+				7C5857A91AE42D45008442DE /* StringSqrlServerMessage.swift in Sources */,
+				7C5857AE1AE42D51008442DE /* Sha512.swift in Sources */,
+				7C58579D1AE42D1D008442DE /* NSDataSecureZero.swift in Sources */,
+				7C5857AF1AE42D52008442DE /* Scrypt.swift in Sources */,
+				7C5857A71AE42D45008442DE /* NSURLSessionTaskSqrl.swift in Sources */,
+				7C5857A31AE42D3C008442DE /* XORStoreKeychain.swift in Sources */,
+				7C5857971AE42CB8008442DE /* Sha256.swift in Sources */,
+				7C5857A11AE42D3C008442DE /* XORStoreCreator.swift in Sources */,
+				7C5857911AE42BCC008442DE /* Settings.swift in Sources */,
+				7C5857AB1AE42D4C008442DE /* OptionalOperatorChaining.swift in Sources */,
+				7C58579A1AE42D06008442DE /* IdentityHolderProtocol.swift in Sources */,
+				7CA51DF01AE3E8FE002E9F45 /* Model.xcdatamodeld in Sources */,
+				7C58578E1AE42BCC008442DE /* NSManagedObjectHelper.swift in Sources */,
+				7C58578D1AE42BC4008442DE /* Identity.swift in Sources */,
+				7C5857AC1AE42D51008442DE /* Ed25519.swift in Sources */,
+				7C5857B31AE42D72008442DE /* NSDataBase64URL.swift in Sources */,
+				7C5857AA1AE42D4C008442DE /* NSDataXOR.swift in Sources */,
+				7C5857921AE42BCC008442DE /* XORStore.swift in Sources */,
+				7C5857B11AE42D52008442DE /* EnHash.swift in Sources */,
+				7C58578F1AE42BCC008442DE /* GCMStore.swift in Sources */,
+				7C5857A61AE42D45008442DE /* NSURLSqrl.swift in Sources */,
+				7C5857981AE42CD4008442DE /* SodiumUtilities.swift in Sources */,
+				7C58579C1AE42D15008442DE /* NSStringRescueCode.swift in Sources */,
+				7C5857B01AE42D52008442DE /* EnScrypt.swift in Sources */,
+				7C5857A81AE42D45008442DE /* NSDataSqrlServerMessage.swift in Sources */,
+				7C58579F1AE42D31008442DE /* GCMStoreCreator.swift in Sources */,
+				7C5857A21AE42D3C008442DE /* XORStorePasswordManagement.swift in Sources */,
+				7C58579B1AE42D06008442DE /* IdentityFetchedResultsController.swift in Sources */,
+				7C58579E1AE42D26008442DE /* BigNumberArithmetic.swift in Sources */,
+				7C5857AD1AE42D51008442DE /* HmacSha256.swift in Sources */,
+				7C5857A41AE42D3F008442DE /* SettingsCreator.swift in Sources */,
+				7C5857901AE42BCC008442DE /* SecureStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -899,7 +1018,6 @@
 				7C5A8D731A8B9B74004407C1 /* Ed25519.swift in Sources */,
 				7C87AAA71A28348200DC3EC7 /* AccelerometerHarvester.swift in Sources */,
 				7C9336A11A8B9A7100D3E53B /* XORStorePasswordManagement.swift in Sources */,
-				7C3420B11AD850A200338126 /* IdentityViewController.swift in Sources */,
 				7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */,
 				7C5A8D721A8B9B74004407C1 /* SodiumUtilities.swift in Sources */,
 				7CDD82491ADECDB700B85825 /* StringBase64URL.swift in Sources */,
@@ -949,7 +1067,11 @@
 /* Begin XCBuildConfiguration section */
 		7CA51DE91AE3DBE0002E9F45 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = stashAction/stashAction.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -966,12 +1088,18 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "stashAction/stashAction-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		7CA51DEA1AE3DBE0002E9F45 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E74BAC5D4020597919028F4D /* Pods.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = stashAction/stashAction.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -985,6 +1113,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "stashAction/stashAction-Bridging-Header.h";
 			};
 			name = Release;
 		};
@@ -1153,6 +1282,7 @@
 				7CA51DEA1AE3DBE0002E9F45 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7CCCFB7F19685D9200DF3442 /* Build configuration list for PBXProject "stash" */ = {
 			isa = XCConfigurationList;

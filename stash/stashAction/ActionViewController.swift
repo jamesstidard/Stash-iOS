@@ -8,47 +8,45 @@
 
 import UIKit
 import MobileCoreServices
+import CoreData
 
-class ActionViewController: UIViewController {
+class ActionViewController: UITableViewController, NSFetchedResultsControllerDelegate {
 
     @IBOutlet weak var imageView: UIImageView!
+    
+    let stash = Stash()
+    var context: NSManagedObjectContext? = nil {
+        didSet {
+            self.createIdentitiesFetchedResultsController()
+            self.identitiesFRC?.performFetch(nil)
+            self.controllerDidChangeContent(identitiesFRC!)
+        }
+    }
+    
+    private var identitiesFRC: NSFetchedResultsController?
+    
+    var sqrlLink: NSURL?
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        // Get the item[s] we're handling from the extension context.
-        
-        // For example, look for an image and place it into an image view.
-        // Replace this with something appropriate for the type[s] your extension supports.
-        var imageFound = false
-        for item: AnyObject in self.extensionContext!.inputItems {
-            let inputItem = item as! NSExtensionItem
-            for provider: AnyObject in inputItem.attachments! {
-                let itemProvider = provider as! NSItemProvider
-                if itemProvider.hasItemConformingToTypeIdentifier(kUTTypeImage as String) {
-                    // This is an image. We'll load it, then place it in our image view.
-                    weak var weakImageView = self.imageView
-                    itemProvider.loadItemForTypeIdentifier(kUTTypeImage as String, options: nil, completionHandler: { (image, error) in
-                        if image != nil {
-                            NSOperationQueue.mainQueue().addOperationWithBlock {
-                                if let imageView = weakImageView {
-                                    imageView.image = image as? UIImage
-                                }
-                            }
-                        }
-                    })
-                    
-                    imageFound = true
-                    break
+        // Start trying to find that sqrlLink
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            ActionViewController.findSqrlLinkFromExtensionContext(self.extensionContext) { sqrlLink in
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.sqrlLink = sqrlLink
                 }
             }
-            
-            if (imageFound) {
-                // We only handle one image, so stop looking for more.
-                break
-            }
+        }
+        
+        // If the moc has yet to be initialised, start listening for it
+        if stash.context == nil {
+            stash.addObserver(self, forKeyPath: StashPropertyContextKey, options: .New, context: nil)
         }
     }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -61,4 +59,106 @@ class ActionViewController: UIViewController {
         self.extensionContext!.completeRequestReturningItems(self.extensionContext!.inputItems, completionHandler: nil)
     }
 
+    class func findSqrlLinkFromExtensionContext(context: NSExtensionContext?, completion: (NSURL? -> ()))
+    {
+        // Bend over backwards to get a sqrl url
+        for item: NSExtensionItem in context?.inputItems as! Array {
+            for provider: NSItemProvider in item.attachments as! Array {
+                if provider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
+                    provider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil) { (results: NSSecureCoding!, error: NSError!) in
+                        if let results = results as? NSDictionary where results.count > 0 {
+                            if let urls = results.valueForKey(NSExtensionJavaScriptPreprocessingResultsKey as String) as? NSDictionary {
+                                for url in urls.allValues as! [String] {
+                                    NSOperationQueue.mainQueue().addOperationWithBlock {
+                                        if url.hasPrefix("sqrl:") || url.hasPrefix("qrl:"),
+                                            let url = NSURL(string: url)
+                                        {
+                                            return completion(url)
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return completion(nil)
+    }
+    
+    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    {
+        // If this is the context we've been waiting for, tell anyone we have contracts with and set it locally
+        if keyPath == StashPropertyContextKey {
+            self.context = stash.context
+            stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
+        } else {
+            super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
+        }
+    }
+    
+    
+    // MARK: - Table View 
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
+    {
+        return self.identitiesFRC?.fetchedObjects?.count ?? 0
+    }
+    
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
+    {
+        if let cell = tableView.dequeueReusableCellWithIdentifier("Identity Cell", forIndexPath: indexPath) as? UITableViewCell
+        {
+            self.configureCell(cell, atIndexPath: indexPath)
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    private func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
+    {
+        if let
+            identity = self.identitiesFRC?.fetchedObjects?[indexPath.row] as? Identity
+            where cell.textLabel != nil
+        {
+            cell.textLabel!.text = identity.name
+        }
+    }
+    
+    // MARK: - Fetched Results Controller
+    private func createIdentitiesFetchedResultsController() {
+        if let context = self.context {
+            self.identitiesFRC = Identity.fetchedResultsController(context, delegate: self)
+        }
+    }
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController)
+    {
+        self.tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeSection sectionInfo: NSFetchedResultsSectionInfo, atIndex sectionIndex: Int, forChangeType type: NSFetchedResultsChangeType)
+    {
+        switch type {
+        case .Insert: self.tableView.insertSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        case .Delete: self.tableView.deleteSections(NSIndexSet(index: sectionIndex), withRowAnimation: .Fade)
+        default:      return
+        }
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?)
+    {
+        switch type {
+        case .Insert: self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        case .Delete: self.tableView.deleteRowsAtIndexPaths([indexPath!],    withRowAnimation: .Fade)
+        case .Update: self.configureCell(self.tableView.cellForRowAtIndexPath(indexPath!)!, atIndexPath: indexPath!)
+        case .Move:
+            self.tableView.deleteRowsAtIndexPaths([indexPath!],    withRowAnimation: .Fade)
+            self.tableView.insertRowsAtIndexPaths([newIndexPath!], withRowAnimation: .Fade)
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController)
+    {
+        self.tableView.endUpdates()
+    }
 }

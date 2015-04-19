@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 
 platform :ios, "8.0"
-link_with 'stash', 'stashTests'
+link_with 'stash', 'stashTests', 'stashAction'
 
 pod 'libsodium', '< 2.0'
 pod 'OpenSSL', '~> 1.0'

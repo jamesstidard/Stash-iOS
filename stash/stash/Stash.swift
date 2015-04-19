@@ -64,10 +64,9 @@ class Stash: NSObject {
     
     private class func persistentStoreDiskURL() -> NSURL {
         // SQLite file stored in documents directory
-        let fileManager    = NSFileManager.defaultManager()
-        let directoryArray = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        let fileManager = NSFileManager.defaultManager()
+        let storeURL    = fileManager.containerURLForSecurityApplicationGroupIdentifier("group.com.stidard.stash")!
         
-        var storeURL = directoryArray.last as! NSURL
         return storeURL.URLByAppendingPathComponent("model.sqlite") // append file name of sql file
     }
     
