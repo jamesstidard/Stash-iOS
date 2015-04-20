@@ -137,7 +137,7 @@ class ActionViewController: UITableViewController,
     {
         if let
             sqrlLink = self.sqrlLink,
-            identity = self.identitiesFRC?.fetchedObjects?[indexPath.row] as? Identity
+            identity = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
         {
             let prompt = "Authorise access to \(identity.name)"
             
