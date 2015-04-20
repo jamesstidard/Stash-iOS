@@ -56,7 +56,7 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
     @IBAction func done() {
         // Return any edited content to the host app.
         // This template doesn't do anything, so we just echo the passed in items.
-        self.extensionContext!.completeRequestReturningItems(self.extensionContext!.inputItems, completionHandler: nil)
+        self.extensionContext!.completeRequestReturningItems(nil, completionHandler: nil)
     }
 
     class func findSqrlLinkFromExtensionContext(context: NSExtensionContext?, completion: (NSURL? -> ()))
@@ -64,14 +64,18 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
         // Bend over backwards to get a sqrl url
         for item: NSExtensionItem in context?.inputItems as! Array {
             for provider: NSItemProvider in item.attachments as! Array {
+                
                 if provider.hasItemConformingToTypeIdentifier(kUTTypePropertyList as String) {
                     provider.loadItemForTypeIdentifier(kUTTypePropertyList as String, options: nil) { (results: NSSecureCoding!, error: NSError!) in
+                        
                         if let results = results as? NSDictionary where results.count > 0 {
                             if let urls = results.valueForKey(NSExtensionJavaScriptPreprocessingResultsKey as String) as? NSDictionary {
                                 for url in urls.allValues as! [String] {
                                     NSOperationQueue.mainQueue().addOperationWithBlock {
-                                        if url.hasPrefix("sqrl:") || url.hasPrefix("qrl:"),
-                                            let url = NSURL(string: url)
+                                        if
+                                            url.hasPrefix("sqrl:") || url.hasPrefix("qrl:"),
+                                        let
+                                            url = NSURL(string: url)
                                         {
                                             return completion(url)
                                         }
@@ -88,7 +92,7 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
     {
-        // If this is the context we've been waiting for, tell anyone we have contracts with and set it locally
+        // If this is the context we've been waiting for
         if keyPath == StashPropertyContextKey {
             self.context = stash.context
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
@@ -121,6 +125,44 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
             where cell.textLabel != nil
         {
             cell.textLabel!.text = identity.name
+        }
+    }
+    
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if let
+            sqrlLink = self.sqrlLink,
+            identity = self.identitiesFRC?.fetchedObjects?[indexPath.row] as? Identity
+        {
+            if let key = identity.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(identity.name)") {
+                
+            } else {
+                let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+                let ok     = UIAlertAction(title: "OK", style: .Default) { _ in
+//                    let task = self.session.dataTaskWithRequest(request) {
+//                        self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
+//                    }
+//                    task.resume()
+                }
+                ok.enabled = false
+                
+                let alert = UIAlertController(title: "Authorise", message: nil, preferredStyle: .Alert)
+                alert.addTextFieldWithConfigurationHandler { textField in
+                    textField.secureTextEntry = true
+                    textField.placeholder = "Password"
+                    
+                    NSNotificationCenter.defaultCenter().addObserverForName(
+                        UITextFieldTextDidChangeNotification,
+                        object: textField,
+                        queue: NSOperationQueue.mainQueue()) { notification in
+                        ok.enabled = textField.text != ""
+                    }
+                }
+                alert.addAction(ok)
+                alert.addAction(cancel)
+                
+                self.presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
     

@@ -6,5 +6,9 @@
 	<array>
 		<string>group.com.stidard.stash</string>
 	</array>
+	<key>keychain-access-groups</key>
+	<array>
+		<string>$(AppIdentifierPrefix)com.stidard.stash</string>
+	</array>
 </dict>
 </plist>
