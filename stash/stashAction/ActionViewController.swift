@@ -10,9 +10,14 @@ import UIKit
 import MobileCoreServices
 import CoreData
 
-class ActionViewController: UITableViewController, NSFetchedResultsControllerDelegate {
-
+class ActionViewController: UITableViewController,
+    NSFetchedResultsControllerDelegate,
+    SQRLSessionDelegate,
+    NSURLSessionDelegate
+{
     @IBOutlet weak var imageView: UIImageView!
+    
+    lazy var session: NSURLSession = NSURLSession(stashSessionWithdelegate: self)
     
     let stash = Stash()
     var context: NSManagedObjectContext? = nil {
@@ -134,19 +139,43 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
             sqrlLink = self.sqrlLink,
             identity = self.identitiesFRC?.fetchedObjects?[indexPath.row] as? Identity
         {
-            if let key = identity.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(identity.name)") {
+            let prompt = "Authorise access to \(identity.name)"
+            
+            if let
+                masterKey = identity.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: prompt),
+                request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+            {
+                ActionViewController.startSqrlExchange(
+                    session: self.session,
+                    sqrlLink: sqrlLink,
+                    masterKey: masterKey,
+                    lockKey: identity.lockKey,
+                    delegate: self)
+            }
+            else
+            {
+                // Create alert view
+                let alert = UIAlertController(title: "Authorise", message: nil, preferredStyle: .Alert)
                 
-            } else {
+                // Create cancel and OK buttons. Ok, on completion, takes the given password and creates a sqrl request
                 let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
                 let ok     = UIAlertAction(title: "OK", style: .Default) { _ in
-//                    let task = self.session.dataTaskWithRequest(request) {
-//                        self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
-//                    }
-//                    task.resume()
+                    if let
+                        passwordField = alert.textFields?[0] as? UITextField,
+                        masterKey = identity.masterKey.decryptCipherTextWithPassword(passwordField.text),
+                        request = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+                    {
+                        ActionViewController.startSqrlExchange(
+                            session: self.session,
+                            sqrlLink: sqrlLink,
+                            masterKey: masterKey,
+                            lockKey: identity.lockKey,
+                            delegate: self)
+                    }
                 }
-                ok.enabled = false
+                ok.enabled = false // disable the ok button initially
                 
-                let alert = UIAlertController(title: "Authorise", message: nil, preferredStyle: .Alert)
+                // Add password field and disable/enable OK button depending on text entered
                 alert.addTextFieldWithConfigurationHandler { textField in
                     textField.secureTextEntry = true
                     textField.placeholder = "Password"
@@ -154,8 +183,8 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
                     NSNotificationCenter.defaultCenter().addObserverForName(
                         UITextFieldTextDidChangeNotification,
                         object: textField,
-                        queue: NSOperationQueue.mainQueue()) { notification in
-                        ok.enabled = textField.text != ""
+                        queue: NSOperationQueue.mainQueue()) { _ in
+                            ok.enabled = textField.text != ""
                     }
                 }
                 alert.addAction(ok)
@@ -164,6 +193,78 @@ class ActionViewController: UITableViewController, NSFetchedResultsControllerDel
                 self.presentViewController(alert, animated: true, completion: nil)
             }
         }
+    }
+    
+    private class func startSqrlExchange(
+        #session: NSURLSession,
+        sqrlLink: NSURL,
+        masterKey: NSData,
+        lockKey: NSData,
+        delegate: SQRLSessionDelegate) -> Bool
+    {
+        if let request = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+        {
+            let task = session.sqrlDataTaskWithRequest(request, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
+            task.resume()
+            return true
+        }
+        return false
+    }
+    
+    // MARK: - SQRL Exchange
+    func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
+        let login = UIAlertAction(title: "Login", style: .Default) { _ in proceed(true) }
+        self.showAlert(
+            serverName,
+            message: "Would you like to log into your \(serverName) account?",
+            actions: cancel, login)
+    }
+    
+    func SQRLSession(session: NSURLSession, shouldCreateAccountForServer serverName: String, proceed: Bool -> ()) {
+        // Prompt user for to confirm and on confirmation send new request
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
+        let create = UIAlertAction(title: "Create", style: .Default) { _ in proceed(true) }
+        self.showAlert(
+            serverName,
+            message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
+            actions: cancel, create)
+    }
+    
+    func SQRLSession(session: NSURLSession, succesfullyCompleted success: Bool)
+    {
+        dispatch_async(dispatch_get_main_queue())
+        {
+            if success {
+                self.done()
+            }
+        }
+    }
+    
+    func showAlert(title: String, message: String, actions: UIAlertAction...)
+    {
+        let alert = UIAlertController(
+            title: title,
+            message: message,
+            preferredStyle: .Alert)
+        
+        actions.map { alert.addAction($0) }
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.presentViewController(alert, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: - NSURLSession
+    func URLSession(
+        session: NSURLSession,
+        task: NSURLSessionTask,
+        willPerformHTTPRedirection response: NSHTTPURLResponse,
+        newRequest request: NSURLRequest,
+        completionHandler: (NSURLRequest!) -> Void)
+    {
+        // SQRL shouldn't follow to any redirects
+        completionHandler(nil)
     }
     
     // MARK: - Fetched Results Controller

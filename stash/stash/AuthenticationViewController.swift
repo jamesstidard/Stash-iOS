@@ -13,16 +13,12 @@ class AuthenticationViewController: UIViewController,
     ContextDriven,
     SqrlLinkRepository,
     IdentitySelectorViewControllerDelegate,
+    SQRLSessionDelegate,
     NSURLSessionTaskDelegate
 {
     @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
     
-    var sessionConfig: NSURLSessionConfiguration = {
-        let config = NSURLSessionConfiguration.defaultSessionConfiguration()
-        config.HTTPAdditionalHeaders = ["User-Agent" : "Stash/1"]
-        return config
-    }()
-    lazy var session: NSURLSession = NSURLSession(configuration: self.sessionConfig, delegate: self, delegateQueue: nil)
+    lazy var session: NSURLSession = NSURLSession(stashSessionWithdelegate: self)
     lazy var notificationCenter    = NSNotificationCenter.defaultCenter()
     
     lazy var stash: Stash                       = Stash.sharedInstance
@@ -77,94 +73,41 @@ class AuthenticationViewController: UIViewController,
             sqrlLink  = self.sqrlLink,
             request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
         {
-            let task = self.session.dataTaskWithRequest(request) {
-                self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Query, masterKey: masterKey, lockKey: identity.lockKey)
-            }
+            let task = self.session.sqrlDataTaskWithRequest(
+                request,
+                masterKey: masterKey,
+                lockKey: identity.lockKey,
+                delegate: self)
             task.resume()
         }
     }
     
     
-     // MARK: - SQRL
-    func handleServerResponse(
-        #data: NSData?,
-        response: NSURLResponse?,
-        error: NSError?,
-        lastCommand: SQRLCommand,
-        masterKey: NSData,
-        lockKey: NSData? = nil) -> Void
-    {
-        if let
-            serverMessage = ServerMessage(data: data, response: response),
-            tifRaw        = serverMessage.dictionary[.TIF]?.toInt(),
-            serverName    = serverMessage.dictionary[.ServersFriendlyName]
-        where
-            tifRaw > 0
-        {
-            let tif = TIF(UInt(tifRaw))
-            
-            // If NO current id or previous id on the server AND we didn't just create
-            if tif & (.CurrentIDMatch | .PreviousIDMatch) == nil && lastCommand != .Ident && lockKey != nil  {
-                self.createIdentity(serverMessage: serverMessage, masterKey: masterKey, lockKey: lockKey!)
-            }
-            
-            // if current id exists and we havn't just performed a login
-            else if tif & .CurrentIDMatch && lastCommand != .Ident {
-                self.loginIdentity(serverMessage: serverMessage, masterKey: masterKey)
-            }
-            
-            else {
-                self.cleanUpSqrlTransaction(error: error)
-            }
-        }
+    // MARK: - SQRL Exchange
+    func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
+        let login = UIAlertAction(title: "Login", style: .Default) { _ in proceed(true) }
+        self.showAlert(
+            serverName,
+            message: "Would you like to log into your \(serverName) account?",
+            actions: cancel, login)
     }
     
-    func createIdentity(#serverMessage: ServerMessage, masterKey: NSData, lockKey: NSData)
-    {
-        if let
-            serverName = serverMessage.dictionary[.ServersFriendlyName],
-            request    = NSMutableURLRequest(createRequestForServerMessage: serverMessage, masterKey: masterKey, lockKey: lockKey)
-        {
-            // Prompt user for to confirm and on confirmation send new request
-            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            let create = UIAlertAction(title: "Create", style: .Default) { _ in
-                let task = self.session.dataTaskWithRequest(request) {
-                    self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
-                }
-                task.resume()
-            }
-            self.showAlert(
-                serverName,
-                message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
-                actions: cancel, create)
-        }
+    func SQRLSession(session: NSURLSession, shouldCreateAccountForServer serverName: String, proceed: Bool -> ()) {
+        // Prompt user for to confirm and on confirmation send new request
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
+        let create = UIAlertAction(title: "Create", style: .Default) { _ in proceed(true) }
+        self.showAlert(
+            serverName,
+            message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
+            actions: cancel, create)
     }
     
-    func loginIdentity(#serverMessage: ServerMessage, masterKey: NSData)
-    {
-        if let
-            serverName = serverMessage.dictionary[.ServersFriendlyName],
-            request    = NSMutableURLRequest(loginRequestForServerMessage: serverMessage, masterKey: masterKey)
-        {
-            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-            let login = UIAlertAction(title: "Login", style: .Default) { _ in
-                let task = self.session.dataTaskWithRequest(request) {
-                    self.handleServerResponse(data: $0, response: $1, error: $2, lastCommand: .Ident, masterKey: masterKey)
-                }
-                task.resume()
-            }
-            self.showAlert(
-                serverName,
-                message: "Would you like to log into your \(serverName) account?",
-                actions: cancel, login)
-        }
-    }
-    
-    func cleanUpSqrlTransaction(#error: NSError?)
+    func SQRLSession(session: NSURLSession, succesfullyCompleted success: Bool)
     {
         dispatch_async(dispatch_get_main_queue())
         {
-            if error == nil {
+            if success {
                 self.scannerVC?.sqrlLink = nil
             }
         }
@@ -259,7 +202,7 @@ class AuthenticationViewController: UIViewController,
             navigationController = destinationVC as? UINavigationController,
             rootVC               = navigationController.viewControllers?[0] as? UIViewController
         {
-                destinationVC = rootVC
+            destinationVC = rootVC
         }
         
         // if requires a context pass it ours
