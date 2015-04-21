@@ -73,8 +73,9 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     }
     
     @IBAction func continueButtonPressed(sender: UIButton) {
-        sender.enabled = false
-        self.progressHud.labelText = "Creating Identity"
+        sender.enabled                    = false
+        self.progressHud.labelText        = "Creating Identity"
+        self.progressHud.detailsLabelText = "This will take a few moments"
         self.resignFirstResponder()
         
         // Stop the harvester and get the seed
