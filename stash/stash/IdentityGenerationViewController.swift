@@ -21,10 +21,11 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     @IBOutlet weak var touchIDSwitch: UISwitch!
     
     var context: NSManagedObjectContext?
-    var entropyMachine = EntropyMachine()
+    var entropyMachine                              = EntropyMachine()
     lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
     lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)
     lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
+    lazy var progressHud: MBProgressHUD             = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     var identityBundle: (identity: Identity, rescueCode: String)?
     
     private lazy var queue: NSOperationQueue = {
@@ -73,6 +74,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     
     @IBAction func continueButtonPressed(sender: UIButton) {
         sender.enabled = false
+        self.progressHud.labelText = "Creating Identity"
+        self.resignFirstResponder()
         
         // Stop the harvester and get the seed
         if var seed = self.stopHarvesting() {
@@ -92,6 +95,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                     
                     dispatch_sync(dispatch_get_main_queue())
                     {
+                        self.progressHud.hide(false)
                         if let identity = self.context?.objectWithID(result.identity.objectID) as? Identity
                         {
                             self.identityBundle = (identity, result.rescueCode)

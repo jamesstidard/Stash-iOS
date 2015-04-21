@@ -15,26 +15,26 @@ extension NSURL
     }
     
     var sqrlResponseURL: NSURL?
+    {
+        if var
+            components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false),
+            scheme     = self.scheme?.lowercaseString
+            where
+            scheme == "sqrl" || scheme == "qrl"
         {
-            if var
-                components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false),
-                scheme     = self.scheme?.lowercaseString
-                where
-                scheme == "sqrl" || scheme == "qrl"
-            {
-                // strip url of superfluous info
-                components.user     = nil
-                components.password = nil
-                components.port     = nil
+            // strip url of superfluous info
+            components.user     = nil
+            components.password = nil
+            components.port     = nil
                 
-                // compose sqrl response url
-                components.scheme = (scheme == "sqrl") ? "https" : "http"
-                components.host   = components.host?.lowercaseString
+            // compose sqrl response url
+            components.scheme = (scheme == "sqrl") ? "https" : "http"
+            components.host   = components.host?.lowercaseString
                 
-                return components.URL
-            }
-            
-            return nil
+            return components.URL
+        }
+        
+        return nil
     }
     
     
@@ -65,22 +65,20 @@ extension NSURL
     
     var sqrlBase64URLString: String?
     {
-            return self.absoluteString?.base64URLEncodedString(padding: false)
+        return self.absoluteString?.base64URLEncodedString(padding: false)
     }
     
     
     var isValidSqrlLink: Bool
-        {
-            return
-                (self.scheme == "sqrl" || self.scheme == "qrl") &&
-                    self.host != nil &&
-                    self.query?.lowercaseString.rangeOfString("nut=") != nil
+    {
+        return (self.scheme == "sqrl" || self.scheme == "qrl") &&
+                self.host != nil &&
+                self.query?.lowercaseString.rangeOfString("nut=") != nil
     }
     
     func urlByReplacingQueryPath(pathWithQuery: String) -> NSURL?
     {
-        if var
-            components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
+        if var components = NSURLComponents(URL: self, resolvingAgainstBaseURL: false)
         {
             let parts = split(pathWithQuery, maxSplit: 1, allowEmptySlices: false) { $0 == "?" }
             
