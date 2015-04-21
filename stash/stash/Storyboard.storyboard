@@ -42,7 +42,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9A-y6-9nQ">
-                                <rect key="frame" x="269" y="550" width="62" height="30"/>
+                                <rect key="frame" x="269" y="321" width="62" height="30"/>
                                 <state key="normal" title="Continue">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -66,25 +66,25 @@
                                 <rect key="frame" x="535" y="141" width="51" height="31"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Entropy Harvest" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QcB-uG-HaQ">
-                                <rect key="frame" x="255" y="504" width="90" height="15"/>
+                                <rect key="frame" x="255" y="275" width="90" height="15"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="dGC-nt-BTE">
-                                <rect key="frame" x="290" y="476" width="20" height="20"/>
+                                <rect key="frame" x="290" y="247" width="20" height="20"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="centerX" secondItem="dGC-nt-BTE" secondAttribute="centerX" id="2db-wB-Eyp"/>
+                            <constraint firstItem="dGC-nt-BTE" firstAttribute="top" secondItem="7Ro-ge-sUC" secondAttribute="bottom" constant="80" id="3dz-6y-Uzx"/>
                             <constraint firstItem="7Ro-ge-sUC" firstAttribute="top" secondItem="T2S-nC-v7x" secondAttribute="bottom" constant="20" id="7oz-pa-NIe"/>
                             <constraint firstItem="QcB-uG-HaQ" firstAttribute="top" secondItem="dGC-nt-BTE" secondAttribute="bottom" constant="8" id="8wE-5e-swP"/>
                             <constraint firstItem="S9A-y6-9nQ" firstAttribute="top" secondItem="QcB-uG-HaQ" secondAttribute="bottom" constant="31" id="OwP-0b-ujN"/>
                             <constraint firstItem="T2S-nC-v7x" firstAttribute="leading" secondItem="OAJ-I4-dhl" secondAttribute="leadingMargin" id="PWp-Mt-OlN"/>
                             <constraint firstItem="7Ro-ge-sUC" firstAttribute="centerY" secondItem="tVE-qc-T5H" secondAttribute="centerY" id="T7E-jL-M3D"/>
                             <constraint firstItem="T2S-nC-v7x" firstAttribute="top" secondItem="kWb-XN-4oD" secondAttribute="bottom" constant="8" id="Ttd-LY-TVS"/>
-                            <constraint firstItem="v3R-fv-0Ah" firstAttribute="top" secondItem="S9A-y6-9nQ" secondAttribute="bottom" constant="20" id="bWY-IM-qQl"/>
                             <constraint firstAttribute="centerX" secondItem="QcB-uG-HaQ" secondAttribute="centerX" id="dKI-kG-By1"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="trailing" secondItem="OAJ-I4-dhl" secondAttribute="trailingMargin" id="g1d-8X-e21"/>
                             <constraint firstItem="kWb-XN-4oD" firstAttribute="top" secondItem="F3a-fl-itp" secondAttribute="bottom" constant="38" id="m76-bq-u0Q"/>
