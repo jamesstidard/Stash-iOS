@@ -31,6 +31,8 @@ class ActionViewController: UITableViewController,
     private var identitiesFRC: NSFetchedResultsController?
     
     var sqrlLink: NSURL?
+    
+    lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
 
     
     override func viewDidLoad() {
@@ -135,6 +137,8 @@ class ActionViewController: UITableViewController,
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         if let
             sqrlLink = self.sqrlLink,
             identity = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
@@ -145,7 +149,7 @@ class ActionViewController: UITableViewController,
                 masterKey = identity.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: prompt),
                 request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
             {
-                ActionViewController.startSqrlExchange(
+                self.startSqrlExchange(
                     session: self.session,
                     sqrlLink: sqrlLink,
                     masterKey: masterKey,
@@ -165,7 +169,7 @@ class ActionViewController: UITableViewController,
                         masterKey = identity.masterKey.decryptCipherTextWithPassword(passwordField.text),
                         request = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
                     {
-                        ActionViewController.startSqrlExchange(
+                        self.startSqrlExchange(
                             session: self.session,
                             sqrlLink: sqrlLink,
                             masterKey: masterKey,
@@ -195,7 +199,7 @@ class ActionViewController: UITableViewController,
         }
     }
     
-    private class func startSqrlExchange(
+    private func startSqrlExchange(
         #session: NSURLSession,
         sqrlLink: NSURL,
         masterKey: NSData,
@@ -206,15 +210,23 @@ class ActionViewController: UITableViewController,
         {
             let task = session.sqrlDataTaskWithRequest(request, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
             task.resume()
+            self.progressHud.labelText = "Quering Server"
             return true
         }
+        self.progressHud.hide(animated: true, labelText: "Couldn't Understand SQRL-Link", success: false)
         return false
     }
     
     // MARK: - SQRL Exchange
     func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
-        let login = UIAlertAction(title: "Login", style: .Default) { _ in proceed(true) }
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
+            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            proceed(false)
+        }
+        let login = UIAlertAction(title: "Login", style: .Default) { _ in
+            self.progressHud.labelText = "Requesting Login"
+            proceed(true)
+        }
         self.showAlert(
             serverName,
             message: "Would you like to log into your \(serverName) account?",
@@ -223,8 +235,14 @@ class ActionViewController: UITableViewController,
     
     func SQRLSession(session: NSURLSession, shouldCreateAccountForServer serverName: String, proceed: Bool -> ()) {
         // Prompt user for to confirm and on confirmation send new request
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
-        let create = UIAlertAction(title: "Create", style: .Default) { _ in proceed(true) }
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
+            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            proceed(false)
+        }
+        let create = UIAlertAction(title: "Create", style: .Default) { _ in
+            self.progressHud.labelText = "Requesting New Account"
+            proceed(true)
+        }
         self.showAlert(
             serverName,
             message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
@@ -235,6 +253,8 @@ class ActionViewController: UITableViewController,
     {
         dispatch_async(dispatch_get_main_queue())
         {
+            let labelText = success ? "Complete" : "Failed"
+            self.progressHud.hide(animated:true, labelText: labelText, success: success)
             if success {
                 self.done()
             }

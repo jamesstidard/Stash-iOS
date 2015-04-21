@@ -34,6 +34,8 @@ class AuthenticationViewController: UIViewController,
         didSet { self.selectorVC?.sqrlLink = sqrlLink }
     }
     
+    lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -69,6 +71,8 @@ class AuthenticationViewController: UIViewController,
         didSelectIdentity identity: Identity,
         withDecryptedMasterKey masterKey: NSData)
     {
+        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        
         if let
             sqrlLink  = self.sqrlLink,
             request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
@@ -79,14 +83,24 @@ class AuthenticationViewController: UIViewController,
                 lockKey: identity.lockKey,
                 delegate: self)
             task.resume()
+            self.progressHud.labelText = "Quering Server"
+        }
+        else {
+            self.progressHud.hide(animated: true, labelText: "Couldn't Understand SQRL-Link", success: false)
         }
     }
     
     
     // MARK: - SQRL Exchange
     func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
-        let login = UIAlertAction(title: "Login", style: .Default) { _ in proceed(true) }
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
+            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            proceed(false)
+        }
+        let login = UIAlertAction(title: "Login", style: .Default) { _ in
+            self.progressHud.labelText = "Requesting Login"
+            proceed(true)
+        }
         self.showAlert(
             serverName,
             message: "Would you like to log into your \(serverName) account?",
@@ -95,8 +109,14 @@ class AuthenticationViewController: UIViewController,
     
     func SQRLSession(session: NSURLSession, shouldCreateAccountForServer serverName: String, proceed: Bool -> ()) {
         // Prompt user for to confirm and on confirmation send new request
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in proceed(false) }
-        let create = UIAlertAction(title: "Create", style: .Default) { _ in proceed(true) }
+        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
+            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            proceed(false)
+        }
+        let create = UIAlertAction(title: "Create", style: .Default) { _ in
+            self.progressHud.labelText = "Requesting New Account"
+            proceed(true)
+        }
         self.showAlert(
             serverName,
             message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
@@ -105,11 +125,11 @@ class AuthenticationViewController: UIViewController,
     
     func SQRLSession(session: NSURLSession, succesfullyCompleted success: Bool)
     {
-        dispatch_async(dispatch_get_main_queue())
-        {
-            if success {
-                self.scannerVC?.sqrlLink = nil
-            }
+        let labelText = success ? "Complete" : "Failed"
+        self.progressHud.hide(animated:true, labelText: labelText, success: success)
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            self.scannerVC?.sqrlLink = nil
         }
     }
     

@@ -114,6 +114,8 @@
 		7C881DAC1A76E20B0017B785 /* Scrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAB1A76E20B0017B785 /* Scrypt.swift */; };
 		7C881DAE1A76E22D0017B785 /* EnScrypt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C881DAD1A76E22D0017B785 /* EnScrypt.swift */; };
 		7C8A5E681AE404A500F42EEC /* Action.js in Resources */ = {isa = PBXBuildFile; fileRef = 7C8A5E671AE404A500F42EEC /* Action.js */; };
+		7C8B0D561AE6B1B4008A8041 /* MBProgressHUDStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B0D551AE6B1B4008A8041 /* MBProgressHUDStash.swift */; };
+		7C8B0D591AE6CA7C008A8041 /* MBProgressHUDStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C8B0D551AE6B1B4008A8041 /* MBProgressHUDStash.swift */; };
 		7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */; };
 		7C93369D1A8B9A6B00D3E53B /* IdentityCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */; };
 		7C93369E1A8B9A6B00D3E53B /* IdentityHolderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */; };
@@ -259,6 +261,7 @@
 		7C881DAB1A76E20B0017B785 /* Scrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Scrypt.swift; sourceTree = "<group>"; };
 		7C881DAD1A76E22D0017B785 /* EnScrypt.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScrypt.swift; sourceTree = "<group>"; };
 		7C8A5E671AE404A500F42EEC /* Action.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Action.js; sourceTree = "<group>"; };
+		7C8B0D551AE6B1B4008A8041 /* MBProgressHUDStash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MBProgressHUDStash.swift; sourceTree = "<group>"; };
 		7C9336941A8B982D00D3E53B /* SecureStoreAbstract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecureStoreAbstract.swift; sourceTree = "<group>"; };
 		7C93BCB11AE2DEED005EC6CC /* ServerMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServerMessage.swift; sourceTree = "<group>"; };
 		7C957EC01AD96F4100E4E040 /* IdentityManagementTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityManagementTableViewController.swift; sourceTree = "<group>"; };
@@ -367,10 +370,15 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C8B0D541AE6B17E008A8041 /* MBProgressHud Extensions */,
+				7C8B0D531AE6B10F008A8041 /* NSManagedContext Extensions */,
+				7C8B0D521AE6B0DD008A8041 /* NSOperationQueue Extensions */,
+				7C8B0D511AE6B0C7008A8041 /* NSData Extensions */,
+				7C8B0D501AE6B0A7008A8041 /* String Extensions */,
 				7C6C08721ADB16EF00AF344B /* SQRLProtocol */,
 				7CED8BB31A7AA8E5004C4B56 /* Operators */,
 				7C881DA21A76E0FB0017B785 /* Crypto */,
-				7C2B90211A280633009F0589 /* Extentions */,
+				7C2B90211A280633009F0589 /* Core Motion Extensions */,
 				7C2B90201A280618009F0589 /* Entropy Havesting */,
 			);
 			name = Utilities;
@@ -387,21 +395,12 @@
 			name = "Entropy Havesting";
 			sourceTree = "<group>";
 		};
-		7C2B90211A280633009F0589 /* Extentions */ = {
+		7C2B90211A280633009F0589 /* Core Motion Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				7C2B901C1A28035E009F0589 /* CoreMotionSingleton.swift */,
-				7C2B90291A281DD0009F0589 /* NSDataFromMultipleObjects.swift */,
-				7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */,
-				7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */,
-				7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */,
-				7CEF30151A85D05700906534 /* NSStringRescueCode.swift */,
-				7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */,
-				7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */,
-				7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */,
-				7C277FA51ADE59D100F6863B /* StringBase64URL.swift */,
 			);
-			name = Extentions;
+			name = "Core Motion Extensions";
 			sourceTree = "<group>";
 		};
 		7C3420B21AD8540E00338126 /* Protocols */ = {
@@ -440,6 +439,51 @@
 				7CEF30171A85D1DD00906534 /* Sodium */,
 			);
 			name = Crypto;
+			sourceTree = "<group>";
+		};
+		7C8B0D501AE6B0A7008A8041 /* String Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7CEF30151A85D05700906534 /* NSStringRescueCode.swift */,
+				7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */,
+				7C277FA51ADE59D100F6863B /* StringBase64URL.swift */,
+			);
+			name = "String Extensions";
+			sourceTree = "<group>";
+		};
+		7C8B0D511AE6B0C7008A8041 /* NSData Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */,
+				7C2B90291A281DD0009F0589 /* NSDataFromMultipleObjects.swift */,
+				7CEF301D1A85E27600906534 /* NSDataSecureZero.swift */,
+			);
+			name = "NSData Extensions";
+			sourceTree = "<group>";
+		};
+		7C8B0D521AE6B0DD008A8041 /* NSOperationQueue Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C2B902B1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift */,
+				7C2B902D1A282BA5009F0589 /* NSOperationQueueHelper.swift */,
+			);
+			name = "NSOperationQueue Extensions";
+			sourceTree = "<group>";
+		};
+		7C8B0D531AE6B10F008A8041 /* NSManagedContext Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C499BB01AB7B036005B2DD2 /* NSManagedObjectContextHelper.swift */,
+			);
+			name = "NSManagedContext Extensions";
+			sourceTree = "<group>";
+		};
+		7C8B0D541AE6B17E008A8041 /* MBProgressHud Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C8B0D551AE6B1B4008A8041 /* MBProgressHUDStash.swift */,
+			);
+			name = "MBProgressHud Extensions";
 			sourceTree = "<group>";
 		};
 		7C9336931A8B976200D3E53B /* SecureStore */ = {
@@ -900,6 +944,7 @@
 				7C5857971AE42CB8008442DE /* Sha256.swift in Sources */,
 				7C5857A11AE42D3C008442DE /* XORStoreCreator.swift in Sources */,
 				7C5857911AE42BCC008442DE /* Settings.swift in Sources */,
+				7C8B0D591AE6CA7C008A8041 /* MBProgressHUDStash.swift in Sources */,
 				7C5857AB1AE42D4C008442DE /* OptionalOperatorChaining.swift in Sources */,
 				7C58579A1AE42D06008442DE /* IdentityHolderProtocol.swift in Sources */,
 				7CA51DF01AE3E8FE002E9F45 /* Model.xcdatamodeld in Sources */,
@@ -944,6 +989,7 @@
 				7CDD82471ADEBE7800B85825 /* NSDataSqrlServerMessage.swift in Sources */,
 				7C277FA61ADE59D100F6863B /* StringBase64URL.swift in Sources */,
 				7CEF30161A85D05700906534 /* NSStringRescueCode.swift in Sources */,
+				7C8B0D561AE6B1B4008A8041 /* MBProgressHUDStash.swift in Sources */,
 				7C881DA81A76E1B00017B785 /* Sha512.swift in Sources */,
 				7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */,
 				7C6C08741ADB171200AF344B /* NSURLSqrl.swift in Sources */,
