@@ -137,7 +137,7 @@ class ActionViewController: UITableViewController,
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
         
         if let
             sqrlLink = self.sqrlLink,
@@ -213,6 +213,7 @@ class ActionViewController: UITableViewController,
             self.progressHud.labelText = "Quering Server"
             return true
         }
+        
         self.progressHud.hide(animated: true, labelText: "Couldn't Understand SQRL-Link", success: false)
         return false
     }

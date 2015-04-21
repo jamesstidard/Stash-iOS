@@ -71,7 +71,7 @@ class AuthenticationViewController: UIViewController,
         didSelectIdentity identity: Identity,
         withDecryptedMasterKey masterKey: NSData)
     {
-        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
         
         if let
             sqrlLink  = self.sqrlLink,
@@ -84,17 +84,17 @@ class AuthenticationViewController: UIViewController,
                 delegate: self)
             task.resume()
             self.progressHud.labelText = "Quering Server"
+            return
         }
-        else {
-            self.progressHud.hide(animated: true, labelText: "Couldn't Understand SQRL-Link", success: false)
-        }
+        
+        self.endSQRLTransaction(success: false, message: "Couldn't Understand SQRL-Link")
     }
     
     
     // MARK: - SQRL Exchange
     func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
-            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            self.endSQRLTransaction(success: false, message: "Canceled")
             proceed(false)
         }
         let login = UIAlertAction(title: "Login", style: .Default) { _ in
@@ -110,7 +110,7 @@ class AuthenticationViewController: UIViewController,
     func SQRLSession(session: NSURLSession, shouldCreateAccountForServer serverName: String, proceed: Bool -> ()) {
         // Prompt user for to confirm and on confirmation send new request
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
-            self.progressHud.hide(animated: true, labelText: "Canceled", success: false)
+            self.endSQRLTransaction(success: false, message: "Canceled")
             proceed(false)
         }
         let create = UIAlertAction(title: "Create", style: .Default) { _ in
@@ -126,7 +126,12 @@ class AuthenticationViewController: UIViewController,
     func SQRLSession(session: NSURLSession, succesfullyCompleted success: Bool)
     {
         let labelText = success ? "Complete" : "Failed"
-        self.progressHud.hide(animated:true, labelText: labelText, success: success)
+        self.endSQRLTransaction(success: success, message: labelText)
+    }
+    
+    func endSQRLTransaction(#success: Bool, message: String)
+    {
+        self.progressHud.hide(animated:true, labelText: message, success: success)
         
         dispatch_async(dispatch_get_main_queue()) {
             self.scannerVC?.sqrlLink = nil

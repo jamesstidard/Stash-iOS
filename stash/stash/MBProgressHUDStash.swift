@@ -41,4 +41,11 @@ extension MBProgressHUD
             self.hide(animated, afterDelay: delay)
         }
     }
+    
+    class func showHUDAddedTo(view: UIView, animated: Bool, labelText: String) -> MBProgressHUD
+    {
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: animated)
+        hud.labelText = labelText
+        return hud
+    }
 }
