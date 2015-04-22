@@ -30,7 +30,6 @@ class IdentityViewController: UIViewController,
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
-    @IBOutlet weak var nameLabelCenterY: NSLayoutConstraint!
     @IBOutlet weak var passwordField: UITextField!
     
     weak var delegate: IdentityViewControllerDelegate?
