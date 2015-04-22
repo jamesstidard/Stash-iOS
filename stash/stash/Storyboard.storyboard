@@ -503,10 +503,14 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="111"/>
                     <connections>
+                        <outlet property="bottomSpacingContraint" destination="TaA-4q-Hrc" id="YNL-7K-Do5"/>
                         <outlet property="detailLabel" destination="KPM-iw-oOR" id="tog-Bq-DGF"/>
                         <outlet property="imageView" destination="tqL-zg-KBD" id="Xm9-Md-NL7"/>
+                        <outlet property="leftSpacingConstaint" destination="gcv-VR-5EI" id="28a-3K-n1W"/>
                         <outlet property="nameLabel" destination="0sf-Im-QVf" id="1Wq-8N-7cP"/>
                         <outlet property="passwordField" destination="WHc-Nj-6r6" id="jty-9N-3Mu"/>
+                        <outlet property="rightSpacingConstaint" destination="vBz-7o-Tqf" id="TH6-8p-mpk"/>
+                        <outlet property="topSpacingConstraint" destination="yjI-v6-ho3" id="AVB-ef-fuY"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vLM-DT-Pww" userLabel="First Responder" sceneMemberID="firstResponder"/>

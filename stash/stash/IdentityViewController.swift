@@ -31,6 +31,10 @@ class IdentityViewController: UIViewController,
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var leftSpacingConstaint: NSLayoutConstraint!
+    @IBOutlet weak var rightSpacingConstaint: NSLayoutConstraint!
+    @IBOutlet weak var topSpacingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomSpacingContraint: NSLayoutConstraint!
     
     weak var delegate: IdentityViewControllerDelegate?
     weak var identity: Identity?
@@ -44,24 +48,56 @@ class IdentityViewController: UIViewController,
     private var mode: IdenitiyViewControllerMode = .Inactive {
         didSet {
             if self.imageView != nil && self.nameLabel != nil && self.detailLabel != nil {
-                switch self.mode
-                {
-                case .Inactive, .Active:
-                    self.imageView.hidden     = false
-                    self.nameLabel.hidden     = false
-                    self.detailLabel.hidden   = !promptForPassword
-                    self.passwordField.hidden = true
-                    self.passwordField.text   = nil
-                    self.passwordField.resignFirstResponder()
+                self.imageView.hidden     = false
+                self.nameLabel.hidden     = false
+                self.detailLabel.hidden   = false
+                self.passwordField.hidden = false
+                self.view.layoutIfNeeded()
+                
+                UIView.animateWithDuration(0.35, animations: {
+                    switch self.mode
+                    {
+                    case .Inactive, .Active:
+                        self.imageView.alpha     = 1.0
+                        self.nameLabel.alpha     = 1.0
+                        self.detailLabel.alpha   = !self.promptForPassword ? 1.0 : 0.0
+                        self.passwordField.alpha = 0.0
+                        self.leftSpacingConstaint.constant   = -10
+                        self.rightSpacingConstaint.constant  = -10
+                        self.bottomSpacingContraint.constant = 6
+                        self.topSpacingConstraint.constant   = 6
+                        
+                    case .PasswordGathering:
+                        self.imageView.alpha     = 0.0
+                        self.nameLabel.alpha     = 0.0
+                        self.detailLabel.alpha   = 0.0
+                        self.passwordField.alpha = 1.0
+                        self.leftSpacingConstaint.constant   = -16
+                        self.rightSpacingConstaint.constant  = -16
+                        self.bottomSpacingContraint.constant = 0
+                        self.topSpacingConstraint.constant   = 51
+                    }
+                    self.view.layoutIfNeeded()
+                }, completion: { _ in
                     
-                case .PasswordGathering:
-                    self.imageView.hidden     = true
-                    self.nameLabel.hidden     = true
-                    self.detailLabel.hidden   = true
-                    self.passwordField.hidden = false
-                    self.passwordField.text   = nil
-                    self.passwordField.becomeFirstResponder()
-                }
+                    switch self.mode
+                    {
+                    case .Inactive, .Active:
+                        self.imageView.hidden     = false
+                        self.nameLabel.hidden     = false
+                        self.detailLabel.hidden   = !self.promptForPassword
+                        self.passwordField.hidden = true
+                        self.passwordField.text   = nil
+                        
+                    case .PasswordGathering:
+                        self.imageView.hidden     = true
+                        self.nameLabel.hidden     = true
+                        self.detailLabel.hidden   = true
+                        self.passwordField.hidden = false
+                        self.passwordField.text   = nil
+                    }
+                })
+                (self.mode == .PasswordGathering) ? self.passwordField.becomeFirstResponder() : self.passwordField.resignFirstResponder()
                 self.passwordField.placeholder = "Password for \(self.identity!.name)"
             }
         }
@@ -93,10 +129,8 @@ class IdentityViewController: UIViewController,
     @IBAction func didTap(sender: UITapGestureRecognizer)
     {
         // check if user tap is enabled
-        if
-            self.promptForPassword,
-        let
-            key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
+        if  self.promptForPassword,
+        let key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
         {
             self.delegate?.identityViewController(self, didSelectIdentity: identity!, withDecryptedMasterKey: key)
         }
