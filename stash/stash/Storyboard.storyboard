@@ -287,8 +287,8 @@
                     </view>
                     <toolbarItems/>
                     <connections>
-                        <outlet property="previewView" destination="TFc-CC-PXO" id="79c-jR-ug3"/>
-                        <outlet property="shadeView" destination="AdZ-mP-vgH" id="xa5-Ab-pcg"/>
+                        <outlet property="previewView" destination="TFc-CC-PXO" id="bHg-Hc-hVI"/>
+                        <outlet property="shadeView" destination="AdZ-mP-vgH" id="2Ub-TU-oyt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bYa-TV-y2s" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -30,6 +30,7 @@
 		7C3420B01AD850A200338126 /* IdentityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420AF1AD850A200338126 /* IdentityViewController.swift */; };
 		7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
 		7C3420C41AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
+		7C3863221AE7EDF200CA822C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */; };
 		7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
@@ -234,6 +235,7 @@
 		7C3182E71A8837C900DD5DE0 /* gcmEncryptExtIV256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmEncryptExtIV256.rsp; sourceTree = "<group>"; };
 		7C3420AF1AD850A200338126 /* IdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityViewController.swift; sourceTree = "<group>"; };
 		7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalOperatorChaining.swift; sourceTree = "<group>"; };
+		7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
 		7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringDataFromHex.swift; sourceTree = "<group>"; };
 		7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
 		7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreKeychain.swift; sourceTree = "<group>"; };
@@ -363,6 +365,7 @@
 			isa = PBXGroup;
 			children = (
 				7C49EB381A1146A500023BE0 /* Storyboard.storyboard */,
+				7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -994,6 +997,7 @@
 				7CF72ABB1A88C2EA0070D512 /* EnHash.swift in Sources */,
 				7C6C08741ADB171200AF344B /* NSURLSqrl.swift in Sources */,
 				7C9336951A8B982D00D3E53B /* SecureStoreAbstract.swift in Sources */,
+				7C3863221AE7EDF200CA822C /* CameraPreviewView.swift in Sources */,
 				7CB285661A8BC9970019A2EC /* GCMStore.swift in Sources */,
 				7CEF301E1A85E27600906534 /* NSDataSecureZero.swift in Sources */,
 				7CA20BBE1A72DA290021B631 /* NSManagedObjectHelper.swift in Sources */,

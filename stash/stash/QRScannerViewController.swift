@@ -28,43 +28,73 @@ class QRScannerViewController: UIViewController,
         }
     }
     
-    private var videoPreviewLayer: AVCaptureVideoPreviewLayer?
-    private var captureDevice:     AVCaptureDevice?
-    private var _captureSession:   AVCaptureSession?
-    private var captureSession:    AVCaptureSession {
-        if _captureSession == nil {
-            _captureSession = AVCaptureSession()
-        }
-        return _captureSession!
-    }
     
+    private var captureSession = AVCaptureSession()
+    private let sessionQueue   = dispatch_queue_create("com.stidard.session-queue", DISPATCH_QUEUE_SERIAL)
+    private let qrCodeQueue    = dispatch_queue_create("com.stidard.qr-output-queue", nil)
     
+    lazy private var previewLayer: AVCaptureVideoPreviewLayer = AVCaptureVideoPreviewLayer(session: self.captureSession)
     
     // MARK: - Life Cycle
     override func viewDidLoad()
     {
         super.viewDidLoad()
-
-        self.captureSession.sessionPreset = AVCaptureSessionPresetLow
-        for device in AVCaptureDevice.devices()
-        {
-            if device.hasMediaType(AVMediaTypeVideo) && device.position == .Back
+        
+        self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        self.previewView.layer.addSublayer(previewLayer)
+        
+        dispatch_async(sessionQueue) {
+            let output = AVCaptureMetadataOutput()
+            var error: NSError?
+            
+            if let
+                device = self.backVideoCaptureDevice(),
+                input  = AVCaptureDeviceInput(device: device, error: &error)
+            where
+                error == nil &&
+                self.captureSession.canAddInput (input) &&
+                self.captureSession.canAddOutput(output)
             {
-                self.captureDevice = device as? AVCaptureDevice
-                return
+                self.captureSession.addInput (input)
+                self.captureSession.addOutput(output)
+                
+                output.setMetadataObjectsDelegate(self, queue: self.qrCodeQueue)
+                output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
             }
         }
     }
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        self.startSession()
+    private func backVideoCaptureDevice() -> AVCaptureDevice?
+    {
+        for device in AVCaptureDevice.devices()
+        {
+            if device.hasMediaType(AVMediaTypeVideo) && device.position == .Back
+            {
+                return device as? AVCaptureDevice
+            }
+        }
+        return nil
+    }
+    
+    override func viewDidLayoutSubviews() {
+        self.previewLayer.frame = self.previewView.layer.bounds
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        dispatch_async(self.sessionQueue) {
+            self.captureSession.startRunning()
+        }
     }
     
     override func viewDidDisappear(animated: Bool)
     {
         super.viewDidDisappear(animated)
-        self.stopSession()
+        
+        dispatch_async(self.sessionQueue) {
+            self.captureSession.stopRunning()
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -73,50 +103,8 @@ class QRScannerViewController: UIViewController,
     
     
     // MARK: - UI Actions
-    @IBAction func dismissPressed(sender: UIButton)
-    {
+    @IBAction func dismissPressed(sender: UIButton) {
         self.sqrlLink = nil
-    }
-    
-    
-    // MARK: - AV Life Cycle
-    private func startSession()
-    {
-        var error: NSError?
-        let output = AVCaptureMetadataOutput()
-        
-        if let
-            input = AVCaptureDeviceInput(device: self.captureDevice, error: &error)
-        where
-            error == nil &&
-            self.captureSession.canAddInput (input) &&
-            self.captureSession.canAddOutput(output)
-        {
-            self.captureSession.addInput (input)
-            self.captureSession.addOutput(output)
-            
-            let dispatchQueue = dispatch_queue_create("com.stidard.scanner-output-queue", nil)
-            output.setMetadataObjectsDelegate(self, queue: dispatchQueue)
-            output.metadataObjectTypes = [AVMetadataObjectTypeQRCode]
-            
-            self.videoPreviewLayer               = AVCaptureVideoPreviewLayer(session: self.captureSession)
-            self.videoPreviewLayer?.videoGravity = AVLayerVideoGravityResizeAspectFill
-            self.videoPreviewLayer?.frame        = self.previewView.layer.bounds
-            self.previewView.layer.addSublayer(self.videoPreviewLayer)
-            
-            self.captureSession.startRunning()
-        }
-        else
-        {
-            NSLog("Unable to add Input to capture session: \n\(self.captureSession)\n with device: \n\(self.captureDevice)")
-        }
-    }
-    
-    private func stopSession()
-    {
-        self.captureSession.stopRunning()
-        self.videoPreviewLayer?.removeFromSuperlayer()
-        self._captureSession = nil
     }
 
     
