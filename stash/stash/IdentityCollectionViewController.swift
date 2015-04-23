@@ -149,36 +149,40 @@ class IdentityCollectionViewController: UICollectionViewController,
             identity  = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
         {
             // if we have user auth from keychain / touchID
-            if let masterKey = identity.masterKey.decryptCipherTextWithKeychain(prompt: "Authorise access to \(identity.name) identity")
-            {
+            if let masterKey = identity.masterKey.decryptCipherTextWithKeychain(prompt: "Authorise access to \(identity.name) identity") {
                 self.delegate?.identityCollectionViewController(self, didSelectIdentity: identity, withDecryptedMasterKey: masterKey)
             }
             // if we need to get the users password
-            else
-            {
-                cell.requestPassword(true, animated: true)
-                cell.passwordField.becomeFirstResponder()
-                
-                self.cellInset = 0 // Cell should take up entire collection view for password
-                collectionView.performBatchUpdates {
-                    collectionView.collectionViewLayout.invalidateLayout()
-                }
+            else {
+                self.showPasswordCapture(true, forIdentityCell: cell, onCollectionView: collectionView)
             }
         }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? IdentityCell
-        cell?.requestPassword(false, animated: true)
-        cell?.passwordField.resignFirstResponder()
+        if let cell = collectionView.cellForItemAtIndexPath(indexPath) as? IdentityCell {
+            self.showPasswordCapture(false, forIdentityCell: cell, onCollectionView: collectionView)
+        }
+    }
+    
+    func showPasswordCapture(show: Bool, forIdentityCell cell: IdentityCell, onCollectionView collectionView: UICollectionView)
+    {
+        if show {
+            cell.requestPassword(true, animated: true)
+            cell.passwordField.becomeFirstResponder()
+            self.cellInset = 0
+            collectionView.scrollEnabled = false
+        } else {
+            cell.requestPassword(false, animated: true)
+            cell.passwordField.resignFirstResponder()
+            self.cellInset = DefaultCellInset
+            collectionView.scrollEnabled = true
+        }
         
-        self.cellInset = DefaultCellInset // Cell should take up entire collection view for password
         collectionView.performBatchUpdates {
             collectionView.collectionViewLayout.invalidateLayout()
         }
     }
-    
-    
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -220,11 +224,7 @@ class IdentityCollectionViewController: UICollectionViewController,
         }
         
         // The keyboard will be minimising and cell changing state at this point so we need to invalidate the layout
-        identityCell.passwordField.resignFirstResponder()
-        self.cellInset = DefaultCellInset
-        self.collectionView?.performBatchUpdates {
-            self.collectionView?.collectionViewLayout.invalidateLayout()
-        }
+        self.showPasswordCapture(false, forIdentityCell: identityCell, onCollectionView: self.collectionView!)
     }
     
     func storeToDecryptForIdentityCell(identityCell: IdentityCell) -> XORStore?
