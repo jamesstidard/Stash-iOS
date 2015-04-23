@@ -15,6 +15,11 @@ protocol IdentitySelectorViewControllerDelegate: class
     func identitySelectorViewController(identitySelectorViewController: IdentitySelectorViewController, didSelectIdentity identity: Identity, withDecryptedMasterKey masterKey: NSData)
 }
 
+protocol SqrlLinkDataSource: class
+{
+    var sqrlLink: NSURL? { get }
+}
+
 
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
@@ -30,24 +35,13 @@ class IdentitySelectorViewController: UIViewController,
     private var pendingPage:   IdentityViewController?
     private var currentPage:   IdentityViewController?
     
-    weak var delegate: IdentitySelectorViewControllerDelegate?
+    weak var delegate:   IdentitySelectorViewControllerDelegate?
+    weak var dataSource: SqrlLinkDataSource?
     var context :NSManagedObjectContext? {
         didSet {
             self.createIdentitiesFetchedResultsController()
             self.identitiesFRC?.performFetch(nil)
             self.controllerDidChangeContent(identitiesFRC!)
-        }
-    }
-    var sqrlLink: NSURL? = nil {
-        didSet {
-            self.promptForPassword = (sqrlLink == nil) ? false : true
-        }
-    }
-    private var promptForPassword = false {
-        didSet {
-            if let vcs = self.pageVC?.viewControllers as? [IdentityViewController] {
-                vcs.map { $0.promptForPassword = self.promptForPassword }
-            }
         }
     }
     
@@ -58,11 +52,6 @@ class IdentitySelectorViewController: UIViewController,
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     
@@ -77,32 +66,49 @@ class IdentitySelectorViewController: UIViewController,
     
     
     // MARK: - Helpers
+    func invalidate()
+    {
+        self.pageVC?.viewControllers.map { vc in
+            (vc as? IdentityViewController)?.invalidate()
+        }
+    }
+    
     class func configureIdentityViewController(
         identityVC: IdentityViewController,
         identity: Identity?,
-        promptForPassword prompt: Bool,
-        delegate: IdentityViewControllerDelegate?) -> IdentityViewController
+        delegate: IdentityViewControllerDelegate?,
+        dataSource: SqrlLinkDataSource?) -> IdentityViewController
     {
-        identityVC.identity          = identity
-        identityVC.promptForPassword = prompt
-        identityVC.delegate          = delegate
+        identityVC.view.layoutIfNeeded()
+        identityVC.identity   = identity
+        identityVC.delegate   = delegate
+        identityVC.dataSource = dataSource
         return identityVC
     }
     
     
     // MARK: - Page View Controller
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+    func pageViewController(
+        pageViewController: UIPageViewController,
+        willTransitionToViewControllers pendingViewControllers: [AnyObject])
+    {
         self.pendingPage = pendingViewControllers.first as? IdentityViewController
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool)
+    func pageViewController(
+        pageViewController: UIPageViewController,
+        didFinishAnimating finished: Bool,
+        previousViewControllers: [AnyObject],
+        transitionCompleted completed: Bool)
     {
         if completed {
             self.currentPage = self.pendingPage
         }
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(
+        pageViewController: UIPageViewController,
+        viewControllerBeforeViewController viewController: UIViewController) -> UIViewController?
     {
         if let
             viewController  = viewController as? IdentityViewController,
@@ -114,14 +120,16 @@ class IdentitySelectorViewController: UIViewController,
             return self.dynamicType.configureIdentityViewController(
                 identityVC,
                 identity: (previousIndex >= 0) ? allIdentities[previousIndex] : allIdentities.last,
-                promptForPassword: self.promptForPassword,
-                delegate: self)
+                delegate: self,
+                dataSource: self.dataSource)
         }
         
         return nil
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
+    func pageViewController(
+        pageViewController: UIPageViewController,
+        viewControllerAfterViewController viewController: UIViewController) -> UIViewController?
     {
         if let
             viewController  = viewController as? IdentityViewController,
@@ -133,8 +141,8 @@ class IdentitySelectorViewController: UIViewController,
             return self.dynamicType.configureIdentityViewController(
                 identityVC,
                 identity: (nextIndex < allIdentities.count) ? allIdentities[nextIndex] : allIdentities.first,
-                promptForPassword: self.promptForPassword,
-                delegate: self)
+                delegate: self,
+                dataSource: self.dataSource)
         }
         
         return nil
@@ -168,8 +176,8 @@ class IdentitySelectorViewController: UIViewController,
             self.dynamicType.configureIdentityViewController(
                 identityVC,
                 identity: identity,
-                promptForPassword: self.promptForPassword,
-                delegate: self)
+                delegate: self,
+                dataSource: self.dataSource)
             pageVC.setViewControllers([identityVC], direction: .Forward, animated: true, completion: nil)
         }
     }

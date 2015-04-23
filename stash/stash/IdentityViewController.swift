@@ -36,15 +36,10 @@ class IdentityViewController: UIViewController,
     @IBOutlet weak var topSpacingConstraint: NSLayoutConstraint!
     @IBOutlet weak var bottomSpacingContraint: NSLayoutConstraint!
     
-    weak var delegate: IdentityViewControllerDelegate?
-    weak var identity: Identity?
-    var promptForPassword = false {
-        didSet {
-            if self.detailLabel != nil {
-                self.detailLabel.hidden = !promptForPassword
-            }
-        }
-    }
+    weak var delegate:   IdentityViewControllerDelegate?
+    weak var dataSource: SqrlLinkDataSource?
+    weak var identity:   Identity?
+    
     private var mode: IdenitiyViewControllerMode = .Inactive {
         didSet {
             if self.imageView != nil && self.nameLabel != nil && self.detailLabel != nil {
@@ -60,7 +55,7 @@ class IdentityViewController: UIViewController,
                     case .Inactive, .Active:
                         self.imageView.alpha     = 1.0
                         self.nameLabel.alpha     = 1.0
-                        self.detailLabel.alpha   = !self.promptForPassword ? 1.0 : 0.0
+                        self.detailLabel.alpha   = self.dataSource?.sqrlLink != nil ? 1.0 : 0.0
                         self.passwordField.alpha = 0.0
                         self.leftSpacingConstaint.constant   = -10
                         self.rightSpacingConstaint.constant  = -10
@@ -85,7 +80,7 @@ class IdentityViewController: UIViewController,
                     case .Inactive, .Active:
                         self.imageView.hidden     = false
                         self.nameLabel.hidden     = false
-                        self.detailLabel.hidden   = !self.promptForPassword
+                        self.detailLabel.hidden   = self.dataSource?.sqrlLink == nil
                         self.passwordField.hidden = true
                         self.passwordField.text   = nil
                         
@@ -110,6 +105,23 @@ class IdentityViewController: UIViewController,
         self.passwordField.delegate = self
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.invalidate()
+        self.view.layoutIfNeeded()
+    }
+    
+    func invalidate() {
+        // if we are gathering a password and we loose the sqrl link
+        if self.dataSource?.sqrlLink == nil && self.mode == .PasswordGathering {
+            self.passwordField.resignFirstResponder()
+        }
+        // else set mode based on sqrl link state
+        else {
+            self.mode = (self.dataSource?.sqrlLink != nil) ? .Active : .Inactive
+        }
+    }
+    
     
     // MARK: - Password Text Field
     func textFieldShouldReturn(textField: UITextField) -> Bool
@@ -120,7 +132,7 @@ class IdentityViewController: UIViewController,
             self.delegate?.identityViewController(self, didSelectIdentity: self.identity!, withDecryptedMasterKey: key)
         }
         
-        self.mode = (self.promptForPassword) ? .Active : .Inactive
+        self.mode = (self.dataSource?.sqrlLink != nil) ? .Active : .Inactive
         return true
     }
     
@@ -128,13 +140,14 @@ class IdentityViewController: UIViewController,
     // MARK: - UI Actions
     @IBAction func didTap(sender: UITapGestureRecognizer)
     {
-        // check if user tap is enabled
-        if  self.promptForPassword,
+        // if there is a sqrl link and a keychained password
+        if  self.dataSource?.sqrlLink != nil,
         let key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
         {
             self.delegate?.identityViewController(self, didSelectIdentity: identity!, withDecryptedMasterKey: key)
         }
-        else if self.promptForPassword
+        // if there is a sqrl link and password is needed
+        else if self.dataSource?.sqrlLink != nil
         {
             self.mode = .PasswordGathering
         }
@@ -144,7 +157,7 @@ class IdentityViewController: UIViewController,
     {
         if self.mode == .PasswordGathering
         {
-            self.mode = (self.promptForPassword) ? .Active : .Inactive
+            self.mode = (self.dataSource?.sqrlLink != nil) ? .Active : .Inactive
         }
     }
 }

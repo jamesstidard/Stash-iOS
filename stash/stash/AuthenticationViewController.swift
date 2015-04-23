@@ -11,30 +11,29 @@ import CoreData
 
 class AuthenticationViewController: UIViewController,
     ContextDriven,
-    SqrlLinkRepository,
     IdentitySelectorViewControllerDelegate,
     SQRLSessionDelegate,
     NSURLSessionTaskDelegate
 {
+    // MARK: -
+    // MARK: Public
     @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
     
-    lazy var session: NSURLSession = NSURLSession(stashSessionWithdelegate: self)
-    lazy var notificationCenter    = NSNotificationCenter.defaultCenter()
+    lazy var context: NSManagedObjectContext? = self.stash.context
     
-    lazy var stash: Stash                       = Stash.sharedInstance
-    lazy var context: NSManagedObjectContext?   = self.stash.context
-    lazy var contextContracts :[ContextDriven]? = [ContextDriven]()
+    
+    // MARK: Private
+    private lazy var stash: Stash = Stash.sharedInstance
+    private lazy var contextContracts :[ContextDriven]? = [ContextDriven]()
     // If we segue to anything that needs a context while before it's been initilised,
     // we add them to this list and pass them the context once we have it.
+    private lazy var session: NSURLSession = NSURLSession(stashSessionWithdelegate: self)
+    private lazy var notificationCenter    = NSNotificationCenter.defaultCenter()
+    private let sqrlLinkContext            = UnsafeMutablePointer<()>()
     
-    weak var scannerVC: QRScannerViewController?
-    weak var selectorVC: IdentitySelectorViewController?
-    
-    var sqrlLink: NSURL? = nil {
-        didSet { self.selectorVC?.sqrlLink = sqrlLink }
-    }
-    
-    lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    private lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+    private weak var scannerVC: QRScannerViewController?
+    private weak var selectorVC: IdentitySelectorViewController?
     
     
     // MARK: - Life Cycle
@@ -42,8 +41,8 @@ class AuthenticationViewController: UIViewController,
         super.viewDidLoad()
         
         // If the moc has yet to be initialised, start listening for it
-        if stash.context == nil {
-            stash.addObserver(self, forKeyPath: StashPropertyContextKey, options: .New, context: nil)
+        if self.context == nil {
+            self.stash.addObserver(self, forKeyPath: StashPropertyContextKey, options: .New, context: nil)
         }
         
         // listen out for the keyboard so we can move the identity selector view up/down
@@ -58,11 +57,6 @@ class AuthenticationViewController: UIViewController,
             name: UIKeyboardWillHideNotification,
             object: nil)
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     
     // MARK: - Identity Selector Delegate
@@ -74,15 +68,10 @@ class AuthenticationViewController: UIViewController,
         self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
         
         if let
-            sqrlLink  = self.sqrlLink,
-            request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+            sqrlLink = self.scannerVC?.sqrlLink,
+            sqrlTask = self.session.sqrlDataTaskForSqrlLink(sqrlLink, masterKey: masterKey, lockKey: identity.lockKey, delegate: self)
         {
-            let task = self.session.sqrlDataTaskWithRequest(
-                request,
-                masterKey: masterKey,
-                lockKey: identity.lockKey,
-                delegate: self)
-            task.resume()
+            sqrlTask.resume()
             self.progressHud.labelText = "Quering Server"
             return
         }
@@ -91,7 +80,20 @@ class AuthenticationViewController: UIViewController,
     }
     
     
-    // MARK: - SQRL Exchange
+    // MARK: - NSURLSession
+    func URLSession(
+        session: NSURLSession,
+        task: NSURLSessionTask,
+        willPerformHTTPRedirection response: NSHTTPURLResponse,
+        newRequest request: NSURLRequest,
+        completionHandler: (NSURLRequest!) -> Void)
+    {
+        // SQRL shouldn't follow to any redirects
+        completionHandler(nil)
+    }
+    
+    
+    // MARK: - SQRLSession
     func SQRLSession(session: NSURLSession, shouldLoginAccountForServer serverName: String, proceed: Bool -> ()) {
         let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { _ in
             self.endSQRLTransaction(success: false, message: "Canceled")
@@ -101,9 +103,10 @@ class AuthenticationViewController: UIViewController,
             self.progressHud.labelText = "Requesting Login"
             proceed(true)
         }
-        self.showAlert(
-            serverName,
+        UIAlertController.showAlert(
+            title: serverName,
             message: "Would you like to log into your \(serverName) account?",
+            viewController: self,
             actions: cancel, login)
     }
     
@@ -117,9 +120,10 @@ class AuthenticationViewController: UIViewController,
             self.progressHud.labelText = "Requesting New Account"
             proceed(true)
         }
-        self.showAlert(
-            serverName,
+        UIAlertController.showAlert(
+            title: serverName,
             message: "Looks like \(serverName) doesn't recognise you.\n\nDid you want to create an account with \(serverName)?",
+            viewController: self,
             actions: cancel, create)
     }
     
@@ -138,36 +142,13 @@ class AuthenticationViewController: UIViewController,
         }
     }
     
-    func showAlert(title: String, message: String, actions: UIAlertAction...)
-    {
-        let alert = UIAlertController(
-            title: title,
-            message: message,
-            preferredStyle: .Alert)
-        
-        actions.map { alert.addAction($0) }
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            self.presentViewController(alert, animated: true, completion: nil)
-        }
-    }
     
-    
-    // MARK: - NSURLSession
-    func URLSession(
-        session: NSURLSession,
-        task: NSURLSessionTask,
-        willPerformHTTPRedirection response: NSHTTPURLResponse,
-        newRequest request: NSURLRequest,
-        completionHandler: (NSURLRequest!) -> Void)
-    {
-        // SQRL shouldn't follow to any redirects
-        completionHandler(nil)
-    }
-    
-    
-    // MARK: - Context Watching
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>)
+    // MARK: - KVO
+    override func observeValueForKeyPath(
+        keyPath: String,
+        ofObject object: AnyObject,
+        change: [NSObject : AnyObject],
+        context: UnsafeMutablePointer<Void>)
     {
         // If this is the context we've been waiting for, tell anyone we have contracts with and set it locally
         if keyPath == StashPropertyContextKey {
@@ -177,7 +158,11 @@ class AuthenticationViewController: UIViewController,
             contextContracts = nil
             
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
-        } else {
+        }
+        else if context == sqrlLinkContext {
+            self.selectorVC?.invalidate() // sqrlLink has changed - let the identity selector know
+        }
+        else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
         }
     }
@@ -212,20 +197,14 @@ class AuthenticationViewController: UIViewController,
     }
     
     
-    // MARK: - Scanner
-    func qrScannerViewController(scannerVC: QRScannerViewController, didFindSqrlLink sqrlLink: NSURL?) {
-        self.selectorVC?.sqrlLink = sqrlLink
-    }
-    
-    
     // MARK: - Navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destinationVC = segue.destinationViewController as! UIViewController
         
         // upwrap navigation controllers
         if let
-            navigationController = destinationVC as? UINavigationController,
-            rootVC               = navigationController.viewControllers?[0] as? UIViewController
+            navController = destinationVC as? UINavigationController,
+            rootVC        = navController.viewControllers?[0] as? UIViewController
         {
             destinationVC = rootVC
         }
@@ -238,14 +217,15 @@ class AuthenticationViewController: UIViewController,
         
         // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? QRScannerViewController {
-            vc.delegate    = self
             self.scannerVC = vc
+            self.scannerVC?.addObserver(self, forKeyPath: "sqrlLink", options: .New, context: sqrlLinkContext)
+            self.selectorVC?.dataSource = self.scannerVC
         }
         
         // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? IdentitySelectorViewController {
-            vc.delegate     = self
             self.selectorVC = vc
+            self.selectorVC?.dataSource = self.scannerVC
         }
     }
 }

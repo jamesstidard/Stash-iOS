@@ -12,19 +12,15 @@ import AVFoundation
 
 class QRScannerViewController: UIViewController,
     AVCaptureMetadataOutputObjectsDelegate,
-    NSURLSessionTaskDelegate
+    NSURLSessionTaskDelegate,
+    SqrlLinkDataSource
 {
     @IBOutlet weak var previewView: UIView!
     @IBOutlet weak var shadeView: UIView!
     
-    weak var delegate: SqrlLinkRepository?
     var sqrlLink: NSURL? {
-        set {
-            self.delegate?.sqrlLink = newValue
-            self.shadeView.hidden   = (self.sqrlLink == nil) ? true : false
-        }
-        get {
-            return self.delegate?.sqrlLink
+        didSet {
+            self.shadeView.hidden = (self.sqrlLink == nil)
         }
     }
     
@@ -131,16 +127,4 @@ class QRScannerViewController: UIViewController,
             }
         }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

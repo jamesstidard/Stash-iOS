@@ -206,10 +206,9 @@ class ActionViewController: UITableViewController,
         lockKey: NSData,
         delegate: SQRLSessionDelegate) -> Bool
     {
-        if let request = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+        if let sqrlTask = self.session.sqrlDataTaskForSqrlLink(sqrlLink, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
         {
-            let task = session.sqrlDataTaskWithRequest(request, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
-            task.resume()
+            sqrlTask.resume()
             self.progressHud.labelText = "Quering Server"
             return true
         }

@@ -453,13 +453,13 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Johny Appleseed" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0sf-Im-QVf">
-                                            <rect key="frame" x="107" y="18" width="473" height="43"/>
+                                            <rect key="frame" x="107" y="28" width="473" height="43"/>
                                             <fontDescription key="fontDescription" type="system" weight="thin" pointSize="36"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tap to login" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPM-iw-oOR">
-                                            <rect key="frame" x="107" y="60" width="473" height="21"/>
+                                            <rect key="frame" x="107" y="70" width="473" height="21"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="17"/>
                                             <color key="textColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                             <nil key="highlightedColor"/>
@@ -475,7 +475,7 @@
                                         <constraint firstAttribute="trailing" secondItem="KPM-iw-oOR" secondAttribute="trailing" constant="8" id="FuZ-Ea-pgf"/>
                                         <constraint firstItem="WHc-Nj-6r6" firstAttribute="top" secondItem="i9M-4b-KEp" secondAttribute="top" constant="5" id="JiD-OB-Zmc"/>
                                         <constraint firstItem="KPM-iw-oOR" firstAttribute="leading" secondItem="tqL-zg-KBD" secondAttribute="trailing" constant="8" id="MN3-EQ-ZVS"/>
-                                        <constraint firstItem="tqL-zg-KBD" firstAttribute="centerY" secondItem="0sf-Im-QVf" secondAttribute="centerY" constant="10" id="NPZ-9z-CpH"/>
+                                        <constraint firstItem="tqL-zg-KBD" firstAttribute="centerY" secondItem="0sf-Im-QVf" secondAttribute="centerY" id="NPZ-9z-CpH"/>
                                         <constraint firstItem="tqL-zg-KBD" firstAttribute="top" secondItem="i9M-4b-KEp" secondAttribute="top" id="jiB-xV-nYE"/>
                                         <constraint firstAttribute="bottom" secondItem="WHc-Nj-6r6" secondAttribute="bottom" constant="5" id="o46-Th-adA"/>
                                         <constraint firstAttribute="trailing" secondItem="WHc-Nj-6r6" secondAttribute="trailing" constant="5" id="ooH-d8-0Ov"/>

@@ -25,7 +25,16 @@ extension NSURLSession
         self.init(configuration: configuration, delegate: delegate, delegateQueue: nil)
     }
     
-    func sqrlDataTaskWithRequest(
+    func sqrlDataTaskForSqrlLink(sqrlLink: NSURL, masterKey: NSData, lockKey: NSData, delegate: SQRLSessionDelegate) -> NSURLSessionTask?
+    {
+        if let request = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
+        {
+            return self.sqrlDataTaskWithRequest(request, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
+        }
+        return nil
+    }
+    
+    private func sqrlDataTaskWithRequest(
         request: NSURLRequest,
         masterKey: NSData,
         lockKey: NSData,

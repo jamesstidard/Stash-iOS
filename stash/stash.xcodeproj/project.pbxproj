@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 		7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
-		7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9B1ADC653D00F6863B /* Repositories.swift */; };
 		7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
-		7C277F9F1ADC788600F6863B /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9B1ADC653D00F6863B /* Repositories.swift */; };
 		7C277FA01ADC788800F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
 		7C277FA41ADD670B00F6863B /* NSURLSessionTaskSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA31ADD670B00F6863B /* NSURLSessionTaskSqrl.swift */; };
 		7C277FA61ADE59D100F6863B /* StringBase64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA51ADE59D100F6863B /* StringBase64URL.swift */; };
@@ -31,6 +29,7 @@
 		7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
 		7C3420C41AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */; };
 		7C3863221AE7EDF200CA822C /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */; };
+		7C3863251AE84FBB00CA822C /* UIAlertControllerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3863241AE84FBB00CA822C /* UIAlertControllerHelper.swift */; };
 		7C3F12871A88666A0066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F12881A8867330066E453 /* NSStringDataFromHex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */; };
 		7C3F128A1A8885140066E453 /* gcmDecrypt256.rsp in Resources */ = {isa = PBXBuildFile; fileRef = 7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */; };
@@ -218,7 +217,6 @@
 /* Begin PBXFileReference section */
 		7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStorePasswordManagement.swift; sourceTree = "<group>"; };
-		7C277F9B1ADC653D00F6863B /* Repositories.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		7C277F9D1ADC660700F6863B /* ContextDriven.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextDriven.swift; sourceTree = "<group>"; };
 		7C277FA31ADD670B00F6863B /* NSURLSessionTaskSqrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionTaskSqrl.swift; sourceTree = "<group>"; };
 		7C277FA51ADE59D100F6863B /* StringBase64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringBase64URL.swift; sourceTree = "<group>"; };
@@ -236,6 +234,7 @@
 		7C3420AF1AD850A200338126 /* IdentityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityViewController.swift; sourceTree = "<group>"; };
 		7C3420C21AD8AA8100338126 /* OptionalOperatorChaining.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionalOperatorChaining.swift; sourceTree = "<group>"; };
 		7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		7C3863241AE84FBB00CA822C /* UIAlertControllerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIAlertControllerHelper.swift; sourceTree = "<group>"; };
 		7C3F12861A88666A0066E453 /* NSStringDataFromHex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSStringDataFromHex.swift; sourceTree = "<group>"; };
 		7C3F12891A8885140066E453 /* gcmDecrypt256.rsp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = gcmDecrypt256.rsp; sourceTree = "<group>"; };
 		7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStoreKeychain.swift; sourceTree = "<group>"; };
@@ -373,6 +372,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C3863231AE84F9600CA822C /* UIAlertController Extensions */,
 				7C8B0D541AE6B17E008A8041 /* MBProgressHud Extensions */,
 				7C8B0D531AE6B10F008A8041 /* NSManagedContext Extensions */,
 				7C8B0D521AE6B0DD008A8041 /* NSOperationQueue Extensions */,
@@ -409,10 +409,17 @@
 		7C3420B21AD8540E00338126 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
-				7C277F9B1ADC653D00F6863B /* Repositories.swift */,
 				7C277F9D1ADC660700F6863B /* ContextDriven.swift */,
 			);
 			name = Protocols;
+			sourceTree = "<group>";
+		};
+		7C3863231AE84F9600CA822C /* UIAlertController Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C3863241AE84FBB00CA822C /* UIAlertControllerHelper.swift */,
+			);
+			name = "UIAlertController Extensions";
 			sourceTree = "<group>";
 		};
 		7C6C08721ADB16EF00AF344B /* SQRLProtocol */ = {
@@ -1009,6 +1016,7 @@
 				7CED8BB21A7AA64D004C4B56 /* NSDataXOR.swift in Sources */,
 				7C2B902A1A281DD0009F0589 /* NSDataFromMultipleObjects.swift in Sources */,
 				7C2B902C1A2829A3009F0589 /* NSOperationQueueSafeSetGet.swift in Sources */,
+				7C3863251AE84FBB00CA822C /* UIAlertControllerHelper.swift in Sources */,
 				7CB2855A1A8BC9960019A2EC /* Settings.swift in Sources */,
 				7C957EC11AD96F4100E4E040 /* IdentityManagementTableViewController.swift in Sources */,
 				7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */,
@@ -1022,7 +1030,6 @@
 				7C5C1E3E1A7558C9009B92F7 /* AuthenticationViewController.swift in Sources */,
 				7C93BCB21AE2DEED005EC6CC /* ServerMessage.swift in Sources */,
 				7CB285601A8BC9970019A2EC /* Identity.swift in Sources */,
-				7C277F9C1ADC653D00F6863B /* Repositories.swift in Sources */,
 				7C7D29EA1AE13A6E0023E4E8 /* SettingsCreator.swift in Sources */,
 				7C5C1E401A755C52009B92F7 /* IdentitySelectorViewController.swift in Sources */,
 				7C957EC31AD96FD100E4E040 /* IdentityFetchedResultsController.swift in Sources */,
@@ -1102,7 +1109,6 @@
 				7CED8BB41A7AACE5004C4B56 /* NSDataXOR.swift in Sources */,
 				7C87AAA31A28345000DC3EC7 /* NSOperationQueueHelper.swift in Sources */,
 				7C9336A21A8B9A7400D3E53B /* GCMStoreCreator.swift in Sources */,
-				7C277F9F1ADC788600F6863B /* Repositories.swift in Sources */,
 				7CDD82431ADEBB5400B85825 /* NSURLSessionTaskSqrl.swift in Sources */,
 				7CDD82441ADEBB5600B85825 /* NSURLSqrl.swift in Sources */,
 				7C2B90241A280760009F0589 /* CoreMotionSingleton.swift in Sources */,
