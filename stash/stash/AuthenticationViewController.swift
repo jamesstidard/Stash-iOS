@@ -17,7 +17,8 @@ class AuthenticationViewController: UIViewController,
 {
     // MARK: -
     // MARK: Public
-    @IBOutlet weak var selectorContainerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet weak var identityCollectionViewBottom: NSLayoutConstraint!
+    @IBOutlet weak var identityCollectionViewHeight: NSLayoutConstraint!
     
     lazy var context: NSManagedObjectContext? = self.stash.context
     
@@ -33,7 +34,7 @@ class AuthenticationViewController: UIViewController,
     
     private lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     private weak var scannerVC: QRScannerViewController?
-    private weak var selectorVC: IdentitySelectorViewController?
+    private weak var IdentityCollectionVC: IdentityCollectionViewController?
     
     
     // MARK: - Life Cycle
@@ -160,7 +161,7 @@ class AuthenticationViewController: UIViewController,
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
         }
         else if context == sqrlLinkContext {
-            self.selectorVC?.invalidate() // sqrlLink has changed - let the identity selector know
+            self.IdentityCollectionVC?.invalidate() // sqrlLink has changed - let the identity selector know
         }
         else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
@@ -182,6 +183,7 @@ class AuthenticationViewController: UIViewController,
             let startYOrigin = startFrame.origin.y
             let endYOrigin   = endFrame.origin.y
             let yDelta       = startYOrigin - endYOrigin
+            let height       = showing ? CGFloat(54) : CGFloat(110)
             
             self.view.layoutIfNeeded()
             UIView.animateWithDuration(
@@ -189,7 +191,8 @@ class AuthenticationViewController: UIViewController,
                 delay: 0,
                 options: UIViewAnimationOptions(UInt(curveRaw)),
                 animations: {
-                    self.selectorContainerBottomConstraint.constant += yDelta
+                    self.identityCollectionViewBottom.constant += yDelta
+                    self.identityCollectionViewHeight.constant  = height
                     self.view.layoutIfNeeded()
                 },
                 completion: nil)
@@ -219,13 +222,13 @@ class AuthenticationViewController: UIViewController,
         if let vc = destinationVC as? QRScannerViewController {
             self.scannerVC = vc
             self.scannerVC?.addObserver(self, forKeyPath: "sqrlLink", options: .New, context: sqrlLinkContext)
-            self.selectorVC?.dataSource = self.scannerVC
+            self.IdentityCollectionVC?.dataSource = self.scannerVC
         }
         
         // if is the identity selector view controller, we want to know what's selected.
-        if let vc = destinationVC as? IdentitySelectorViewController {
-            self.selectorVC = vc
-            self.selectorVC?.dataSource = self.scannerVC
+        if let vc = destinationVC as? IdentityCollectionViewController {
+            self.IdentityCollectionVC = vc
+            self.IdentityCollectionVC?.dataSource = self.scannerVC
         }
     }
 }

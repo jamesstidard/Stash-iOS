@@ -15,12 +15,6 @@ protocol IdentitySelectorViewControllerDelegate: class
     func identitySelectorViewController(identitySelectorViewController: IdentitySelectorViewController, didSelectIdentity identity: Identity, withDecryptedMasterKey masterKey: NSData)
 }
 
-protocol SqrlLinkDataSource: class
-{
-    var sqrlLink: NSURL? { get }
-}
-
-
 class IdentitySelectorViewController: UIViewController,
     NSFetchedResultsControllerDelegate,
     ContextDriven,
