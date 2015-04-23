@@ -84,6 +84,9 @@ extension NSURLSession
                 delegate.SQRLSession(self, succesfullyCompleted: (error == nil))
             }
         }
+        else {
+            delegate.SQRLSession(self, succesfullyCompleted: false)
+        }
     }
     
     private func createIdentity(#serverMessage: ServerMessage, masterKey: NSData, lockKey: NSData, delegate: SQRLSessionDelegate)

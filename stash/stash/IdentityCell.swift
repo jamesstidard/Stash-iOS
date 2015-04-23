@@ -70,6 +70,6 @@ class IdentityCell: UICollectionViewCell,
         }
         
         self.requestPassword(false, animated: true)
-        return true
+        return false
     }
 }

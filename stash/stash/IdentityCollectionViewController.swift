@@ -177,6 +177,8 @@ class IdentityCollectionViewController: UICollectionViewController,
             collectionView.collectionViewLayout.invalidateLayout()
         }
     }
+    
+    
 
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -218,6 +220,7 @@ class IdentityCollectionViewController: UICollectionViewController,
         }
         
         // The keyboard will be minimising and cell changing state at this point so we need to invalidate the layout
+        identityCell.passwordField.resignFirstResponder()
         self.cellInset = DefaultCellInset
         self.collectionView?.performBatchUpdates {
             self.collectionView?.collectionViewLayout.invalidateLayout()
