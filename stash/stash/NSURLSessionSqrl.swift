@@ -93,16 +93,18 @@ extension NSURLSession
             request    = NSMutableURLRequest(createRequestForServerMessage: serverMessage, masterKey: masterKey, lockKey: lockKey)
         {
             delegate.SQRLSession(self, shouldCreateAccountForServer: serverName) { proceed in
-                let task = self.dataTaskWithRequest(request) {
-                    self.handleServerResponse(
-                        data: $0,
-                        response: $1,
-                        error: $2,
-                        lastCommand: .Ident,
-                        masterKey: masterKey,
-                        delegate: delegate)
+                if proceed
+                {
+                    self.dataTaskWithRequest(request) {
+                        self.handleServerResponse(
+                            data: $0,
+                            response: $1,
+                            error: $2,
+                            lastCommand: .Ident,
+                            masterKey: masterKey,
+                            delegate: delegate)
+                    }.resume()
                 }
-                task.resume()
             }
         }
     }
@@ -117,7 +119,7 @@ extension NSURLSession
             delegate.SQRLSession(self, shouldLoginAccountForServer: serverName) { proceed in
                 if proceed
                 {
-                    let task = self.dataTaskWithRequest(request) {
+                    self.dataTaskWithRequest(request) {
                         self.handleServerResponse(
                             data: $0,
                             response: $1,
@@ -125,8 +127,7 @@ extension NSURLSession
                             lastCommand: .Ident,
                             masterKey: masterKey,
                             delegate: delegate)
-                    }
-                    task.resume()
+                    }.resume()
                 }
             }
         }
