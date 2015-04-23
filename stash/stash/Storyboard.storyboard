@@ -147,7 +147,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" name="disabledControlTextColor" catalog="System" colorSpace="catalog"/>
                                 <connections>
-                                    <segue destination="pFo-UL-OCa" kind="embed" id="eV3-9B-ySt"/>
+                                    <segue destination="pFo-UL-OCa" kind="embed" id="Lhg-Hh-kUK"/>
                                 </connections>
                             </containerView>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h28-Z8-Wug" userLabel="Identity Collection Container">
@@ -178,12 +178,13 @@
                     <connections>
                         <outlet property="identityCollectionViewBottom" destination="8sG-tg-ZlL" id="4Bc-wR-7r1"/>
                         <outlet property="identityCollectionViewHeight" destination="8f0-Bo-nU0" id="2Bp-Av-anq"/>
+                        <segue destination="DNZ-MW-Z49" kind="presentation" identifier="IdentityManagementSegue" id="Dqm-C1-q6U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0EV-YV-C6i" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="up" id="HQ9-gY-6LS">
                     <connections>
-                        <segue destination="DNZ-MW-Z49" kind="presentation" identifier="IdentityManagementSegue" id="K9W-pT-8im"/>
+                        <action selector="swipeUp:" destination="gt9-UC-wiw" id="CoS-RB-1q7"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

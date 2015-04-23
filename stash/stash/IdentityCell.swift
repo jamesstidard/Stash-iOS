@@ -66,9 +66,10 @@ class IdentityCell: UICollectionViewCell,
                 self.delegate?.identityCell(self, didDecryptStore: key)
             } else {
                 // TODO: handle incorrect password
-                return false
             }
         }
+        
+        self.requestPassword(false, animated: true)
         return true
     }
 }

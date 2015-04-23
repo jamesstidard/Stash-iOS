@@ -34,7 +34,7 @@ class AuthenticationViewController: UIViewController,
     
     private lazy var progressHud: MBProgressHUD = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
     private weak var scannerVC: QRScannerViewController?
-    private weak var IdentityCollectionVC: IdentityCollectionViewController?
+    private weak var identityCollectionVC: IdentityCollectionViewController?
     
     
     // MARK: - Life Cycle
@@ -161,7 +161,7 @@ class AuthenticationViewController: UIViewController,
             stash.removeObserver(self, forKeyPath: StashPropertyContextKey) // No longer listen
         }
         else if context == sqrlLinkContext {
-            self.IdentityCollectionVC?.invalidate() // sqrlLink has changed - let the identity selector know
+            self.identityCollectionVC?.invalidate() // sqrlLink has changed - let the identity selector know
         }
         else {
             super.observeValueForKeyPath(keyPath, ofObject: object, change: change, context: context)
@@ -201,6 +201,24 @@ class AuthenticationViewController: UIViewController,
     
     
     // MARK: - Navigation
+    @IBAction func swipeUp(sender: UISwipeGestureRecognizer)
+    {
+        // if there is a sqrl link, treat as a tap
+        if
+            self.scannerVC?.sqrlLink != nil,
+        let
+            collectionView = self.identityCollectionVC?.collectionView,
+            indexPath      = collectionView.indexPathsForVisibleItems().first as? NSIndexPath
+        {
+            self.identityCollectionVC?.collectionView(collectionView, didSelectItemAtIndexPath: indexPath)
+        }
+        // else segue to identity management
+        else {
+            self.performSegueWithIdentifier(IdentityManagementTableViewController.SegueID, sender: nil)
+        }
+    }
+    
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         var destinationVC = segue.destinationViewController as! UIViewController
         
@@ -222,13 +240,14 @@ class AuthenticationViewController: UIViewController,
         if let vc = destinationVC as? QRScannerViewController {
             self.scannerVC = vc
             self.scannerVC?.addObserver(self, forKeyPath: "sqrlLink", options: .New, context: sqrlLinkContext)
-            self.IdentityCollectionVC?.dataSource = self.scannerVC
+            self.identityCollectionVC?.dataSource = self.scannerVC
         }
         
         // if is the identity selector view controller, we want to know what's selected.
         if let vc = destinationVC as? IdentityCollectionViewController {
-            self.IdentityCollectionVC = vc
-            self.IdentityCollectionVC?.dataSource = self.scannerVC
+            self.identityCollectionVC = vc
+            self.identityCollectionVC!.delegate   = self
+            self.identityCollectionVC!.dataSource = self.scannerVC
         }
     }
 }

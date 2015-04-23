@@ -216,6 +216,12 @@ class IdentityCollectionViewController: UICollectionViewController,
         {
             self.delegate?.identityCollectionViewController(self, didSelectIdentity: identity, withDecryptedMasterKey: sensitiveData)
         }
+        
+        // The keyboard will be minimising and cell changing state at this point so we need to invalidate the layout
+        self.cellInset = DefaultCellInset
+        self.collectionView?.performBatchUpdates {
+            self.collectionView?.collectionViewLayout.invalidateLayout()
+        }
     }
     
     func storeToDecryptForIdentityCell(identityCell: IdentityCell) -> XORStore?
