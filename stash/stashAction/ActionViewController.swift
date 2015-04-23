@@ -146,7 +146,7 @@ class ActionViewController: UITableViewController,
             let prompt = "Authorise access to \(identity.name)"
             
             if let
-                masterKey = identity.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: prompt),
+                masterKey = identity.masterKey.decryptCipherTextWithKeychain(prompt: prompt),
                 request   = NSMutableURLRequest(queryForSqrlLink: sqrlLink, masterKey: masterKey)
             {
                 self.startSqrlExchange(

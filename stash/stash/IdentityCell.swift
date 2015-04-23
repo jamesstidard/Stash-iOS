@@ -8,8 +8,15 @@
 
 import UIKit
 
-class IdentityCell: UICollectionViewCell {
+protocol IdentityCellDelegate: class
+{
+    func identityCell(identityCell: IdentityCell, didDecryptStore sensitiveData: NSData)
+    func storeToDecryptForIdentityCell(identityCell: IdentityCell) -> XORStore?
+}
 
+class IdentityCell: UICollectionViewCell,
+    UITextFieldDelegate
+{
     static let ReuseID = "Identity Cell"
     
     @IBOutlet weak var identityView:  UIView!
@@ -17,6 +24,8 @@ class IdentityCell: UICollectionViewCell {
     @IBOutlet weak var nameLabel:     UILabel!
     @IBOutlet weak var passwordView:  UIView!
     @IBOutlet weak var passwordField: UITextField!
+    
+    weak var delegate: IdentityCellDelegate?
     
     var requestPassword: Bool = false {
         didSet {
@@ -31,7 +40,7 @@ class IdentityCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
-        
+        self.passwordField.delegate = self
     }
 
     func requestPassword(request: Bool, animated: Bool)
@@ -46,5 +55,20 @@ class IdentityCell: UICollectionViewCell {
         }) { complete in
             self.requestPassword = request
         }
+    }
+    
+    // MARK: - PasswordField Delegate
+    func textFieldShouldReturn(textField: UITextField) -> Bool
+    {
+        if let store = self.delegate?.storeToDecryptForIdentityCell(self)
+        {
+            if let key = store.decryptCipherTextWithPassword(textField.text) {
+                self.delegate?.identityCell(self, didDecryptStore: key)
+            } else {
+                // TODO: handle incorrect password
+                return false
+            }
+        }
+        return true
     }
 }

@@ -304,6 +304,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="110"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="20" minimumInteritemSpacing="20" id="9mt-yf-4Jb">
                             <size key="itemSize" width="580" height="90"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -387,6 +388,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="Dzm-QU-mvs" secondAttribute="bottom" id="o8V-j9-ZLS"/>
                                     <constraint firstAttribute="trailing" secondItem="Dzm-QU-mvs" secondAttribute="trailing" id="qic-Kr-9wH"/>
@@ -405,10 +407,16 @@
                         <connections>
                             <outlet property="dataSource" destination="tZ1-bd-Boe" id="cM7-Ph-awm"/>
                             <outlet property="delegate" destination="tZ1-bd-Boe" id="7Fz-8r-Dil"/>
+                            <outletCollection property="gestureRecognizers" destination="Auq-UC-TiD" appends="YES" id="CeG-lt-gey"/>
                         </connections>
                     </collectionView>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9xS-zA-xql" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="down" id="Auq-UC-TiD">
+                    <connections>
+                        <action selector="downSwipe:" destination="tZ1-bd-Boe" id="b6s-Ue-xhc"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-508" y="2617"/>
         </scene>

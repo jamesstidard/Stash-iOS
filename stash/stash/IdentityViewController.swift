@@ -142,7 +142,7 @@ class IdentityViewController: UIViewController,
     {
         // if there is a sqrl link and a keychained password
         if  self.dataSource?.sqrlLink != nil,
-        let key = self.identity?.masterKey.decryptCipherTextWithKeychain(authenticationPrompt: "Authorise access to \(self.identity!.name) identity")
+        let key = self.identity?.masterKey.decryptCipherTextWithKeychain(prompt: "Authorise access to \(self.identity!.name) identity")
         {
             self.delegate?.identityViewController(self, didSelectIdentity: identity!, withDecryptedMasterKey: key)
         }

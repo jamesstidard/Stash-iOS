@@ -10,7 +10,7 @@ import Foundation
 
 extension XORStore
 {
-    func decryptCipherTextWithKeychain(authenticationPrompt prompt: String) -> NSData? {
+    func decryptCipherTextWithKeychain(#prompt: String) -> NSData? {
         return XORStore.getKeyFromKeychain(identityName: self.identity.name, authenticationPrompt: prompt)
     }
     

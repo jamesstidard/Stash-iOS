@@ -12,8 +12,8 @@ import CoreData
 // MARK: - Delegate Protocol
 protocol IdentityCollecionViewControllerDelegate: class
 {
-    func identitySelectorViewController(
-        identitySelectorViewController: IdentityCollectionViewController,
+    func identityCollectionViewController(
+        identityCollectionViewController: IdentityCollectionViewController,
         didSelectIdentity identity: Identity,
         withDecryptedMasterKey masterKey: NSData)
 }
@@ -22,12 +22,13 @@ protocol IdentityCollecionViewControllerDelegate: class
 class IdentityCollectionViewController: UICollectionViewController,
     UICollectionViewDelegateFlowLayout,
     NSFetchedResultsControllerDelegate,
+    IdentityCellDelegate,
     ContextDriven
 {
     // MARK: Public Properties
     static let SegueID = "IdentityCollectionViewController"
     
-    weak var delegate: IdentityCollectionViewController?
+    weak var delegate:   IdentityCollecionViewControllerDelegate?
     weak var dataSource: SqrlLinkDataSource?
     
     var context :NSManagedObjectContext? {
@@ -56,6 +57,15 @@ class IdentityCollectionViewController: UICollectionViewController,
         self.collectionView?.reloadData()
     }
     
+    @IBAction func downSwipe(sender: UISwipeGestureRecognizer)
+    {
+        if let indexPaths = self.collectionView?.indexPathsForVisibleItems() as? [NSIndexPath]
+        {
+            for indexPath in indexPaths {
+                self.collectionView(self.collectionView!, didDeselectItemAtIndexPath: indexPath)
+            }
+        }
+    }
     
     // MARK: - Fetched Results Controller
     private func createIdentitiesFetchedResultsController() {
@@ -123,6 +133,7 @@ class IdentityCollectionViewController: UICollectionViewController,
         let identity = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
         
         cell.nameLabel.text = identity?.name
+        cell.delegate       = self
         
         return cell
     }
@@ -132,20 +143,41 @@ class IdentityCollectionViewController: UICollectionViewController,
         collectionView: UICollectionView,
         didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! IdentityCell
-        cell.requestPassword(true, animated: true)
-        cell.passwordField.becomeFirstResponder()
-        
-        self.cellInset = 0 // Cell should take up entire collection view for password
-        collectionView.performBatchUpdates({
-            collectionView.collectionViewLayout.invalidateLayout()
-        }, completion: nil)
+        if let
+            cell      = collectionView.cellForItemAtIndexPath(indexPath) as? IdentityCell,
+            sqrlLink  = self.dataSource?.sqrlLink,
+            identity  = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
+        {
+            // if we have user auth from keychain / touchID
+            if let masterKey = identity.masterKey.decryptCipherTextWithKeychain(prompt: "Authorise access to \(identity.name) identity")
+            {
+                self.delegate?.identityCollectionViewController(self, didSelectIdentity: identity, withDecryptedMasterKey: masterKey)
+            }
+            // if we need to get the users password
+            else
+            {
+                cell.requestPassword(true, animated: true)
+                cell.passwordField.becomeFirstResponder()
+                
+                self.cellInset = 0 // Cell should take up entire collection view for password
+                collectionView.performBatchUpdates {
+                    collectionView.collectionViewLayout.invalidateLayout()
+                }
+            }
+        }
     }
     
     override func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
-//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! IdentityCell
-//        cell.requestPassword(false, animated: true)
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as? IdentityCell
+        cell?.requestPassword(false, animated: true)
+        cell?.passwordField.resignFirstResponder()
+        
+        self.cellInset = DefaultCellInset // Cell should take up entire collection view for password
+        collectionView.performBatchUpdates {
+            collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
+
     /*
     // Uncomment this method to specify if the specified item should be highlighted during tracking
     override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -175,4 +207,26 @@ class IdentityCollectionViewController: UICollectionViewController,
     }
     */
 
+    // MARK: - Identity Cell Delegate
+    func identityCell(identityCell: IdentityCell, didDecryptStore sensitiveData: NSData)
+    {
+        if let
+            indexPath = self.collectionView?.indexPathForCell(identityCell),
+            identity  = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
+        {
+            self.delegate?.identityCollectionViewController(self, didSelectIdentity: identity, withDecryptedMasterKey: sensitiveData)
+        }
+    }
+    
+    func storeToDecryptForIdentityCell(identityCell: IdentityCell) -> XORStore?
+    {
+        if let
+            indexPath = self.collectionView?.indexPathForCell(identityCell),
+            identity  = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
+        {
+            return identity.masterKey
+        }
+        
+        return nil
+    }
 }

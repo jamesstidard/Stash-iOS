@@ -11,7 +11,7 @@ import CoreData
 
 class AuthenticationViewController: UIViewController,
     ContextDriven,
-    IdentitySelectorViewControllerDelegate,
+    IdentityCollecionViewControllerDelegate,
     SQRLSessionDelegate,
     NSURLSessionTaskDelegate
 {
@@ -61,8 +61,8 @@ class AuthenticationViewController: UIViewController,
 
     
     // MARK: - Identity Selector Delegate
-    func identitySelectorViewController(
-        identitySelectorViewController: IdentitySelectorViewController,
+    func identityCollectionViewController(
+        identityCollectionViewController: IdentityCollectionViewController,
         didSelectIdentity identity: Identity,
         withDecryptedMasterKey masterKey: NSData)
     {

@@ -100,6 +100,7 @@
 		7C6535E81A29505A00ABA772 /* GyroHarvesterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */; };
 		7C6C08741ADB171200AF344B /* NSURLSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08731ADB171200AF344B /* NSURLSqrl.swift */; };
 		7C6C08761ADB1CF700AF344B /* NSDataBase64URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */; };
+		7C6F58251AE994AC00AFB74E /* UICollectionViewHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C6F58241AE994AC00AFB74E /* UICollectionViewHelper.swift */; };
 		7C7A5D081A76F2500062515A /* EnScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7A5D071A76F2500062515A /* EnScryptTests.swift */; };
 		7C7D29E71AE133370023E4E8 /* XORStoreKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C43F4EE1AE0FD1500E4AC51 /* XORStoreKeychain.swift */; };
 		7C7D29EA1AE13A6E0023E4E8 /* SettingsCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */; };
@@ -260,6 +261,7 @@
 		7C6535E71A29505A00ABA772 /* GyroHarvesterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GyroHarvesterTests.swift; sourceTree = "<group>"; };
 		7C6C08731ADB171200AF344B /* NSURLSqrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSqrl.swift; sourceTree = "<group>"; };
 		7C6C08751ADB1CF700AF344B /* NSDataBase64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSDataBase64URL.swift; sourceTree = "<group>"; };
+		7C6F58241AE994AC00AFB74E /* UICollectionViewHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UICollectionViewHelper.swift; sourceTree = "<group>"; };
 		7C7A5D071A76F2500062515A /* EnScryptTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnScryptTests.swift; sourceTree = "<group>"; };
 		7C7D29E91AE13A6E0023E4E8 /* SettingsCreator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsCreator.swift; sourceTree = "<group>"; };
 		7C87AAA81A2834ED00DC3EC7 /* EntropyHarvester.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EntropyHarvester.swift; sourceTree = "<group>"; };
@@ -381,6 +383,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C6F58231AE9949700AFB74E /* UICollectionView Extensions */,
 				7C3863231AE84F9600CA822C /* UIAlertController Extensions */,
 				7C8B0D541AE6B17E008A8041 /* MBProgressHud Extensions */,
 				7C8B0D531AE6B10F008A8041 /* NSManagedContext Extensions */,
@@ -442,6 +445,14 @@
 				7CEF44CB1AE53B7000B15CBF /* NSURLSessionSqrl.swift */,
 			);
 			name = SQRLProtocol;
+			sourceTree = "<group>";
+		};
+		7C6F58231AE9949700AFB74E /* UICollectionView Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C6F58241AE994AC00AFB74E /* UICollectionViewHelper.swift */,
+			);
+			name = "UICollectionView Extensions";
 			sourceTree = "<group>";
 		};
 		7C7D29E81AE13A570023E4E8 /* Settings */ = {
@@ -1035,6 +1046,7 @@
 				7C957EC11AD96F4100E4E040 /* IdentityManagementTableViewController.swift in Sources */,
 				7C3420C31AD8AA8100338126 /* OptionalOperatorChaining.swift in Sources */,
 				7CB285631A8BC9970019A2EC /* SecureStore.swift in Sources */,
+				7C6F58251AE994AC00AFB74E /* UICollectionViewHelper.swift in Sources */,
 				7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */,
 				7C4C96D31AE940AB00ED3722 /* IdentityCell.swift in Sources */,
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
