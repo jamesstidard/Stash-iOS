@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
 		7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
+		7C1AE9131AE9C0BD00141AE5 /* UIViewShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1AE9121AE9C0BD00141AE5 /* UIViewShake.swift */; };
 		7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
 		7C277FA01ADC788800F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
 		7C277FA41ADD670B00F6863B /* NSURLSessionTaskSqrl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277FA31ADD670B00F6863B /* NSURLSessionTaskSqrl.swift */; };
@@ -223,6 +224,7 @@
 /* Begin PBXFileReference section */
 		7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStorePasswordManagement.swift; sourceTree = "<group>"; };
+		7C1AE9121AE9C0BD00141AE5 /* UIViewShake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewShake.swift; sourceTree = "<group>"; };
 		7C277F9D1ADC660700F6863B /* ContextDriven.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextDriven.swift; sourceTree = "<group>"; };
 		7C277FA31ADD670B00F6863B /* NSURLSessionTaskSqrl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NSURLSessionTaskSqrl.swift; sourceTree = "<group>"; };
 		7C277FA51ADE59D100F6863B /* StringBase64URL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringBase64URL.swift; sourceTree = "<group>"; };
@@ -350,6 +352,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C1AE9111AE9C0A900141AE5 /* UIView Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C1AE9121AE9C0BD00141AE5 /* UIViewShake.swift */,
+			);
+			name = "UIView Extensions";
+			sourceTree = "<group>";
+		};
 		7C2AF2AB1A72ADAA00B48192 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,6 +393,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C1AE9111AE9C0A900141AE5 /* UIView Extensions */,
 				7C6F58231AE9949700AFB74E /* UICollectionView Extensions */,
 				7C3863231AE84F9600CA822C /* UIAlertController Extensions */,
 				7C8B0D541AE6B17E008A8041 /* MBProgressHud Extensions */,
@@ -1049,6 +1060,7 @@
 				7C6F58251AE994AC00AFB74E /* UICollectionViewHelper.swift in Sources */,
 				7CA20BC31A73ED830021B631 /* IdentityGenerationViewController.swift in Sources */,
 				7C4C96D31AE940AB00ED3722 /* IdentityCell.swift in Sources */,
+				7C1AE9131AE9C0BD00141AE5 /* UIViewShake.swift in Sources */,
 				7C2B90281A280B84009F0589 /* AccelerometerHarvester.swift in Sources */,
 				7CEF301C1A85D30300906534 /* BigNumberArithmetic.swift in Sources */,
 				7CA20BC51A742E100021B631 /* RescueCodeViewController.swift in Sources */,
