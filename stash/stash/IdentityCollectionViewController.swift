@@ -167,16 +167,15 @@ class IdentityCollectionViewController: UICollectionViewController,
     
     func showPasswordCapture(show: Bool, forIdentityCell cell: IdentityCell, onCollectionView collectionView: UICollectionView)
     {
+        cell.requestPassword(show, animated: true)
+        collectionView.scrollEnabled = !show
+        
         if show {
-            cell.requestPassword(true, animated: true)
             cell.passwordField.becomeFirstResponder()
             self.cellInset = 0
-            collectionView.scrollEnabled = false
         } else {
-            cell.requestPassword(false, animated: true)
             cell.passwordField.resignFirstResponder()
             self.cellInset = DefaultCellInset
-            collectionView.scrollEnabled = true
         }
         
         collectionView.performBatchUpdates {
