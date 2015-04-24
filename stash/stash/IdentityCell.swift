@@ -57,7 +57,10 @@ class IdentityCell: UICollectionViewCell,
         }
     }
     
-    
+    override func prepareForReuse() {
+        self.passwordField.text = ""
+        self.requestPassword    = false
+    }
     
     // MARK: - PasswordField Delegate
     func textFieldShouldReturn(textField: UITextField) -> Bool
@@ -67,11 +70,10 @@ class IdentityCell: UICollectionViewCell,
             if let key = store.decryptCipherTextWithPassword(textField.text) {
                 self.delegate?.identityCell(self, didDecryptStore: key)
             } else {
-                textField.text = ""
                 textField.shake()
             }
         }
-        
+        textField.text = ""
         return true
     }
 }
