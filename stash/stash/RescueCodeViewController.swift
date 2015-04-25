@@ -16,27 +16,16 @@ class RescueCodeViewController: UIViewController, IdentityHolder {
     
     var identity: Identity?
     var rescueCode: String?
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.rescueCodeLabel.text = self.rescueCode
+        self.navigationItem.setHidesBackButton(true, animated: false)
     }
     
-
     @IBAction func doneButtonPressed(sender: AnyObject) {
         var error: NSError?
         self.identity?.managedObjectContext?.saveUpParentHierarchyAndWait(&error)
         dismissViewControllerAnimated(true, completion: nil)
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

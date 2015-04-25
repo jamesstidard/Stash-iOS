@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		29E55CBAC52ED55E37922E57 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F68D602F74D33DC7D38BAA36 /* libPods.a */; };
+		7C0153CF1AEAA4D300FBB21C /* UIColorStash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0153CE1AEAA4D300FBB21C /* UIColorStash.swift */; };
+		7C0153D11AEAD3AA00FBB21C /* IdentityCreatorRACSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C0153D01AEAD3AA00FBB21C /* IdentityCreatorRACSignal.swift */; };
 		7C1236811A8B491500758416 /* XORStorePasswordManagement.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */; };
 		7C1AE9131AE9C0BD00141AE5 /* UIViewShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C1AE9121AE9C0BD00141AE5 /* UIViewShake.swift */; };
 		7C277F9E1ADC660700F6863B /* ContextDriven.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C277F9D1ADC660700F6863B /* ContextDriven.swift */; };
@@ -223,6 +225,8 @@
 
 /* Begin PBXFileReference section */
 		7B0CFA08E5E4B2C2AAFB0FA7 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		7C0153CE1AEAA4D300FBB21C /* UIColorStash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIColorStash.swift; sourceTree = "<group>"; };
+		7C0153D01AEAD3AA00FBB21C /* IdentityCreatorRACSignal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IdentityCreatorRACSignal.swift; sourceTree = "<group>"; };
 		7C1236801A8B491500758416 /* XORStorePasswordManagement.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XORStorePasswordManagement.swift; sourceTree = "<group>"; };
 		7C1AE9121AE9C0BD00141AE5 /* UIViewShake.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIViewShake.swift; sourceTree = "<group>"; };
 		7C277F9D1ADC660700F6863B /* ContextDriven.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContextDriven.swift; sourceTree = "<group>"; };
@@ -352,6 +356,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7C0153CD1AEAA4AF00FBB21C /* UIColor Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				7C0153CE1AEAA4D300FBB21C /* UIColorStash.swift */,
+			);
+			name = "UIColor Extensions";
+			sourceTree = "<group>";
+		};
 		7C1AE9111AE9C0A900141AE5 /* UIView Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -393,6 +405,7 @@
 		7C2B901F1A2805F8009F0589 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				7C0153CD1AEAA4AF00FBB21C /* UIColor Extensions */,
 				7C1AE9111AE9C0A900141AE5 /* UIView Extensions */,
 				7C6F58231AE9949700AFB74E /* UICollectionView Extensions */,
 				7C3863231AE84F9600CA822C /* UIAlertController Extensions */,
@@ -711,6 +724,7 @@
 			isa = PBXGroup;
 			children = (
 				7C2AF2B41A72B4D300B48192 /* IdentityCreator.swift */,
+				7C0153D01AEAD3AA00FBB21C /* IdentityCreatorRACSignal.swift */,
 				7C5C1E441A75AA93009B92F7 /* IdentityHolderProtocol.swift */,
 				7C957EC21AD96FD100E4E040 /* IdentityFetchedResultsController.swift */,
 			);
@@ -1030,6 +1044,7 @@
 				7C446C361AD82B7000201228 /* OpenSSLUtilities.swift in Sources */,
 				7CF72AE31A891C2F0070D512 /* XORStoreCreator.swift in Sources */,
 				7C881DA61A76E1880017B785 /* HmacSha256.swift in Sources */,
+				7C0153CF1AEAA4D300FBB21C /* UIColorStash.swift in Sources */,
 				7CB2855D1A8BC9970019A2EC /* XORStore.swift in Sources */,
 				7CDD82471ADEBE7800B85825 /* NSDataSqrlServerMessage.swift in Sources */,
 				7C277FA61ADE59D100F6863B /* StringBase64URL.swift in Sources */,
@@ -1074,6 +1089,7 @@
 				7C957EC31AD96FD100E4E040 /* IdentityFetchedResultsController.swift in Sources */,
 				7C2B901D1A28035E009F0589 /* CoreMotionSingleton.swift in Sources */,
 				7CA20BC01A72E1580021B631 /* Stash.swift in Sources */,
+				7C0153D11AEAD3AA00FBB21C /* IdentityCreatorRACSignal.swift in Sources */,
 				7C881DA41A76E14F0017B785 /* Ed25519.swift in Sources */,
 				7C6C08761ADB1CF700AF344B /* NSDataBase64URL.swift in Sources */,
 				7C881DAA1A76E1E60017B785 /* SodiumUtilities.swift in Sources */,

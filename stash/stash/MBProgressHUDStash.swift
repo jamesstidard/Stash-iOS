@@ -33,6 +33,7 @@ extension MBProgressHUD
         let imageName = success ? "Tick" : "Cross"
         
         self.labelText            = labelText
+        self.detailsLabelText     = nil
         let image                 = UIImage(named: imageName)
         self.customView           = UIImageView(image: image)
         self.customView.tintColor = UIColor.whiteColor()
@@ -40,6 +41,12 @@ extension MBProgressHUD
         dispatch_async(dispatch_get_main_queue()) {
             self.hide(animated, afterDelay: delay)
         }
+    }
+    
+    func hide(#animated: Bool, labelText: String, detailsText: String, success: Bool, delay: NSTimeInterval = 1.5)
+    {
+        self.hide(animated: animated, labelText: labelText, success: success, delay: delay)
+        self.detailsLabelText = detailsText
     }
     
     class func showHUDAddedTo(view: UIView, animated: Bool, labelText: String) -> MBProgressHUD

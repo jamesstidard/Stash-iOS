@@ -15,7 +15,7 @@ final class EntropyMachine {
     private var started: Bool = false
     
     // Holds the state of the open hash function (open/closed).
-    private var state: crypto_hash_sha512_state = crypto_hash_sha512_state(
+    private static let InitialState: crypto_hash_sha512_state = crypto_hash_sha512_state(
         state: (0, 0, 0, 0, 0, 0, 0, 0),
         count: (0, 0),
         buf: (0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -27,6 +27,7 @@ final class EntropyMachine {
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
     )
+    private var state: crypto_hash_sha512_state = InitialState
     
     // Serial queue to enforce thread safe execution when called from multiple threads
     private lazy var queue: NSOperationQueue = {
@@ -51,6 +52,7 @@ final class EntropyMachine {
                 self.started = true
                 
                 // start (open) hash function
+                self.state = EntropyMachine.InitialState
                 Sha512.openHash(&self.state)
                 
                 // Input initial entropy
