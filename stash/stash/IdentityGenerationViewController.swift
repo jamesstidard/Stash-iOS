@@ -46,6 +46,8 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         self.touchIDLabel.enabled  = self.touchIDAvalible
         self.touchIDSwitch.enabled = self.touchIDAvalible
         
+        
+        weak var weakSelf = self
         // Bool signal indicating if the name field value is valid
         let validName = self.nameField.rac_textSignal()
             .map { return count($0 as! String) > 0 }
@@ -61,16 +63,16 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         // change background colour of fields to display is they are valid
         validName
             .map { return ($0 as! Bool) ? UIColor.whiteColor() : UIColor.softRed() }
-            .subscribeNext { self.nameField.backgroundColor = ($0 as! UIColor) }
+            .subscribeNext { weakSelf?.nameField.backgroundColor = ($0 as! UIColor) }
         
         self.passwordField.rac_textSignal()
             .map { return count($0 as! String) > 0 }
             .map { return ($0 as! Bool) ? UIColor.whiteColor() : UIColor.softRed() }
-            .subscribeNext { self.passwordField.backgroundColor = ($0 as! UIColor) }
+            .subscribeNext { weakSelf?.passwordField.backgroundColor = ($0 as! UIColor) }
         
         validPasswords
             .map { return ($0 as! Bool) ? UIColor.whiteColor() : UIColor.softRed() }
-            .subscribeNext { self.passwordConfimationField.backgroundColor = ($0 as! UIColor) }
+            .subscribeNext { weakSelf?.passwordConfimationField.backgroundColor = ($0 as! UIColor) }
         
         // Signal indicating the entire form is valid
         let validForm = RACSignal.combineLatest([validName, validPasswords])
@@ -83,17 +85,22 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
         
         // A command that can only be executed when the form is valid. On execution it gets a Identity creation signal that tracks the identities creation
         let createIdentity = RACCommand(enabled: validForm) { (seed) -> RACSignal! in
-            let name     = self.nameField.text as String
-            var password = self.passwordField.text as String
-            var seed     = seed as! NSData
-            let touchID  = (self.touchIDAvalible) ? self.touchIDSwitch.on : false
-            
-            return Identity.createIdentitySignal(
-                name,
-                password: &password,
-                seed: &seed,
-                context: self.context!).materialize().deliverOn(RACScheduler.mainThreadScheduler())
-            // Materialize so we can get the error (otherwise cached by command) and deliever on the main thread
+            if
+                let name     = weakSelf?.nameField.text,
+                var password = weakSelf?.passwordField.text,
+                var seed     = seed as? NSData,
+                let avalible = weakSelf?.touchIDAvalible,
+                let touchID  = (avalible) ? weakSelf?.touchIDSwitch.on : false,
+                let context  = weakSelf?.context
+            {
+                return Identity.createIdentitySignal(
+                    name,
+                    password: &password,
+                    seed: &seed,
+                    context: context).materialize().deliverOn(RACScheduler.mainThreadScheduler())
+                // Materialize so we can get the error (otherwise cached by command) and deliever on the main thread
+            }
+            return RACSignal.empty()
         }
         
         // When a command is exicuted the signal it dynmically creates (above) can be grabed here.
@@ -103,43 +110,43 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
             
             createIdentityReponse.dematerialize().subscribeNext({
                 let tuple = ($0 as! RACTuple)
-                self.performSegueWithIdentifier(RescueCodeViewController.SegueID, sender: tuple)
+                weakSelf?.performSegueWithIdentifier(RescueCodeViewController.SegueID, sender: tuple)
             }, error: { _ in
-                self.startHarvesting()
-                self.progressHud.hide(
+                weakSelf?.startHarvesting()
+                weakSelf?.progressHud.hide(
                     animated: true,
                     labelText: "Failed",
                     detailsText: "Identity with name already exists",
                     success: false,
                     delay: 4)
             }, completed: { _ in
-                self.progressHud.hide(false)
+                weakSelf?.progressHud.hide(false)
             })
         }
         
         // Bind continue button press to starting the identity creation command and informs the user while it executes
         self.continueButton.rac_signalForControlEvents(.TouchUpInside)
             .subscribeNext { _ in
-                self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true)
+                weakSelf?.progressHud = MBProgressHUD.showHUDAddedTo(weakSelf?.view, animated: true)
                 
                 // If we have a valid seed to generate an identity with
-                if let seed = self.stopHarvesting() {
-                    self.progressHud.labelText        = "Creating Identity"
-                    self.progressHud.detailsLabelText = "This will take a few moments"
-                    self.resignFirstResponder()
+                if let seed = weakSelf?.stopHarvesting() {
+                    weakSelf?.progressHud.labelText        = "Creating Identity"
+                    weakSelf?.progressHud.detailsLabelText = "This will take a few moments"
+                    weakSelf?.resignFirstResponder()
                     
                     createIdentity.execute(seed)
                 }
                 // else: tell you user and start the entropy machine again
                 else {
-                    self.progressHud.hide(
+                    weakSelf?.progressHud.hide(
                         animated: true,
                         labelText: "Error",
                         detailsText: "Couldn't generate random seed",
                         success: false,
                         delay: 4)
                     
-                    self.startHarvesting()
+                    weakSelf?.startHarvesting()
                 }
                 
             }
@@ -149,21 +156,21 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
             .map {
                 let bools                         = ($0 as! RACTuple).allObjects() as! [Bool]
                 let (validForm, creatingIdentity) = (bools[0], bools[1])
-                return validForm && !creatingIdentity && self.context != nil
+                return validForm && !creatingIdentity && weakSelf?.context != nil
             }.subscribeNext {
-                self.continueButton.enabled = $0 as! Bool
+                weakSelf?.continueButton.enabled = $0 as! Bool
             }
         
         // Enable or disable UI elements if an Identity is being created
         createIdentity.executing.not()
             .subscribeNext {
-                let notExecuting                      = $0 as! Bool
-                self.nameField.enabled                = notExecuting
-                self.passwordField.enabled            = notExecuting
-                self.passwordConfimationField.enabled = notExecuting
-                self.navigationCancelButton.enabled   = notExecuting
-                self.touchIDSwitch.enabled            = notExecuting && self.touchIDAvalible
-                self.touchIDLabel.enabled             = notExecuting && self.touchIDAvalible
+                let notExecuting = $0 as! Bool
+                weakSelf?.nameField.enabled                = notExecuting
+                weakSelf?.passwordField.enabled            = notExecuting
+                weakSelf?.passwordConfimationField.enabled = notExecuting
+                weakSelf?.navigationCancelButton.enabled   = notExecuting
+                weakSelf?.touchIDSwitch.enabled            = notExecuting && weakSelf?.touchIDAvalible == true
+                weakSelf?.touchIDLabel.enabled             = notExecuting && weakSelf?.touchIDAvalible == true
             }
     }
     
