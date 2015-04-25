@@ -48,6 +48,36 @@ class IdentityManagementTableViewController: UITableViewController,
         return UITableViewCell()
     }
     
+    override func tableView(
+        tableView: UITableView,
+        canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool
+    {
+        return true
+    }
+    
+    override func tableView(
+        tableView: UITableView,
+        commitEditingStyle editingStyle: UITableViewCellEditingStyle,
+        forRowAtIndexPath indexPath: NSIndexPath)
+    {
+        if  editingStyle == .Delete,
+        let identity = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
+        {
+            let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+            let delete = UIAlertAction(title: "Delete", style: .Destructive) { _ in
+                identity.managedObjectContext?.deleteObject(identity)
+                identity.managedObjectContext?.save(nil)
+            }
+            UIAlertController.showAlert(
+                title: "Delete \(identity.name)?",
+                message: "Make sure you have backed up this identity and it's rescue code, " +
+                         "if you don't want to loose access to the accounts created under this identity.",
+                viewController: self,
+                actions: cancel, delete)
+            
+        }
+    }
+    
     private func configureCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath)
     {
         if let
