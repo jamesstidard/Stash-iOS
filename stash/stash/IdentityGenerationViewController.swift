@@ -105,6 +105,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                 let tuple = ($0 as! RACTuple)
                 self.performSegueWithIdentifier(RescueCodeViewController.SegueID, sender: tuple)
             }, error: { _ in
+                self.startHarvesting()
                 self.progressHud.hide(
                     animated: true,
                     labelText: "Failed",
