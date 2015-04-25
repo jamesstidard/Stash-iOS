@@ -100,7 +100,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="New Identity" id="S9R-OI-bpC">
-                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="iuW-3E-Yxy"/>
+                        <barButtonItem key="leftBarButtonItem" title="Cancel" id="iuW-3E-Yxy">
+                            <connections>
+                                <action selector="cancelButtonPressed:" destination="dEm-bV-LLs" id="XPp-kl-Mof"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="dGC-nt-BTE" id="NSZ-dz-esq"/>

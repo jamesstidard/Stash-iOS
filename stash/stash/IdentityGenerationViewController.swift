@@ -14,21 +14,22 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
     
     static let SegueID = "IdentityCreationSegue"
     
-    @IBOutlet weak var navigationCancelButton: UIBarButtonItem!
-    @IBOutlet weak var nameField: UITextField!
-    @IBOutlet weak var passwordField: UITextField!
+    @IBOutlet weak var navigationCancelButton:   UIBarButtonItem!
+    @IBOutlet weak var nameField:                UITextField!
+    @IBOutlet weak var passwordField:            UITextField!
     @IBOutlet weak var passwordConfimationField: UITextField!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var touchIDLabel: UILabel!
-    @IBOutlet weak var touchIDSwitch: UISwitch!
-    @IBOutlet weak var continueButton: UIButton!
+    @IBOutlet weak var activityIndicator:        UIActivityIndicatorView!
+    @IBOutlet weak var touchIDLabel:             UILabel!
+    @IBOutlet weak var touchIDSwitch:            UISwitch!
+    @IBOutlet weak var continueButton:           UIButton!
     
     var context: NSManagedObjectContext?
-    var entropyMachine                              = EntropyMachine()
-    lazy var harvesters: [EntropyHarvester]         = [self.gyroHarvester, self.accelHarvester]
-    lazy var gyroHarvester: GyroHarvester           = GyroHarvester(machine: self.entropyMachine)
+    var entropyMachine = EntropyMachine()
+    
+    lazy var harvesters:    [EntropyHarvester]      = [self.gyroHarvester, self.accelHarvester]
+    lazy var gyroHarvester:  GyroHarvester          = GyroHarvester(machine: self.entropyMachine)
     lazy var accelHarvester: AccelerometerHarvester = AccelerometerHarvester(machine: self.entropyMachine)
-    lazy var progressHud: MBProgressHUD             = MBProgressHUD()
+    lazy var progressHud:    MBProgressHUD          = MBProgressHUD()
     
     private lazy var touchIDAvalible: Bool = {
         return LAContext().canEvaluatePolicy(.DeviceOwnerAuthenticationWithBiometrics, error: nil)
