@@ -23,8 +23,8 @@ extension NSMutableURLRequest
         
         if var
             (randomLock, serverUnlock) = Ed25519.keyPair(),
-            sharedKey         = Ed25519.diffieHellmanSharedSecret(secretKey: randomLock, publicKey: lockKey),
-            (_, verifyUnlock) = Ed25519.keyPairFromSeed(sharedKey),
+            unlockRequestSigningKey    = Ed25519.diffieHellmanSharedSecret(secretKey: randomLock, publicKey: lockKey),
+            (_, verifyUnlock) = Ed25519.keyPairFromSeed(unlockRequestSigningKey),
             siteHash          = serverMessage.URL.sqrlSiteKeyHash(hashFunction: HmacSha256.hash, masterKey: masterKey),
             siteKeyPair       = Ed25519.keyPairFromSeed(siteHash)
         {

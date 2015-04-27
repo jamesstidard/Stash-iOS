@@ -470,9 +470,6 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
-                                <connections>
-                                    <segue destination="zzm-BE-xgg" kind="show" identifier="IdentityEditSegue" id="V4H-ei-suQ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -497,24 +494,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mK6-4Y-RgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-508" y="4244"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="BIt-sO-EVS">
-            <objects>
-                <viewController id="zzm-BE-xgg" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="4Kp-mn-Ed2"/>
-                        <viewControllerLayoutGuide type="bottom" id="hkD-nm-vr7"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="qeR-zN-DAd">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l73-aK-tvV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="224" y="4244"/>
         </scene>
     </scenes>
     <resources>

@@ -7,9 +7,9 @@
     <entity name="Identity" representedClassName="Identity" syncable="YES">
         <attribute name="lockKey" attributeType="Binary" syncable="YES"/>
         <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="masterKey" maxCount="1" deletionRule="Nullify" destinationEntity="XORStore" inverseName="identity" inverseEntity="XORStore" syncable="YES"/>
-        <relationship name="settings" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Settings" inverseName="identity" inverseEntity="Settings" syncable="YES"/>
-        <relationship name="unlockKey" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="GCMStore" inverseName="identity" inverseEntity="GCMStore" syncable="YES"/>
+        <relationship name="masterKey" maxCount="1" deletionRule="Cascade" destinationEntity="XORStore" inverseName="identity" inverseEntity="XORStore" syncable="YES"/>
+        <relationship name="settings" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="Settings" inverseName="identity" inverseEntity="Settings" syncable="YES"/>
+        <relationship name="unlockKey" optional="YES" maxCount="1" deletionRule="Cascade" destinationEntity="GCMStore" inverseName="identity" inverseEntity="GCMStore" syncable="YES"/>
     </entity>
     <entity name="SecureStore" representedClassName="SecureStore" isAbstract="YES" syncable="YES">
         <attribute name="ciphertext" attributeType="Binary" syncable="YES"/>
@@ -27,7 +27,7 @@
     </entity>
     <elements>
         <element name="GCMStore" positionX="-2810" positionY="-270" width="128" height="75"/>
-        <element name="Identity" positionX="-3114" positionY="-198" width="128" height="120"/>
+        <element name="Identity" positionX="-3114" positionY="-198" width="128" height="118"/>
         <element name="SecureStore" positionX="-2880" positionY="-478" width="126" height="120"/>
         <element name="Settings" positionX="-3330" positionY="-198" width="162" height="75"/>
         <element name="XORStore" positionX="-2954" positionY="-270" width="128" height="60"/>

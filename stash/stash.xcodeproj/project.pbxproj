@@ -395,6 +395,7 @@
 		7C2AF2AC1A72ADB800B48192 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7CCCFB8B19685D9200DF3442 /* Images.xcassets */,
 				7C49EB381A1146A500023BE0 /* Storyboard.storyboard */,
 				7C3863211AE7EDF200CA822C /* CameraPreviewView.swift */,
 				7C4C96D11AE940AB00ED3722 /* IdentityCell.swift */,
@@ -660,7 +661,6 @@
 		7CCCFB8719685D9200DF3442 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7CCCFB8B19685D9200DF3442 /* Images.xcassets */,
 				7CF02F9F1A0BB3C600C88B32 /* stash-bridging-header.h */,
 				7CA51DED1AE3E634002E9F45 /* stash.entitlements */,
 				7CCCFB8819685D9200DF3442 /* Info.plist */,
