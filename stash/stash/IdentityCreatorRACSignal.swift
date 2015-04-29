@@ -12,14 +12,14 @@ import CoreData
 extension Identity
 {
     // Reactive cocoa wrapper
-    class func createIdentitySignal(let name: String, inout password:String, inout seed: NSData, let context: NSManagedObjectContext) -> RACSignal
+    class func createIdentitySignal(let name: String, inout password:String, inout seed: NSData, touchID: Bool, let context: NSManagedObjectContext) -> RACSignal
     {
         let subject           = RACSubject()
         let backgroundContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType, parentContext: context)
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0))
         {
-            if var result = self.createIdentity(name, password: &password, seed: &seed, context: backgroundContext)
+            if var result = self.createIdentity(name, password: &password, seed: &seed, touchID: touchID, context: backgroundContext)
             {
                 // save the background context so we can return the equavilent on the main context
                 backgroundContext.save(nil)

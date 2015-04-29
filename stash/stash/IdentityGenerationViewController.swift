@@ -97,6 +97,7 @@ class IdentityGenerationViewController: UIViewController, ContextDriven {
                     name,
                     password: &password,
                     seed: &seed,
+                    touchID: touchID,
                     context: context).materialize().deliverOn(RACScheduler.mainThreadScheduler())
                 // Materialize so we can get the error (otherwise cached by command) and deliever on the main thread
             }
