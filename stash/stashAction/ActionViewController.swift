@@ -137,8 +137,6 @@ class ActionViewController: UITableViewController,
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
-        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
-        
         if let
             sqrlLink = self.sqrlLink,
             identity = self.identitiesFRC?.objectAtIndexPath(indexPath) as? Identity
@@ -206,6 +204,8 @@ class ActionViewController: UITableViewController,
         lockKey: NSData,
         delegate: SQRLSessionDelegate) -> Bool
     {
+        self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
+        
         if let sqrlTask = self.session.sqrlDataTaskForSqrlLink(sqrlLink, masterKey: masterKey, lockKey: lockKey, delegate: delegate)
         {
             sqrlTask.resume()
