@@ -65,6 +65,7 @@ class IdentityManagementTableViewController: UITableViewController,
         {
             let cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
             let delete = UIAlertAction(title: "Delete", style: .Destructive) { _ in
+                identity.masterKey.removeFromKeychain() // TODO: Find a better place for this
                 identity.managedObjectContext?.deleteObject(identity)
                 identity.managedObjectContext?.save(nil)
             }

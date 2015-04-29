@@ -14,6 +14,10 @@ extension XORStore
         return XORStore.getKeyFromKeychain(identityName: self.identity.name, authenticationPrompt: prompt)
     }
     
+    func removeFromKeychain() -> Bool {
+        return XORStore.removeFromKeychain(identityName: self.identity.name)
+    }
+    
     internal class func addToKeychain(#identityName: String, key: NSData) -> Bool
     {
         var error: Unmanaged<CFError>?
