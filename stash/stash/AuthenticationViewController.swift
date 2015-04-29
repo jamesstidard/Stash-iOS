@@ -67,7 +67,7 @@ class AuthenticationViewController: UIViewController,
         withDecryptedMasterKey masterKey: NSData)
     {
         self.progressHud = MBProgressHUD.showHUDAddedTo(self.view, animated: true, labelText: "Creating Query")
-        
+
         if let
             sqrlLink = self.scannerVC?.sqrlLink,
             sqrlTask = self.session.sqrlDataTaskForSqrlLink(sqrlLink, masterKey: masterKey, lockKey: identity.lockKey, delegate: self)

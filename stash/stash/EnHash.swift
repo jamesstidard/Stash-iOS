@@ -13,10 +13,13 @@ class EnHash {
     class func sha256(message: NSData, iterations: Int) -> NSData? {
         
         var finalOut: NSMutableData?
+        var nextMessage = message
         
         for x in 1...iterations {
     
-            if let out = Sha256.hash(message) as? NSMutableData {
+            if let out = Sha256.hash(nextMessage) as? NSMutableData {
+                
+                nextMessage = out
                 
                 if x == 1 {
                     finalOut = out.mutableCopy() as? NSMutableData
