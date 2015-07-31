@@ -1,8 +1,8 @@
 PODS:
   - Base64 (1.0.1)
-  - libsodium (1.0.2)
+  - libsodium (1.0.3)
   - MBProgressHUD (0.9.1)
-  - OpenSSL (1.0.201)
+  - OpenSSL (1.0.204)
   - ReactiveCocoa (2.5):
     - ReactiveCocoa/UI (= 2.5)
   - ReactiveCocoa/Core (2.5):
@@ -20,9 +20,9 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   Base64: 4924bf3ca6fa559a5161ef717291bd450eb7bd1a
-  libsodium: d1b482e7628e0298de350375a4ab981b5cc8c71b
+  libsodium: be547e31dc75725629acc5717dc0a40fc05ef243
   MBProgressHUD: c47f2c166c126cf2ce36498d80f33e754d4e93ad
-  OpenSSL: 4e990d04b14015c49c800c400b86ae44a4818a5c
+  OpenSSL: 576b352e6e6e60793ca133c6785736e3cbc31a09
   ReactiveCocoa: e2db045570aa97c695e7aa97c2bcab222ae51f4a
 
 COCOAPODS: 0.36.3
